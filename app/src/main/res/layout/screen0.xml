@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layout_root"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/screen0"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/app_background"
-
     android:orientation="vertical"
     android:padding="5dp">
 
 
     <TextView
-        android:id="@+id/screen0_press"
+        android:id="@+id/screen0_text"
         android:layout_width="match_parent"
         android:layout_height="324dp"
-
         android:gravity="center"
-        android:text="@string/screen0_press"
+        android:text="@string/screen0_text"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@android:color/white" />
-</LinearLayout>
+</RelativeLayout>

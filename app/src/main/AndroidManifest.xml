@@ -23,6 +23,7 @@
             android:screenOrientation="portrait">
 
         </activity>
+
         <activity
             android:name=".screen0"
             android:screenOrientation="portrait">

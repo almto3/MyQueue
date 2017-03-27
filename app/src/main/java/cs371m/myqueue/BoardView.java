@@ -21,7 +21,6 @@ public class BoardView extends View {
     private Bitmap mHumanBitmap;
     private Bitmap mComputerBitmap;
     private Paint mPaint;
-    private TicTacToeGame mGame;
 
 
     public BoardView(Context context, AttributeSet attrs) {
@@ -29,9 +28,6 @@ public class BoardView extends View {
         initialize();
     }
 
-    public void setGame(TicTacToeGame game) {
-        mGame = game;
-    }
 
     public void initialize() {
         mHumanBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.x_img);
@@ -68,23 +64,7 @@ public class BoardView extends View {
         int oneThirdHeight = boardHeight / 3;
         Rect drawingRect = new Rect();
         // Draw all the X and O images
-        for (int i = 0; i < TicTacToeGame.BOARD_SIZE; i++) {
-            int col = i % 3;
-            int row = i / 3;
 
-            // Define the boundaries of a destination rectangle for the image
-            drawingRect.left = col * oneThirdWidth; // x coordinate of left side of rect
-            drawingRect.top = row * oneThirdHeight; // y coordinate of top of rect
-            drawingRect.right = drawingRect.left + oneThirdWidth; // x coordinate of right side of rect
-            drawingRect.bottom = drawingRect.top + oneThirdHeight; // y coordinate of bottom of rect
-
-            if (mGame != null && mGame.getBoardOccupant(i) == TicTacToeGame.HUMAN_PLAYER) {
-                canvas.drawBitmap(mHumanBitmap, null, drawingRect, null);
-            }
-            else if (mGame != null && mGame.getBoardOccupant(i) == TicTacToeGame.COMPUTER_PLAYER) {
-                canvas.drawBitmap(mComputerBitmap, null, drawingRect, null);
-            }
-        }
     }
 
     private void drawLines(Canvas canvas, int boardWidth, int boardHeight) {
