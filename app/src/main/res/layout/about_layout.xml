@@ -8,7 +8,7 @@
 
     <ImageView
         android:id="@+id/about_image"
-        android:src="@drawable/about_app"
+        android:src="@drawable/about"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -18,7 +18,8 @@
         android:id="@+id/about_text"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:text="@string/screen0_press"
+        android:text="@string/screenx_text"
         android:textSize="20sp"
         android:textStyle="bold" />
+
 </LinearLayout>

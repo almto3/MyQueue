@@ -17,12 +17,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AndroidTicTacToe extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "Tic Tac Toe Activity";
-
-    // Represents the internal state of the game
-    private TicTacToeGame mGame;
+    private static final String TAG = "MainActivity";
 
     private boolean mHumanGoesFirst;
 
@@ -70,7 +67,6 @@ public class AndroidTicTacToe extends AppCompatActivity {
         mInfoTextView = (TextView) findViewById(R.id.information);
         mBoardView = (BoardView) findViewById(R.id.boardView);
         setInstanceVarsFromSharedPrefs();
-        mBoardView.setGame(mGame);
         mBoardView.setOnTouchListener(mTouchListener);
         mPauseHandler = new Handler();
         initOutcomeTextViews();
@@ -88,57 +84,7 @@ public class AndroidTicTacToe extends AppCompatActivity {
 
     // Set up the game board.
     private void startNewGame() {
-        mGameOver = false;
-        mGame.clearBoard();
-        mBoardView.invalidate();
-
-        if (mHumanGoesFirst) {
-            // Human goes first
-            mHumansTurnToMove = true;
-            mInfoTextView.setText(R.string.human_first);
-        } else {
-            mHumansTurnToMove = false;
-            // Android goes first
-            startComputerDelay();
-        }
     }
-
-    // makes the computer move
-    private void computerMove() {
-        Log.d(TAG, "In computerMove");
-        int move = mGame.getComputerMove();
-        setMove(TicTacToeGame.COMPUTER_PLAYER, move, mComputerMoveSoundID);
-        int winner = mGame.checkForWinner();
-        if (winner == 0) {
-            mHumansTurnToMove = true;
-            mInfoTextView.setText(R.string.human_turn);
-        } else {
-            handleEndGame(winner);
-        }
-    }
-    /*
-    private void handleEndGame(int winner) {
-        // Log.d(TAG, mGame.toString());
-        WinData.Outcome outcome;
-        if (winner == 1) {
-            outcome = WinData.Outcome.TIE;
-            endGameActions(R.string.result_tie, mTieGameSoundID);
-            //mInfoTextView.setText(R.string.result_tie);
-        } else if (winner == 2) {
-            outcome = WinData.Outcome.HUMAN;
-            endGameActions(getPreferences(MODE_PRIVATE).getString("victory_message", getString(R.string.result_human_wins)), mHumanWinSoundID);
-        } else {
-            outcome = WinData.Outcome.ANDROID;
-            endGameActions(R.string.result_computer_wins, mComputerWinSoundID);
-        }
-        mWinData.incrementWin(outcome);
-        int index = outcome.ordinal();
-        String display = "" + mWinData.getCount(outcome);
-        mOutcomeCounterTextViews[index].setText(display);
-        mGameOver = true;
-        mHumanGoesFirst = !mHumanGoesFirst;
-    }
-    */
     private void handleEndGame(int winner) {
 
         WinData.Outcome outcome = WinData.Outcome.TIE;
@@ -192,12 +138,6 @@ public class AndroidTicTacToe extends AppCompatActivity {
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivityForResult(intent, SETTINGS_REQUEST);
                 return true;
-            /*
-            case R.id.quit:
-                QuitDialogFragment quitDialogFragment = new QuitDialogFragment();
-                quitDialogFragment.show(fm, "quit");
-                return true;
-            */
             case R.id.reset_scores:
                 ResetScoresDialogFragment resetScoresDialogFragment = new ResetScoresDialogFragment();
                 resetScoresDialogFragment.show(fm, "reset");
@@ -205,6 +145,7 @@ public class AndroidTicTacToe extends AppCompatActivity {
             case R.id.about:
                 startActivity(new Intent(this, AboutActivity.class));
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -216,6 +157,7 @@ public class AndroidTicTacToe extends AppCompatActivity {
      * @param difficulty The new difficulty for the game.
      */
     public void setDifficulty(int difficulty) {
+        /*
         // check bounds;
         if (difficulty < 0 || difficulty >= TicTacToeGame.DifficultyLevel.values().length) {
             Log.d(TAG, "Unexpected difficulty: " + difficulty + "." +
@@ -232,7 +174,7 @@ public class AndroidTicTacToe extends AppCompatActivity {
         // Display the selected difficulty level
         Toast.makeText(getApplicationContext(), message,
                 Toast.LENGTH_SHORT).show();
-
+        */
     }
 
     // Code below here was added / updated in tutorial 4.
@@ -241,7 +183,7 @@ public class AndroidTicTacToe extends AppCompatActivity {
     private void setMove(char player, int location, int soundID) {
         // Log.d(TAG, "in setMove. player is: " + player + ", location is: " + location);
         // Log.d(TAG, "in setMove. old occupant in cell is " + mGame.getBoardOccupant(location));
-        mGame.setMove(player, location);
+
         // Log.d(TAG, "in setMove. newBoard is "+ mGame);
         mBoardView.invalidate();
         if(mSoundOn)
@@ -257,6 +199,7 @@ public class AndroidTicTacToe extends AppCompatActivity {
                 int row = (int) event.getY() / mBoardView.getBoardCellHeight();
                 int pos = row * 3 + col;
                 // is that an open spot?
+                /*
                 if (mGame.getBoardOccupant(pos) == TicTacToeGame.OPEN_SPOT) {
                     mHumansTurnToMove = false;
                     // make the human move
@@ -268,6 +211,7 @@ public class AndroidTicTacToe extends AppCompatActivity {
                         handleEndGame(winner);
                     }
                 }
+                */
             }
 
             // So we aren't notified of continued events when finger is moved
@@ -321,7 +265,7 @@ public class AndroidTicTacToe extends AppCompatActivity {
             public void run() {
                 // Done thinking, time to move.
                 Log.d(TAG, "delay over making move.");
-                computerMove();
+                //computerMove();
             }//end run override method
         };//end of new Runnable()
     }//end of createRunnable method
@@ -331,12 +275,12 @@ public class AndroidTicTacToe extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
 
-        outState.putCharArray("board", mGame.getBoardState());
+        //outState.putCharArray("board", mGame.getBoardState());
         outState.putCharSequence("info", mInfoTextView.getText());
         outState.putBoolean("mGameOver", mGameOver);
         outState.putBoolean("mHumansTurnToMove", mHumansTurnToMove);
         outState.putBoolean("mHumanGoesFirst", mHumanGoesFirst);
-        outState.putInt("difficulty", mGame.getDifficultyLevel().ordinal());
+        //outState.putInt("difficulty", mGame.getDifficultyLevel().ordinal());
 
         super.onSaveInstanceState(outState);
     }
@@ -346,11 +290,11 @@ public class AndroidTicTacToe extends AppCompatActivity {
         // Always call the superclass so it can restore the view hierarchy
         super.onRestoreInstanceState(savedInstanceState);
 
-        mGame.setBoardState(savedInstanceState.getCharArray("board"));
+        //mGame.setBoardState(savedInstanceState.getCharArray("board"));
         int difficultyInt = savedInstanceState.getInt("difficulty");
-        TicTacToeGame.DifficultyLevel difficulty;
-        difficulty = TicTacToeGame.DifficultyLevel.values()[difficultyInt];
-        mGame.setDifficultyLevel(difficulty);
+        //TicTacToeGame.DifficultyLevel difficulty;
+        //difficulty = TicTacToeGame.DifficultyLevel.values()[difficultyInt];
+        //mGame.setDifficultyLevel(difficulty);
         mGameOver = savedInstanceState.getBoolean("mGameOver");
         mHumansTurnToMove = savedInstanceState.getBoolean("mHumansTurnToMove");
         mHumanGoesFirst = savedInstanceState.getBoolean("mHumanGoesFirst");
@@ -383,8 +327,8 @@ public class AndroidTicTacToe extends AppCompatActivity {
     private void saveGameState(SharedPreferences.Editor editor) {
         // save all relevant information about current game
         // so we can reconstruct in onCreate
-        editor.putInt("difficulty", mGame.getDifficultyLevel().ordinal());
-        editor.putString("board_state", mGame.toStringSimple());
+        //editor.putInt("difficulty", mGame.getDifficultyLevel().ordinal());
+        //editor.putString("board_state", mGame.toStringSimple());
         editor.putBoolean("mGameOver", mGameOver);
         editor.putBoolean("mHumansTurnToMove", mHumansTurnToMove);
         editor.putBoolean("mHumanGoesFirst", mHumanGoesFirst);
@@ -415,15 +359,9 @@ public class AndroidTicTacToe extends AppCompatActivity {
     private void setInstanceVarsFromSharedPrefs() {
         SharedPreferences sharedPref = getPreferences(MODE_PRIVATE);
         int difficulty = sharedPref.getInt("difficulty", 0);
-        TicTacToeGame.DifficultyLevel diff = TicTacToeGame.DifficultyLevel.values()[difficulty];
+        //TicTacToeGame.DifficultyLevel diff = TicTacToeGame.DifficultyLevel.values()[difficulty];
         String boardState = sharedPref.getString("board_state", "*");
-        if (boardState.length() == 1) {
-            mGame = new TicTacToeGame();
-            mGame.setDifficultyLevel(diff);
-        }
-        else {
-            mGame = new TicTacToeGame(boardState, diff);
-        }
+
         mGameOver = sharedPref.getBoolean("mGameOver", false);
         mHumanGoesFirst = sharedPref.getBoolean("mHumanGoesFirst", true);
         mHumansTurnToMove = sharedPref.getBoolean("mHumansTurnToMove", true);
@@ -445,7 +383,7 @@ public class AndroidTicTacToe extends AppCompatActivity {
             int i = 0;
             while(i < levels.length) {
                 if(difficultyLevel.equals(levels[i])) {
-                    mGame.setDifficultyLevel(TicTacToeGame.DifficultyLevel.values()[i]);
+                    //mGame.setDifficultyLevel(TicTacToeGame.DifficultyLevel.values()[i]);
                     i = levels.length; // to stop loop
                 }
                 i++;
