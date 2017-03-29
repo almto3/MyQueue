@@ -37,6 +37,10 @@
             android:name=".screen1"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".screen3"
+            android:screenOrientation="portrait">
+        </activity>
 
         <!-- Allow the Settings activity to be launched -->
         <activity
