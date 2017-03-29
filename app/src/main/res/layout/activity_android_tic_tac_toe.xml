@@ -5,7 +5,7 @@
     android:layout_height="fill_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="cs371m.myqueue.AndroidTicTacToe">
+    tools:context="cs371m.myqueue.MainActivity">
 
     <cs371m.myqueue.BoardView
         android:id="@+id/boardView"

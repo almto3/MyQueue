@@ -47,11 +47,8 @@
     <string name="ok">OK</string>s
     <string name="cancel">Cancel</string>s
 
-    <string name="new_game">New Game</string>
     <string name="difficulty">Difficulty</string>
     <string name="quit">Quit</string>
-    <string name="about">About game</string>
-    <string name="reset_scores">Reset Scores</string>
     <string name="reset_scores_question">Do you want to reset all scores to 0?</string>
 
     <string name="settings">Settings</string>
@@ -88,7 +85,22 @@
         <item>@string/screen1_starz</item>
     </string-array>
 
+    <string name="screen3_rottenText">Rotten Tomatoes Score:</string>
+    <string name="screen3_plotSummary">Plot Summary:</string>
+    <string name="screen3_available">Available On</string>
+    <string name="screen3_bookmark">Bookmark</string>
+
+    <!-- non static, should be changed case by case -->
+    <string name="screen3_plot">plotplotplotplotplotplotplotplotplotplotplotplot\nplotplotplotplotplotplotplotplotplotplotplotplotplot\nplotplotplotplotplotplotplotplotplotplotplotplotplotplot\nplotplotplotplotplotplotplotplotplotplotplotplotplotplotplot\n</string>
+    <string name="screen3_rottenScore">92%</string>
+    <string name="screen3_title">The Martian (2015)</string>
+
+
     <string name="screenx_text">Hey! we are erin, saleh and kaivan. Computer Science students at the University of Texas atAustin.\nAnd this is our first experince at building an Android app</string>
+    <string name="menu_refresh">Refresh</string>
+    <string name="menu_about">About Me</string>
+    <string name="menu_sortBy">Sort By:</string>
+    <string name="menu_genre">Genre:</string>
 
 
 
