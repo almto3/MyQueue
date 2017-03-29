@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/screen3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/yes"
+        tools:context=".screen1"
+        android:id="@+id/textView" />
+
+    <!-- non static, should be changed case by case -->
+    <ImageView
+        android:id="@+id/screen3_movie_poster"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/tableLayout"
+        app:srcCompat="@drawable/martian_poster"
+        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@+id/textView"
+        android:layout_toLeftOf="@+id/tableLayout" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toEndOf="@+id/textView"
+        android:layout_alignBottom="@+id/textView"
+        android:layout_toRightOf="@+id/textView"
+        android:id="@+id/tableLayout"
+        android:layout_marginTop="10dp" >
+
+        <TableRow
+            android:id="@+id/tableRow0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/screen3_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:paddingRight="5dp"
+                android:text="@string/screen3_title" >
+            </TextView>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp" >
+
+            <TextView
+                android:id="@+id/screen3_avaliable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="@string/screen3_available" >
+            </TextView>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+            <!-- not sure how many services to add?? will do a max of four for now -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:id="@+id/screen3_service0"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="25dp"
+                    app:srcCompat="@drawable/hulu" />
+                <ImageView
+                    android:id="@+id/screen3_service1"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="25dp"
+                    app:srcCompat="@drawable/netflix" />
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <!-- not sure how many services to add?? will do a max of four for now -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:id="@+id/screen3_service2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="25dp"
+                    app:srcCompat="@drawable/hbo" />
+                <ImageView
+                    android:id="@+id/screen3_service3"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="25dp"
+                    app:srcCompat="@drawable/hbo" />
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="35dp" >
+
+            <!-- not sure how many services to add?? will do a max of four for now -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/screen3_bookmarkIcon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:srcCompat="@drawable/bookmark" />
+
+                <TextView
+                    android:id="@+id/screen3_bookmarkText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/screen3_bookmark" >
+                </TextView>
+            </LinearLayout>
+        </TableRow>
+
+    </TableLayout>
+
+    <EditText
+        android:id="@+id/screen3_rotten_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="41dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/screen3_rottenText" />
+
+    <EditText
+        android:id="@+id/screen3_rotten_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/screen3_rotten_text"
+        android:layout_toRightOf="@+id/screen3_rotten_text"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/screen3_rottenScore" />
+
+    <EditText
+        android:id="@+id/screen3_plotSummary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/screen3_rotten_text"
+        android:layout_toLeftOf="@+id/screen3_rotten_score"
+        android:layout_toStartOf="@+id/screen3_rotten_score"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/screen3_plotSummary" />
+
+    <!-- NEEDS TEXT WRAPPING -->
+    <EditText
+        android:id="@+id/screen3_plot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/screen3_plotSummary"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/screen3_plot"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:ellipsize="none"
+        android:maxLines="100"
+        android:scrollHorizontally="false"
+
+        />
+
+</RelativeLayout>

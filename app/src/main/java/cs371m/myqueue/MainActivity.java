@@ -129,20 +129,20 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         FragmentManager fm = getFragmentManager();
         switch (item.getItemId()) {
-            case R.id.new_game:
+            case R.id.menu_refresh:
                 // if computer is in middle of pause, stop it
                 mPauseHandler.removeCallbacks(mRunnable);
                 startNewGame();
                 return true;
-            case R.id.settings:
+            case R.id.menu_genre:
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivityForResult(intent, SETTINGS_REQUEST);
                 return true;
-            case R.id.reset_scores:
+            case R.id.menu_sort_by:
                 ResetScoresDialogFragment resetScoresDialogFragment = new ResetScoresDialogFragment();
                 resetScoresDialogFragment.show(fm, "reset");
                 return true;
-            case R.id.about:
+            case R.id.menu_about:
                 startActivity(new Intent(this, AboutActivity.class));
                 return true;
 

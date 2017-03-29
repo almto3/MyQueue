@@ -30,8 +30,6 @@ public class BoardView extends View {
 
 
     public void initialize() {
-        mHumanBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.x_img);
-        mComputerBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.o_img);
 
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         // Make thick, light gray lines
