@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toStartOf="@+id/tableLayout"
-        app:srcCompat="@drawable/martian_poster"
+        android:src="@drawable/martian_poster"
         android:layout_alignParentTop="true"
         android:layout_alignBottom="@+id/textView"
         android:layout_toLeftOf="@+id/tableLayout" />
@@ -80,13 +80,13 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginLeft="25dp"
-                    app:srcCompat="@drawable/hulu" />
+                    android:src="@drawable/hulu" />
                 <ImageView
                     android:id="@+id/screen3_service1"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginLeft="25dp"
-                    app:srcCompat="@drawable/netflix" />
+                    android:src="@drawable/netflix" />
             </LinearLayout>
         </TableRow>
 
@@ -105,13 +105,13 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginLeft="25dp"
-                    app:srcCompat="@drawable/hbo" />
+                    android:src="@drawable/hbo" />
                 <ImageView
                     android:id="@+id/screen3_service3"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginLeft="25dp"
-                    app:srcCompat="@drawable/hbo" />
+                    android:src="@drawable/hbo" />
             </LinearLayout>
         </TableRow>
 
@@ -132,7 +132,7 @@
                     android:id="@+id/screen3_bookmarkIcon"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    app:srcCompat="@drawable/bookmark" />
+                    android:src="@drawable/bookmark" />
 
                 <TextView
                     android:id="@+id/screen3_bookmarkText"
@@ -147,7 +147,7 @@
 
     </TableLayout>
 
-    <EditText
+    <TextView
         android:id="@+id/screen3_rotten_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -159,7 +159,7 @@
         android:inputType="textPersonName"
         android:text="@string/screen3_rottenText" />
 
-    <EditText
+    <TextView
         android:id="@+id/screen3_rotten_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -169,7 +169,7 @@
         android:inputType="textPersonName"
         android:text="@string/screen3_rottenScore" />
 
-    <EditText
+    <TextView
         android:id="@+id/screen3_plotSummary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -181,23 +181,24 @@
         android:text="@string/screen3_plotSummary" />
 
     <!-- NEEDS TEXT WRAPPING -->
-    <EditText
+    <TextView
         android:id="@+id/screen3_plot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/screen3_plotSummary"
+        android:ellipsize="none"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="@string/screen3_plot"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:ellipsize="none"
         android:maxLines="100"
         android:scrollHorizontally="false"
+        android:singleLine="false"
 
-        />
+        android:text="@string/screen3_plot"
+        android:textSize="18sp" />
 
 </RelativeLayout>
