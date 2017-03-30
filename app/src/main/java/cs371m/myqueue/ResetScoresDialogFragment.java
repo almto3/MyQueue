@@ -18,7 +18,7 @@ public class ResetScoresDialogFragment extends DialogFragment {
         builder.setMessage(R.string.reset_scores_question)
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        ((MainActivity) getActivity()).resetScores();
+                       // ((MainActivity) getActivity()).resetScores();
                         dismiss();
                     }
                 })

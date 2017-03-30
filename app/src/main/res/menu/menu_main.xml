@@ -6,7 +6,7 @@
         android:icon="@drawable/refresh"
         app:showAsAction="ifRoom" />
 
-    <item android:id="@+id/menu_sort_by"
+    <item android:id="@+id/menu_sortBy"
         android:title="@string/menu_sortBy"/>
 
     <item android:id="@+id/menu_genre"

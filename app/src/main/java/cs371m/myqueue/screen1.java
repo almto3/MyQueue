@@ -80,11 +80,6 @@ public class screen1 extends ListActivity {
                         ", id: " + id + "\ndata: "
                         + source;
 
-                // example if creating and showing a Toast. Cheers!
-//                Toast.makeText(CountryActivity.this,
-//                        toastString,
-//                        Toast.LENGTH_SHORT).show();
-
             }
         });
     }
