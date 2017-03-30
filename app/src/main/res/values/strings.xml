@@ -91,7 +91,7 @@
     <string name="screen3_bookmark">Bookmark</string>
 
     <!-- non static, should be changed case by case -->
-    <string name="screen3_plot">plotplotplotplot\nplotplotplotplotplotplot\nplotplotplotplotplotplotplotplotplotplotplotplotplotplot\nplotplotplotplotplotplotplotplotplotplotplotplotplotplotplot\n</string>
+    <string name="screen3_plot">plotplotplotplot\r\nplotplotplotplotplotplot\r\nplotplotplotplotplotplotplotplotplotplotplotplotplotplot\r\nplotplotplotplotplotplotplotplotplotplotplotplotplotplotplot\r\n</string>
     <string name="screen3_rottenScore">92%</string>
     <string name="screen3_title">The Martian (2015)</string>
 
