@@ -11,28 +11,20 @@ import android.widget.RelativeLayout;
 
 
 public class screen3 extends Activity {
+
+    Integer[] imageIDs={
+            R.drawable.martian_poster,
+            R.drawable.netflix,
+            R.drawable.hbo,
+            R.drawable.hulu,
+            R.drawable.bookmark
+    };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen3);
-        setListener();
         Log.d("screen3", "onCreate");
         Log.i("screen3", "onCreate");
-    }
-
-    private void setListener(){
-        Log.d("screen3", "setListener");
-        RelativeLayout rlayout = (RelativeLayout) findViewById(R.id.screen3);
-        rlayout.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Log.d("screen3", "setListener");
-                startActivity(new Intent(screen3.this, AboutActivity.class));
-                //return true;
-            }
-
-        });
-
     }
 }
