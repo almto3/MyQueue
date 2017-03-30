@@ -7,6 +7,7 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -41,18 +42,6 @@ public class MainActivity extends AppCompatActivity {
     // displays for the number of each outcome
     private TextView[] mOutcomeCounterTextViews;
 
-    // for all the sounds we play
-    private SoundPool mSounds;
-    private int mHumanMoveSoundID;
-    private int mComputerMoveSoundID;
-    private int mHumanWinSoundID;
-    private int mComputerWinSoundID;
-    private int mTieGameSoundID;
-
-    // for pausing
-    private Handler mPauseHandler;
-    private Runnable mRunnable;
-
     private final int SETTINGS_REQUEST = 1;
 
     //NEEDS TO BE ADDED MORE IN CODE
@@ -68,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
         mBoardView = (BoardView) findViewById(R.id.boardView);
         setInstanceVarsFromSharedPrefs();
         mBoardView.setOnTouchListener(mTouchListener);
-        mPauseHandler = new Handler();
         initOutcomeTextViews();
         restoreScores();
 
@@ -89,17 +77,16 @@ public class MainActivity extends AppCompatActivity {
 
         WinData.Outcome outcome = WinData.Outcome.TIE;
         String infoString = getString(R.string.result_tie);
-        int soundID = mTieGameSoundID;
         if (winner == 2) {
             outcome = WinData.Outcome.HUMAN;
             infoString = getPreferences(MODE_PRIVATE).getString("victory_message", getString(R.string.result_human_wins));
-            soundID = mHumanWinSoundID;
+
         } else if (winner == 3) {
             outcome = WinData.Outcome.ANDROID;
             infoString = getString(R.string.result_computer_wins);
-            soundID = mComputerWinSoundID;
+
         }
-        endGameActions(infoString, soundID); mWinData.incrementWin(outcome);
+        //endGameActions(infoString, soundID); mWinData.incrementWin(outcome);
         int index = outcome.ordinal();
         String display = "" + mWinData.getCount(outcome);
         mOutcomeCounterTextViews[index].setText(display);
@@ -113,13 +100,15 @@ public class MainActivity extends AppCompatActivity {
     private void endGameActions(String messageId, int soundId) {
         mInfoTextView.setText(messageId);
         if(mSoundOn)
-            mSounds.play(soundId, 1, 1, 1, 0, 1);
+            System.out.println("tmp");
+           // mSounds.play(soundId, 1, 1, 1, 0, 1);
     }
 
     // Code below this point was added in tutorial 3.
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
         return true;
@@ -130,18 +119,19 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fm = getFragmentManager();
         switch (item.getItemId()) {
             case R.id.menu_refresh:
-                // if computer is in middle of pause, stop it
-                mPauseHandler.removeCallbacks(mRunnable);
-                startNewGame();
+                refreshScreen();
                 return true;
+
             case R.id.menu_genre:
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivityForResult(intent, SETTINGS_REQUEST);
                 return true;
-            case R.id.menu_sort_by:
+
+            case R.id.menu_sortBy:
                 ResetScoresDialogFragment resetScoresDialogFragment = new ResetScoresDialogFragment();
                 resetScoresDialogFragment.show(fm, "reset");
                 return true;
+
             case R.id.menu_about:
                 startActivity(new Intent(this, AboutActivity.class));
                 return true;
@@ -151,43 +141,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Set the difficulty. Presumably called by DifficultyDialogFragment;
-     *
-     * @param difficulty The new difficulty for the game.
-     */
-    public void setDifficulty(int difficulty) {
-        /*
-        // check bounds;
-        if (difficulty < 0 || difficulty >= TicTacToeGame.DifficultyLevel.values().length) {
-            Log.d(TAG, "Unexpected difficulty: " + difficulty + "." +
-                    " Setting difficulty to Easy / 0.");
-            difficulty = 0; // if out of bounds set to 0
-        }
-        TicTacToeGame.DifficultyLevel newDifficulty
-                = TicTacToeGame.DifficultyLevel.values()[difficulty];
-
-        mGame.setDifficultyLevel(newDifficulty);
-        String message = "Difficulty set to " +
-                newDifficulty.toString().toLowerCase() + " .";
-
-        // Display the selected difficulty level
-        Toast.makeText(getApplicationContext(), message,
-                Toast.LENGTH_SHORT).show();
-        */
-    }
-
-    // Code below here was added / updated in tutorial 4.
-
-    // Set move in game logic and tell board view to redraw itself.
-    private void setMove(char player, int location, int soundID) {
-        // Log.d(TAG, "in setMove. player is: " + player + ", location is: " + location);
-        // Log.d(TAG, "in setMove. old occupant in cell is " + mGame.getBoardOccupant(location));
-
-        // Log.d(TAG, "in setMove. newBoard is "+ mGame);
-        mBoardView.invalidate();
-        if(mSoundOn)
-            mSounds.play(soundID, 1, 1, 1, 0, 1);
+    public void refreshScreen() {
     }
 
     // Listen for touches on the board. Only apply move if game not over.
@@ -218,57 +172,6 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // Log.d(TAG, "in onResume");
-        mSounds = new SoundPool(2, AudioManager.STREAM_MUSIC, 0);
-
-        mHumanMoveSoundID = mSounds.load(this, R.raw.human_move, 1);
-        // Context, id of resource, priority (currently no effect)
-        mComputerMoveSoundID = mSounds.load(this, R.raw.computer_move, 1);
-        mHumanWinSoundID = mSounds.load(this, R.raw.human_win, 1);
-        mComputerWinSoundID = mSounds.load(this, R.raw.computer_win, 1);
-        mTieGameSoundID = mSounds.load(this, R.raw.tie_game, 1);
-
-        // if the game is not over and it is the computer's turn,
-        // start the delay again
-        if (!mGameOver && !mHumansTurnToMove) {
-            startComputerDelay();
-        }
-    }
-
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        // Log.d(TAG, "in onPause");
-        if (mSounds != null) {
-            mSounds.release();
-            mSounds = null;
-        }
-        // since we are pausing, we want to stop the computer delay,
-        // but restart it when we resume
-        mPauseHandler.removeCallbacks(mRunnable);
-    }
-
-    private void startComputerDelay() {
-        // Log.d(TAG, "Starting computer delay");
-        mInfoTextView.setText(R.string.computer_turn);
-        mRunnable = createRunnable();
-        mPauseHandler.postDelayed(mRunnable, 750); // Pause for three quarters of a second
-    }
-
-    private Runnable createRunnable() {
-        return new Runnable() {
-            public void run() {
-                // Done thinking, time to move.
-                Log.d(TAG, "delay over making move.");
-                //computerMove();
-            }//end run override method
-        };//end of new Runnable()
-    }//end of createRunnable method
 
     // Code below added /updated in tutorial 5
 
@@ -303,27 +206,6 @@ public class MainActivity extends AppCompatActivity {
         restoreScores();
     }
 
-    private void displayScores() {
-        WinData.Outcome[] outcomes = WinData.Outcome.values();
-        for (WinData.Outcome outcome : outcomes) {
-            String counter = String.valueOf(mWinData.getCount(outcome));
-            mOutcomeCounterTextViews[outcome.ordinal()].setText(counter);
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        SharedPreferences sharedPref = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        for (WinData.Outcome outcome : WinData.Outcome.values()) {
-            editor.putInt(outcome.name(), mWinData.getCount(outcome));
-        }
-        saveGameState(editor);
-        editor.apply();
-    }
-
     private void saveGameState(SharedPreferences.Editor editor) {
         // save all relevant information about current game
         // so we can reconstruct in onCreate
@@ -347,13 +229,7 @@ public class MainActivity extends AppCompatActivity {
             // (key, value if not present)
         }
         mWinData = new WinData(counters);
-        displayScores();
-    }
-
-    // reset the scores for wins and ties
-    public void resetScores() {
-        mWinData = new WinData();
-        displayScores();
+        //displayScores();
     }
 
     private void setInstanceVarsFromSharedPrefs() {

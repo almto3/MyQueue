@@ -59,7 +59,7 @@ public class DifficultyDialogFragment extends DialogFragment {
                         // user pressed okay, so we are going to change the difficulty
                         int newDifficulty = getArguments().getInt(DIFFICULTY_KEY, 0);
                         Log.d(TAG, "User clicked okay. Changing difficulty to: " + newDifficulty);
-                        ((MainActivity)getActivity()).setDifficulty(newDifficulty);
+                        //((MainActivity)getActivity()).setDifficulty(newDifficulty);
                         dismiss();
                     }
                 })
