@@ -59,10 +59,6 @@ public class screen1 extends ListActivity {
     }
 
     private void createModel() {
-        String[] rawData
-                = getResources().getStringArray(R.array.sources);
-
-        sources = new ArrayList(Arrays.asList(rawData));
     }
 
     private void createOnItemClickListener() {

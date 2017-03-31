@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
     // tracks how many time each outcome occurs (human wins,
     // tie, android wins
-    private WinData mWinData;
 
     // displays for the number of each outcome
     private TextView[] mOutcomeCounterTextViews;
@@ -75,27 +74,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void handleEndGame(int winner) {
 
-        WinData.Outcome outcome = WinData.Outcome.TIE;
-        String infoString = getString(R.string.result_tie);
-        if (winner == 2) {
-            outcome = WinData.Outcome.HUMAN;
-            infoString = getPreferences(MODE_PRIVATE).getString("victory_message", getString(R.string.result_human_wins));
 
-        } else if (winner == 3) {
-            outcome = WinData.Outcome.ANDROID;
-            infoString = getString(R.string.result_computer_wins);
-
-        }
-        //endGameActions(infoString, soundID); mWinData.incrementWin(outcome);
-        int index = outcome.ordinal();
-        String display = "" + mWinData.getCount(outcome);
-        mOutcomeCounterTextViews[index].setText(display);
-        mGameOver = true;
-        mHumanGoesFirst = !mHumanGoesFirst;
-
-        if (mShowResultImage) { // recall from Settings activity
-            prepDownloadImageActivity(winner, infoString);
-        }
     }
     private void endGameActions(String messageId, int soundId) {
         mInfoTextView.setText(messageId);
@@ -220,16 +199,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void restoreScores() {
         SharedPreferences sharedPref = getPreferences(MODE_PRIVATE);
-        // restore the number of outcomes
-        WinData.Outcome[] outcomes = WinData.Outcome.values();
-        int[] counters = new int[outcomes.length];
-        for (int i = 0; i < counters.length; i++) {
-            counters[i] = sharedPref.getInt(outcomes[i].name(), 0);
-            // parameters to SharedPreferences.getInt() are
-            // (key, value if not present)
-        }
-        mWinData = new WinData(counters);
-        //displayScores();
     }
 
     private void setInstanceVarsFromSharedPrefs() {
