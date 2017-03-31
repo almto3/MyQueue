@@ -15,7 +15,7 @@
     <string name="quit_question">Are you sure you want to quit?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="difficulty_choose">Choose a Difficulty Level</string>
+
 
     <string name="difficulty_easy">Easy</string>
     <string name="difficulty_harder">Harder</string>
@@ -102,6 +102,6 @@
     <string name="menu_sortBy">Sort By:</string>
     <string name="menu_genre">Genre:</string>
 
-
+    <string name="sort_choose">Choose a Sort</string>
 
 </resources>
