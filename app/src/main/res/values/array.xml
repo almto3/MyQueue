@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="sources">
+        <item>Netflix</item>
+        <item>Hulu (N/A)</item>
+        <item>HBO (N/A)</item>
+        <item>Amazon Prime (N/A)</item>
+    </array>
+
+</resources>

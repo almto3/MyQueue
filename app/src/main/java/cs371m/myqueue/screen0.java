@@ -33,7 +33,7 @@ public class screen0 extends Activity {
             @Override
             public void onClick(View v) {
                 Log.d("screen0", "setListener");
-                startActivity(new Intent(screen0.this, screen3.class));
+                startActivity(new Intent(screen0.this, screen1.class));
                 //return true;
             }
 
