@@ -1,23 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ListPreference
-        android:id="@+id/prefrences_list"
-        android:key="difficulty_level"
-        android:title="Difficulty level"
-        android:summary=""
-        android:defaultValue="@string/difficulty_expert"
-        android:entries="@array/difficulty_levels"
-        android:entryValues="@array/difficulty_levels" />
-
-
-    <EditTextPreference
-        android:id="@+id/prefrences_editText"
-        android:key="victory_message"
-        android:summary=""
-        android:defaultValue="@string/result_human_wins"
-        android:title="Victory message" />
-
     <TextView
         android:id="@+id/prefrences_text"
         android:text="@string/menu_about"
