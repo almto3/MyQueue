@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/screen3"
+    android:id="@+id/item_details_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -16,25 +16,25 @@
         android:layout_weight="1">
 
        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/screen3_layout"
+            android:id="@+id/details_layout"
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" >
 
             <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/screen3_table"
+                android:id="@+id/item_details_table"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:stretchColumns="*">
 
                 <TableRow
-                    android:id="@+id/scree3_table_row0"
+                    android:id="@+id/item_details_table_row0"
                     android:layout_width="0dip"
                     android:layout_height="0dip"
                     android:layout_weight="1">
 
                     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:id="@+id/screen3_table_row0_layout"
+                        android:id="@+id/item_details_table_row0_layout"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:orientation="horizontal">
@@ -45,7 +45,7 @@
                             android:layout_weight="1">
                         <!-- non static, should be changed case by case -->
                             <ImageView
-                                android:id="@+id/screen3_movie_poster"
+                                android:id="@+id/item_details_movie_poster"
                                 android:layout_width="190dp"
                                 android:layout_height="285dp"
                                 android:adjustViewBounds="true"
@@ -69,12 +69,12 @@
                                     android:layout_height="wrap_content">
 
                                     <TextView
-                                        android:id="@+id/screen3_title"
+                                        android:id="@+id/item_details_title"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:gravity="left"
                                         android:paddingRight="5dp"
-                                        android:text="@string/screen3_title"></TextView>
+                                        android:text="@string/details_title"></TextView>
                                 </TableRow>
 
                                 <TableRow
@@ -84,11 +84,11 @@
                                     android:layout_marginTop="20dp">
 
                                     <TextView
-                                        android:id="@+id/screen3_avaliable"
+                                        android:id="@+id/item_details_avaliable"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:gravity="left"
-                                        android:text="@string/screen3_available"></TextView>
+                                        android:text="@string/details_available_sources"></TextView>
                                 </TableRow>
 
                                 <TableRow
@@ -104,14 +104,14 @@
                                         android:orientation="horizontal">
 
                                         <ImageView
-                                            android:id="@+id/screen3_service0"
+                                            android:id="@+id/item_details_service0"
                                             android:layout_width="50dp"
                                             android:layout_height="50dp"
                                             android:layout_marginLeft="25dp"
                                             android:src="@drawable/hulu" />
 
                                         <ImageView
-                                            android:id="@+id/screen3_service1"
+                                            android:id="@+id/item_details_service1"
                                             android:layout_width="50dp"
                                             android:layout_height="50dp"
                                             android:layout_marginLeft="25dp"
@@ -131,14 +131,14 @@
                                         android:orientation="horizontal">
 
                                         <ImageView
-                                            android:id="@+id/screen3_service2"
+                                            android:id="@+id/item_details_service2"
                                             android:layout_width="50dp"
                                             android:layout_height="50dp"
                                             android:layout_marginLeft="25dp"
                                             android:src="@drawable/hbo" />
 
                                         <ImageView
-                                            android:id="@+id/screen3_service3"
+                                            android:id="@+id/item_details_service3"
                                             android:layout_width="50dp"
                                             android:layout_height="50dp"
                                             android:layout_marginLeft="25dp"
@@ -160,18 +160,18 @@
                                         android:orientation="horizontal">
 
                                         <ImageView
-                                            android:id="@+id/screen3_bookmarkIcon"
+                                            android:id="@+id/item_details_bookmarkIcon"
                                             android:layout_width="50dp"
                                             android:layout_height="50dp"
                                             android:src="@drawable/bookmark" />
 
                                         <TextView
-                                            android:id="@+id/screen3_bookmarkText"
+                                            android:id="@+id/item_details_bookmarkText"
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent"
                                             android:layout_marginLeft="25dp"
                                             android:layout_marginTop="10dp"
-                                            android:text="@string/screen3_bookmark"></TextView>
+                                            android:text="@string/details_bookmark"></TextView>
                                     </LinearLayout>
                                 </TableRow>
                             </TableLayout>
@@ -180,62 +180,62 @@
                 </TableRow>
 
                 <TableRow
-                    android:id="@+id/scree3_table_row1"
+                    android:id="@+id/item_details_table_row1"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content">
 
                     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:id="@+id/screen3_table_row1_layout"
+                        android:id="@+id/item_details_table_row1_layout"
                         android:layout_width="200dp"
                         android:layout_height="200dp"
                         android:orientation="vertical">
 
                         <TableLayout
-                            android:id="@+id/screen3_table_row1_table0"
+                            android:id="@+id/item_details_table_row1_table0"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="0dp">
 
                             <TextView
-                                android:id="@+id/screen3_rotten_text"
+                                android:id="@+id/item_details_rotten_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="0dp"
                                 android:ems="10"
-                                android:text="@string/screen3_rottenText"
+                                android:text="@string/details_rottenText"
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/screen3_rotten_score"
+                                android:id="@+id/item_details_rotten_score"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignBottom="@+id/screen3_rotten_text"
-                                android:layout_toRightOf="@+id/screen3_rotten_text"
+                                android:layout_alignBottom="@+id/item_details_rotten_text"
+                                android:layout_toRightOf="@+id/item_details_rotten_text"
                                 android:ems="10"
                                 android:inputType="textPersonName"
-                                android:text="@string/screen3_rottenScore" />
+                                android:text="@string/details_rottenScore" />
                         </TableLayout>
 
                         <TextView
-                            android:id="@+id/screen3_plotSummary"
+                            android:id="@+id/item_details_plotSummary"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/screen3_rotten_text"
-                            android:layout_toLeftOf="@+id/screen3_rotten_score"
-                            android:layout_toStartOf="@+id/screen3_rotten_score"
+                            android:layout_below="@+id/item_details_rotten_text"
+                            android:layout_toLeftOf="@+id/item_details_rotten_score"
+                            android:layout_toStartOf="@+id/item_details_rotten_score"
                             android:ems="10"
                             android:inputType="textPersonName"
                             android:paddingTop="10dp"
-                            android:text="@string/screen3_plotSummary" />
+                            android:text="@string/details_plotSummary" />
 
                         <!-- NEEDS TEXT WRAPPING -->
                         <TableLayout
-                            android:id="@+id/screen3_table_row1_table1"
+                            android:id="@+id/item_details_table_row1_table1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginTop="10dp">
                             <TextView
-                                android:id="@+id/screen3_plot"
+                                android:id="@+id/item_details_plot"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:width="0dp"
@@ -243,7 +243,7 @@
                                 android:ems="10"
                                 android:maxLines="100"
                                 android:scrollHorizontally="false"
-                                android:text="@string/screen3_plot"
+                                android:text="@string/details_plot"
                                 android:textSize="18sp" />
                         </TableLayout>
                     </LinearLayout>

@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="324dp"
         android:gravity="center"
-        android:text="@string/screen0_text"
+        android:text="@string/welcome_text"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@android:color/white" />

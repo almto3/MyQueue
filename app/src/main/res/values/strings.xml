@@ -1,100 +1,20 @@
 <resources>
-
-    <!-- SHOULD BE DELETED -->
-    <string name="human_first">You go first.</string>
-    <string name="human_turn">Your turn.</string>
-    <string name="computer_turn">Android\'s turn.</string>
-    <string name="result_tie">It\'s a tie.</string>
-    <string name="result_human_wins">You won!</string>
-    <string name="result_computer_wins">Android won!</string>
-    <string name="human">Human:  </string>
-    <string name="zero">0</string>
-    <string name="ties">Ties:  </string>
-    <string name="android">Android:  </string>
-    <string name="info">info</string>
-    <string name="quit_question">Are you sure you want to quit?</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-
-
-    <string name="difficulty_easy">Easy</string>
-    <string name="difficulty_harder">Harder</string>
-    <string name="difficulty_expert">Expert</string>
-    <string-array name="difficulty_levels">
-        <item>@string/difficulty_easy</item>
-        <item>@string/difficulty_harder</item>
-        <item>@string/difficulty_expert</item>
-    </string-array>
-
-    <string name="goes_alternates">Alternates</string>
-    <string name="goes_last_loser">Las loser</string>
-    <string name="goes_loser_first_alternate_on_tie">Loser first, alternate on tie</string>
-
-    <string name="goes_random">Random</string>
-    <string name="goes_always_Human">always Human</string>
-    <string name="goes_always_Android">always Android</string>
-
-    <string-array name="who_goes">
-        <item>@string/goes_alternates</item>
-        <item>@string/goes_last_loser</item>
-        <item>@string/goes_loser_first_alternate_on_tie</item>
-
-        <item>@string/goes_random</item>
-        <item>@string/goes_always_Human</item>
-        <item>@string/goes_always_Android</item>
-    </string-array>
-
-    <string name="ok">OK</string>s
-    <string name="cancel">Cancel</string>s
-
-    <string name="difficulty">Difficulty</string>
-    <string name="quit">Quit</string>
-    <string name="reset_scores_question">Do you want to reset all scores to 0?</string>
-
-    <string name="settings">Settings</string>
-    <string name="title_activity_download_image">DownloadImage</string>
-
-    <string name="downloading_image">Downloading Image From Web...</string>
-    <string name="no_network_connection">This device is currently not connected to the Internet...Image cannot be downloaded...</string>
-    <string name="url_loser">http://www.cs.utexas.edu/~scottm/cs371m/t6/loser_image.jpg</string> <string name="url_winner">http://www.cs.utexas.edu/~scottm/cs371m/t6/winner_image.jpg</string> <string name="url_tie">http://www.cs.utexas.edu/~scottm/cs371m/t6/tie_image.jpg</string> <string name="download_complete">Download Complete</string>
-    <string name="winner_loser_tie_image">winner_loser_tie_image</string>
-
-    <!-- END SHOULD BE DELETED -->
-
     <string name="app_name">MyQueue</string>
 
+    <string name="welcome_text">MY QUEUE IS DOPE\n Press anywhere to continue</string>
 
-    <!--
-      Naming convention for strings in this file
-      screenx_stringName
-      where x is the first instance where the string in mentioned
-      and stringName doesn't have any - or _
-      -->
-    <string name="screen0_text">MY QUEUE IS DOPE\n Press anywhere to continue</string>
+    <string name="select_source_prompt">Please select the services you would like to see movies and TV shows from:</string>
 
-    <string name="screen1_headerText">Please select the services you would like to see movies and TV shows from:</string>
-
-    <string name="screen1_hboGo">HBO GO</string>
-    <string name="screen1_hulu">Hulu</string>
-    <string name="screen1_netflix">Netflix</string>
-    <string name="screen1_starz">Starz</string>
-    <string-array name="screen1_services">
-        <item>@string/screen1_hboGo</item>
-        <item>@string/screen1_hulu</item>
-        <item>@string/screen1_netflix</item>
-        <item>@string/screen1_starz</item>
-    </string-array>
-
-    <string name="screen3_rottenText">Rotten Tomatoes Score:</string>
-    <string name="screen3_plotSummary">Plot Summary:</string>
-    <string name="screen3_available">Available On</string>
-    <string name="screen3_bookmark">Bookmark</string>
+    <!-- static details data -->
+    <string name="details_rottenText">Rotten Tomatoes Score:</string>
+    <string name="details_plotSummary">Plot Summary:</string>
+    <string name="details_available_sources">Available On</string>
+    <string name="details_bookmark">Bookmark</string>
 
     <!-- non static, should be changed case by case -->
-    <string name="screen3_plot">An astronaut becomes stranded on Mars after his team assume him dead, and must rely on his ingenuity to find a way to signal to Earth that he is alive.</string>
-    <string name="screen3_rottenScore">92%</string>
-    <string name="screen3_title">The Martian (2015)</string>
-
+    <string name="details_plot">An astronaut becomes stranded on Mars after his team assume him dead, and must rely on his ingenuity to find a way to signal to Earth that he is alive.</string>
+    <string name="details_rottenScore">92%</string>
+    <string name="details_title">The Martian (2015)</string>
 
     <string name="screenx_text">Hey! we are erin, saleh and kaivan. Computer Science students at the University of Texas atAustin.\nAnd this is our first experince at building an Android app</string>
     <string name="menu_refresh">Refresh</string>
