@@ -15,25 +15,25 @@ import android.widget.RelativeLayout;
  */
 
 
-public class screen0 extends Activity {
+public class WelcomeActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.screen0);
+        setContentView(R.layout.welcome_layout);
         setListener();
-        Log.d("screen0", "onCreate");
-        Log.i("screen0", "onCreate");
+        Log.d("WelcomeActivity", "onCreate");
+        Log.i("WelcomeActivity", "onCreate");
     }
 
     private void setListener(){
-        Log.d("screen0", "setListener");
+        Log.d("WelcomeActivity", "setListener");
         RelativeLayout rlayout = (RelativeLayout) findViewById(R.id.screen0);
         rlayout.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Log.d("screen0", "setListener");
-                startActivity(new Intent(screen0.this, screen1.class));
+                Log.d("WelcomeActivity", "setListener");
+                startActivity(new Intent(WelcomeActivity.this, SelectSourcesActivity.class));
                 //return true;
             }
 

@@ -24,7 +24,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".screen1">
+    tools:context=".SelectSourcesActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/screen1_toolbar"
@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="36dp">
-        <fragment class="cs371m.myqueue.screen1$TitlesFragment"
+        <fragment class="cs371m.myqueue.SelectSourcesActivity$TitlesFragment"
             android:id="@+id/titles"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
