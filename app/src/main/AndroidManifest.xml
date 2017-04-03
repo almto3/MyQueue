@@ -30,13 +30,18 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
         <activity
             android:name=".screen1"
             android:screenOrientation="portrait">
         </activity>
+
+        <activity
+            android:name=".screen2"
+            android:screenOrientation="portrait">
+        </activity>
+
         <activity
             android:name=".screen3"
             android:screenOrientation="portrait">
