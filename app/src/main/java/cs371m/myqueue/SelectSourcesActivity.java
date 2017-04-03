@@ -18,19 +18,19 @@ import java.util.List;
  * This sample provides a different layout (and activity flow) when run in
  * landscape.
  */
-public class screen1 extends AppCompatActivity {
+public class SelectSourcesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.source_fragment_layout);
+        setContentView(R.layout.select_source_layout);
 
         final Button continue_button = (Button) findViewById(R.id.sources_continue);
         continue_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
-                startActivity(new Intent(screen1.this, screen2.class));
+                startActivity(new Intent(SelectSourcesActivity.this, screen2.class));
             }
         });
 
