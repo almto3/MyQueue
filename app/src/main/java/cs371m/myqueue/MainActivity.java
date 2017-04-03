@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.screen0);
+        setContentView(R.layout.screen1);
 
         mInfoTextView = (TextView) findViewById(R.id.information);
         mBoardView = (BoardView) findViewById(R.id.boardView);
