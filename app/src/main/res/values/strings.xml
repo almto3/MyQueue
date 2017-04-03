@@ -91,7 +91,7 @@
     <string name="screen3_bookmark">Bookmark</string>
 
     <!-- non static, should be changed case by case -->
-    <string name="screen3_plot">plotplotplotplot\r\nplotplotplotplotplotplot\r\nplotplotplotplotplotplotplotplotplotplotplotplotplotplot\r\nplotplotplotplotplotplotplotplotplotplotplotplotplotplotplot\r\n</string>
+    <string name="screen3_plot">An astronaut becomes stranded on Mars after his team assume him dead, and must rely on his ingenuity to find a way to signal to Earth that he is alive.</string>
     <string name="screen3_rottenScore">92%</string>
     <string name="screen3_title">The Martian (2015)</string>
 
@@ -104,4 +104,9 @@
 
     <string name="sort_choose">Choose a Sort</string>
 
+    <string name="movie_detail_trailers">Trailers</string>
+
+    <!-- descriptions -->
+    <string name="desc_favorites">Favorites</string>
+    <string name="desc_rating">Rating</string>
 </resources>
