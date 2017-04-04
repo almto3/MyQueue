@@ -201,7 +201,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:layout_marginLeft="15dp">
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp">
 
                     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                         android:id="@+id/item_details_table_row1_layout"
@@ -256,6 +257,7 @@
                             android:id="@+id/item_details_table_row1_table1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginRight="30dp"
                             android:layout_marginTop="4dp">
                             <TextView
                                 android:id="@+id/item_details_plot"
