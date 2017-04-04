@@ -50,7 +50,6 @@ public class SettingsActivity extends AppCompatActivity {
                 startActivity(new Intent(this, SearchActivity.class));
                 return true;
             case R.id.menu_settings:
-                startActivity(new Intent(this, SettingsActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -96,14 +95,22 @@ public class SettingsActivity extends AppCompatActivity {
 
         @Override
         public void onListItemClick(ListView l, View v, int position, long id) {
-            addSource(position);
+            openSetting(position);
         }
 
-        void addSource(int index) {
+        void openSetting(int index) {
             mCurCheckPosition = index;
 
             // Not yet implemented, currently uses only Netflix automatically
 
+            switch (index) {
+                case 0:
+                    startActivity(new Intent(getActivity(), SelectSourcesActivity.class));
+                    break;
+                case 1:
+                    startActivity(new Intent(getActivity(), AboutActivity.class));
+                    break;
+            }
         }
     }
 }

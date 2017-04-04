@@ -7,12 +7,22 @@
     android:orientation="vertical"
     android:padding="5dp">
 
-
     <TextView
-        android:id="@+id/screen0_text"
+        android:id="@+id/name_text"
         android:layout_width="match_parent"
         android:layout_height="324dp"
         android:gravity="center"
+        android:text="@string/app_name"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/welcome_text"
+        android:layout_width="match_parent"
+        android:layout_height="324dp"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/name_text"
         android:text="@string/welcome_text"
         android:textSize="20sp"
         android:textStyle="bold"

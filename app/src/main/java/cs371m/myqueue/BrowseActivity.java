@@ -59,10 +59,8 @@ public class BrowseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_browse:
-                startActivity(new Intent(this, BrowseActivity.class));
                 return true;
             case R.id.menu_bookmarks:
-                startActivity(new Intent(this, BrowseActivity.class));
                 return true;
             case R.id.menu_search:
                 startActivity(new Intent(this, SearchActivity.class));

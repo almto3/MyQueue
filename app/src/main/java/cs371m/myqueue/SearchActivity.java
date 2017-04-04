@@ -41,7 +41,6 @@ public class SearchActivity extends AppCompatActivity {
                 startActivity(new Intent(this, BrowseActivity.class));
                 return true;
             case R.id.menu_search:
-                startActivity(new Intent(this, SearchActivity.class));
                 return true;
             case R.id.menu_settings:
                 startActivity(new Intent(this, SettingsActivity.class));

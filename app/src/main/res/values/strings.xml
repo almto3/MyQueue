@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MyQueue</string>
 
-    <string name="welcome_text">MY QUEUE IS DOPE\n Press anywhere to continue</string>
+    <string name="welcome_text">Tap anywhere to continue</string>
 
     <string name="select_source_prompt">Please select the services you would like to see movies and TV shows from:</string>
 
@@ -19,7 +19,7 @@
     <string name="search_not_implemented">Search screen not implemented
     for alpha release.</string>
 
-    <string name="screenx_text">Hey! we are erin, saleh and kaivan. Computer Science students at the University of Texas atAustin.\nAnd this is our first experince at building an Android app</string>
+    <string name="screenx_text">Hey from our Android development team! We are Erin, Saleh and Kaivan. Computer Science students at the University of Texas at Austin. This is our first Android app.</string>
 
     <string name="menu_browse">Browse</string>
     <string name="menu_bookmarks">Bookmarks</string>

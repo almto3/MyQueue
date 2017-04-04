@@ -52,12 +52,14 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="fill_parent"
-                            android:layout_weight="1">
+                            android:layout_weight=".4">
                         <!-- non static, should be changed case by case -->
                             <ImageView
                                 android:id="@+id/item_details_movie_poster"
-                                android:layout_width="190dp"
-                                android:layout_height="285dp"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="10dp"
                                 android:adjustViewBounds="true"
                                 android:src="@drawable/martian_poster" />
                        </LinearLayout>
@@ -65,7 +67,7 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="fill_parent"
-                            android:layout_weight="1">
+                            android:layout_weight=".6">
 
                             <TableLayout
                                 android:id="@+id/tableLayout"
@@ -82,6 +84,7 @@
                                         android:id="@+id/item_details_title"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:textSize="24dp"
                                         android:gravity="left"
                                         android:paddingRight="5dp"
                                         android:text="@string/details_title"></TextView>
@@ -97,6 +100,8 @@
                                         android:id="@+id/item_details_avaliable"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
+                                        android:textSize="18dp"
+                                        android:textStyle="bold"
                                         android:gravity="left"
                                         android:text="@string/details_available_sources"></TextView>
                                 </TableRow>
@@ -105,6 +110,7 @@
                                     android:id="@+id/tableRow2"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
                                     android:weightSum="1">
                                     <!-- not sure how many services to add?? will do a max of four for now -->
                                     <LinearLayout
@@ -117,7 +123,7 @@
                                             android:id="@+id/item_details_service0"
                                             android:layout_width="50dp"
                                             android:layout_height="50dp"
-                                            android:layout_marginLeft="25dp"
+                                            android:layout_marginLeft="5dp"
                                             android:src="@drawable/hulu" />
 
                                         <ImageView
@@ -144,7 +150,7 @@
                                             android:id="@+id/item_details_service2"
                                             android:layout_width="50dp"
                                             android:layout_height="50dp"
-                                            android:layout_marginLeft="25dp"
+                                            android:layout_marginLeft="5dp"
                                             android:src="@drawable/hbo" />
 
                                         <ImageView
@@ -179,8 +185,9 @@
                                             android:id="@+id/item_details_bookmarkText"
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent"
-                                            android:layout_marginLeft="25dp"
-                                            android:layout_marginTop="10dp"
+                                            android:layout_marginLeft="5dp"
+                                            android:layout_marginTop="0dp"
+                                            android:textSize="18dp"
                                             android:text="@string/details_bookmark"></TextView>
                                     </LinearLayout>
                                 </TableRow>
@@ -192,7 +199,9 @@
                 <TableRow
                     android:id="@+id/item_details_table_row1"
                     android:layout_width="0dip"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp">
 
                     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                         android:id="@+id/item_details_table_row1_layout"
@@ -213,6 +222,7 @@
                                 android:layout_marginTop="0dp"
                                 android:ems="10"
                                 android:text="@string/details_rottenText"
+                                android:textSize="20dp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -221,6 +231,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignBottom="@+id/item_details_rotten_text"
                                 android:layout_toRightOf="@+id/item_details_rotten_text"
+                                android:textSize="18dp"
                                 android:ems="10"
                                 android:inputType="textPersonName"
                                 android:text="@string/details_rottenScore" />
@@ -236,6 +247,8 @@
                             android:ems="10"
                             android:inputType="textPersonName"
                             android:paddingTop="10dp"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
                             android:text="@string/details_plotSummary" />
 
                         <!-- NEEDS TEXT WRAPPING -->
@@ -243,7 +256,7 @@
                             android:id="@+id/item_details_table_row1_table1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginTop="10dp">
+                            android:layout_marginTop="4dp">
                             <TextView
                                 android:id="@+id/item_details_plot"
                                 android:layout_width="match_parent"
@@ -254,7 +267,7 @@
                                 android:maxLines="100"
                                 android:scrollHorizontally="false"
                                 android:text="@string/details_plot"
-                                android:textSize="18sp" />
+                                android:textSize="18dp" />
                         </TableLayout>
                     </LinearLayout>
                 </TableRow>
