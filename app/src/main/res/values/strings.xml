@@ -32,20 +32,16 @@
 
     <!-- images for grid -->
     <string-array name="image_ids">
-        <item>@drawable/sample_1</item>
-        <item>@drawable/sample_2</item>
-        <item>@drawable/sample_3</item>
-        <item>@drawable/sample_4</item>
-        <item>@drawable/sample_5</item>
-        <item>@drawable/sample_6</item>
-        <item>@drawable/sample_7</item>
-        <item>@drawable/sample_1</item>
-        <item>@drawable/sample_2</item>
-        <item>@drawable/sample_3</item>
-        <item>@drawable/sample_4</item>
-        <item>@drawable/sample_5</item>
-        <item>@drawable/sample_6</item>
-        <item>@drawable/sample_7</item>
+        <item>@drawable/spotlight</item>
+        <item>@drawable/big_short</item>
+        <item>@drawable/kung_fu_panda_three</item>
+        <item>@drawable/kung_fu_panda</item>
+        <item>@drawable/london_has_fallen</item>
+        <item>@drawable/minions</item>
+        <item>@drawable/nightcrawler</item>
+        <item>@drawable/zootopia</item>
+        <item>@drawable/imitation_game</item>
+        <item>@drawable/spectral</item>
     </string-array>
 
 </resources>
