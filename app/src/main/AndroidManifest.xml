@@ -34,7 +34,7 @@
         </activity>
 
         <activity
-            android:name=".screen2"
+            android:name=".BrowseActivity"
             android:screenOrientation="portrait">
         </activity>
 
