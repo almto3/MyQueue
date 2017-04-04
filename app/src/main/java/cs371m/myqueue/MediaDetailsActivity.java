@@ -29,9 +29,9 @@ public class MediaDetailsActivity extends AppCompatActivity {
         Log.i("MediaDetailsActivity", "onCreate");
 
         //added
-        String title = getIntent().getStringExtra("title");
+/*        String title = getIntent().getStringExtra("title");
         Bitmap bitmap = getIntent().getParcelableExtra("image");
-
+*/
         //ImageView imageView = (ImageView) findViewById(R.id.image);
         //imageView.setImageBitmap(bitmap);
         //until here, breaks because of this

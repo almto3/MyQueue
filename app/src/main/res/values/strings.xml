@@ -38,8 +38,8 @@
 
     <!-- images for grid -->
     <string-array name="image_ids">
-        <item>@drawable/spotlight</item>
         <item>@drawable/big_short</item>
+        <item>@drawable/spotlight</item>
         <item>@drawable/kung_fu_panda_three</item>
         <item>@drawable/kung_fu_panda</item>
         <item>@drawable/imitation_game</item>

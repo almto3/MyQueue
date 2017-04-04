@@ -55,7 +55,7 @@
                             android:layout_weight="1">
                         <!-- non static, should be changed case by case -->
                             <ImageView
-                                android:id="@+id/item_details_movie_poster"
+                                android:id="@+id/movie_poster"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
