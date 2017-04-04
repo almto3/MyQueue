@@ -12,9 +12,9 @@
     <string name="details_bookmark">Bookmark</string>
 
     <!-- non static, should be changed case by case -->
-    <string name="details_plot">An astronaut becomes stranded on Mars after his team assume him dead, and must rely on his ingenuity to find a way to signal to Earth that he is alive.</string>
-    <string name="details_rottenScore">92%</string>
-    <string name="details_title">The Martian (2015)</string>
+    <string name="details_plot">Four denizers in the world of high-finance predict the credit and housing bubble collapse of the mid-2000s, and decide to take on the big banks for their greed and lack of foresight.</string>
+    <string name="details_rottenScore">88%</string>
+    <string name="details_title">The Big Short (2015)</string>
 
     <string name="search_not_implemented">Search screen not implemented
     for alpha release.</string>

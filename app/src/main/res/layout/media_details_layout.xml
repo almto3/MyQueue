@@ -45,14 +45,14 @@
 
                     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                         android:id="@+id/item_details_table_row0_layout"
-                        android:layout_width="fill_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
                         android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="fill_parent"
-                            android:layout_weight=".4">
+                            android:layout_weight="1">
                         <!-- non static, should be changed case by case -->
                             <ImageView
                                 android:id="@+id/item_details_movie_poster"
@@ -61,13 +61,13 @@
                                 android:layout_weight="1"
                                 android:padding="10dp"
                                 android:adjustViewBounds="true"
-                                android:src="@drawable/martian_poster" />
-                       </LinearLayout>
+                                android:src="@drawable/big_short"/>
+                        </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="fill_parent"
-                            android:layout_weight=".6">
+                            android:layout_weight="1">
 
                             <TableLayout
                                 android:id="@+id/tableLayout"
@@ -84,7 +84,7 @@
                                         android:id="@+id/item_details_title"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textSize="24dp"
+                                        android:textSize="20dp"
                                         android:gravity="left"
                                         android:paddingRight="5dp"
                                         android:text="@string/details_title"></TextView>
@@ -100,7 +100,7 @@
                                         android:id="@+id/item_details_avaliable"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textSize="18dp"
+                                        android:textSize="16dp"
                                         android:textStyle="bold"
                                         android:gravity="left"
                                         android:text="@string/details_available_sources"></TextView>
@@ -166,7 +166,7 @@
                                     android:id="@+id/tableRow4"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:layout_marginTop="35dp">
+                                    android:layout_marginTop="15dp">
 
                                     <!-- not sure how many services to add?? will do a max of four for now -->
                                     <LinearLayout
@@ -177,8 +177,8 @@
 
                                         <ImageView
                                             android:id="@+id/item_details_bookmarkIcon"
-                                            android:layout_width="50dp"
-                                            android:layout_height="50dp"
+                                            android:layout_width="25dp"
+                                            android:layout_height="25dp"
                                             android:src="@drawable/bookmark" />
 
                                         <TextView
@@ -187,7 +187,7 @@
                                             android:layout_height="match_parent"
                                             android:layout_marginLeft="5dp"
                                             android:layout_marginTop="0dp"
-                                            android:textSize="18dp"
+                                            android:textSize="16dp"
                                             android:text="@string/details_bookmark"></TextView>
                                     </LinearLayout>
                                 </TableRow>
@@ -198,7 +198,7 @@
 
                 <TableRow
                     android:id="@+id/item_details_table_row1"
-                    android:layout_width="0dip"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:layout_marginLeft="15dp">
@@ -222,7 +222,7 @@
                                 android:layout_marginTop="0dp"
                                 android:ems="10"
                                 android:text="@string/details_rottenText"
-                                android:textSize="20dp"
+                                android:textSize="18dp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -231,7 +231,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignBottom="@+id/item_details_rotten_text"
                                 android:layout_toRightOf="@+id/item_details_rotten_text"
-                                android:textSize="18dp"
+                                android:textSize="16dp"
                                 android:ems="10"
                                 android:inputType="textPersonName"
                                 android:text="@string/details_rottenScore" />
@@ -247,7 +247,7 @@
                             android:ems="10"
                             android:inputType="textPersonName"
                             android:paddingTop="10dp"
-                            android:textSize="20dp"
+                            android:textSize="18dp"
                             android:textStyle="bold"
                             android:text="@string/details_plotSummary" />
 
@@ -267,7 +267,7 @@
                                 android:maxLines="100"
                                 android:scrollHorizontally="false"
                                 android:text="@string/details_plot"
-                                android:textSize="18dp" />
+                                android:textSize="16dp" />
                         </TableLayout>
                     </LinearLayout>
                 </TableRow>
