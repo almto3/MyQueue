@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 
@@ -16,27 +17,40 @@ import android.widget.RelativeLayout;
 
 
 public class WelcomeActivity extends Activity {
+
+    boolean firsttime = true;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.welcome_layout);
-        setListener();
         Log.d("WelcomeActivity", "onCreate");
-        Log.i("WelcomeActivity", "onCreate");
+
+        if (firsttime) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.welcome_layout);
+            setListener();
+            firsttime = false;      //need to log this in the prefs
+        }
+        else{
+            openBrowse();
+        }
+
     }
 
     private void setListener(){
         Log.d("WelcomeActivity", "setListener");
-        RelativeLayout rlayout = (RelativeLayout) findViewById(R.id.screen0);
-        rlayout.setOnClickListener(new View.OnClickListener() {
+        LinearLayout llayout = (LinearLayout) findViewById(R.id.screen0);
+        llayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("WelcomeActivity", "setListener");
-                startActivity(new Intent(WelcomeActivity.this, SelectSourcesActivity.class));
-                //return true;
+                openBrowse();
             }
 
         });
 
+    }
+
+    private void openBrowse(){
+        startActivity(new Intent(WelcomeActivity.this, SelectSourcesActivity.class));
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/screen0"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -18,6 +18,15 @@
         android:textColor="@android:color/white" />
 
     <TextView
+        android:id="@+id/alpha_text"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:gravity="center"
+        android:text="@string/alpha"
+        android:textSize="40sp"
+        android:textColor="@android:color/white" />
+
+    <TextView
         android:id="@+id/welcome_text"
         android:layout_width="match_parent"
         android:layout_height="324dp"
@@ -27,4 +36,4 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@android:color/white" />
-</RelativeLayout>
+</LinearLayout>

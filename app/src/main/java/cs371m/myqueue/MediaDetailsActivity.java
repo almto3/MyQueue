@@ -1,7 +1,6 @@
 package cs371m.myqueue;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +14,7 @@ import android.widget.Toast;
 
 
 public class MediaDetailsActivity extends AppCompatActivity {
-
+    /*
     Integer[] imageIDs={
             R.drawable.martian_poster,
             R.drawable.netflix,
@@ -23,7 +22,11 @@ public class MediaDetailsActivity extends AppCompatActivity {
             R.drawable.hulu,
             R.drawable.bookmark
     };
+    meh?
+    */
     private final String TAG = "MediaDetailsActivity";
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
