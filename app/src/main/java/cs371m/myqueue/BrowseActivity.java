@@ -1,11 +1,14 @@
 package cs371m.myqueue;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -14,7 +17,7 @@ import java.util.ArrayList;
 
 
 
-public class BrowseActivity extends Activity {
+public class BrowseActivity extends AppCompatActivity {
 
     private GridView gridView;
     private GridViewAdapter gridAdapter;
@@ -33,7 +36,7 @@ public class BrowseActivity extends Activity {
                 ImageItem item = (ImageItem) parent.getItemAtPosition(position);
 
                 //Create intent
-                Intent intent = new Intent(BrowseActivity.this, ItemDetailsActivity.class);
+                Intent intent = new Intent(BrowseActivity.this, MediaDetailsActivity.class);
                 //intent.putExtra("title", item.getTitle());
                 //intent.putExtra("image", item.getImage());
 
@@ -41,6 +44,35 @@ public class BrowseActivity extends Activity {
                 startActivity(intent);
             }
         });
+
+        Toolbar browseToolbar = (Toolbar)findViewById(R.id.browse_toolbar);
+        setSupportActionBar(browseToolbar);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_browse:
+                startActivity(new Intent(this, BrowseActivity.class));
+                return true;
+            case R.id.menu_bookmarks:
+                startActivity(new Intent(this, BrowseActivity.class));
+                return true;
+            case R.id.menu_search:
+                startActivity(new Intent(this, SearchActivity.class));
+                return true;
+            case R.id.menu_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     /**

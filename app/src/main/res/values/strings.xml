@@ -16,9 +16,15 @@
     <string name="details_rottenScore">92%</string>
     <string name="details_title">The Martian (2015)</string>
 
+    <string name="search_not_implemented">Search screen not implemented
+    for alpha release.</string>
+
     <string name="screenx_text">Hey! we are erin, saleh and kaivan. Computer Science students at the University of Texas atAustin.\nAnd this is our first experince at building an Android app</string>
-    <string name="menu_refresh">Refresh</string>
-    <string name="menu_about">About Me</string>
+
+    <string name="menu_browse">Browse</string>
+    <string name="menu_bookmarks">Bookmarks</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_settings">Settings</string>
     <string name="menu_sortBy">Sort By:</string>
     <string name="menu_genre">Genre:</string>
 
