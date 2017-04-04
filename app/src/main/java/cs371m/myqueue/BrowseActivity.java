@@ -22,7 +22,7 @@ public class BrowseActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.browse_layout);
 
         gridView = (GridView) findViewById(R.id.gridView);
         gridAdapter = new GridViewAdapter(this, R.layout.grid_item_layout, getData());
@@ -33,9 +33,9 @@ public class BrowseActivity extends Activity {
                 ImageItem item = (ImageItem) parent.getItemAtPosition(position);
 
                 //Create intent
-                Intent intent = new Intent(BrowseActivity.this, GridDetailsActivity.class);
-                intent.putExtra("title", item.getTitle());
-                intent.putExtra("image", item.getImage());
+                Intent intent = new Intent(BrowseActivity.this, ItemDetailsActivity.class);
+                //intent.putExtra("title", item.getTitle());
+                //intent.putExtra("image", item.getImage());
 
                 //Start details activity
                 startActivity(intent);
