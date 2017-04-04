@@ -34,7 +34,7 @@ public class SelectSourcesActivity extends AppCompatActivity {
             }
         });
 
-        Toolbar screen1Toolbar = (Toolbar)findViewById(R.id.screen1_toolbar);
+        Toolbar screen1Toolbar = (Toolbar)findViewById(R.id.select_sources_toolbar);
         setSupportActionBar(screen1Toolbar);
 
 }
