@@ -37,8 +37,9 @@ public class BrowseActivity extends AppCompatActivity {
 
                 //Create intent
                 Intent intent = new Intent(BrowseActivity.this, MediaDetailsActivity.class);
-                //intent.putExtra("title", item.getTitle());
-                //intent.putExtra("image", item.getImage());
+                //added the following two lines
+                intent.putExtra("title", item.getTitle());
+                intent.putExtra("image", item.getImage());
 
                 //Start details activity
                 startActivity(intent);
@@ -81,7 +82,10 @@ public class BrowseActivity extends AppCompatActivity {
         TypedArray imgs = getResources().obtainTypedArray(R.array.image_ids);
         for (int i = 0; i < imgs.length(); i++) {
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imgs.getResourceId(i, -1));
-            imageItems.add(new ImageItem(bitmap, "Image#" + i));
+            String movie_name = imgs.getString(i).replace("res/drawable/", "");
+            movie_name = movie_name.replace(".jpg","");
+            movie_name = movie_name.replace("_"," ");
+            imageItems.add(new ImageItem(bitmap, movie_name));
         }
         return imageItems;
     }

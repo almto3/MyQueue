@@ -1,12 +1,14 @@
 package cs371m.myqueue;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 
 public class MediaDetailsActivity extends AppCompatActivity {
@@ -25,6 +27,14 @@ public class MediaDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.media_details_layout);
         Log.d("MediaDetailsActivity", "onCreate");
         Log.i("MediaDetailsActivity", "onCreate");
+
+        //added
+        String title = getIntent().getStringExtra("title");
+        Bitmap bitmap = getIntent().getParcelableExtra("image");
+
+        ImageView imageView = (ImageView) findViewById(R.id.image);
+        imageView.setImageBitmap(bitmap);
+        //until here, breaks because of this
 
         Toolbar itemDetailsToolbar = (Toolbar)findViewById(R.id.item_details_toolbar);
         setSupportActionBar(itemDetailsToolbar);
