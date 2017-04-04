@@ -38,8 +38,8 @@ public class BrowseActivity extends AppCompatActivity {
                 //Create intent
                 Intent intent = new Intent(BrowseActivity.this, MediaDetailsActivity.class);
                 //added the following two lines
-                intent.putExtra("title", item.getTitle());
-                intent.putExtra("image", item.getImage());
+ //               intent.putExtra("title", item.getTitle());
+ //               intent.putExtra("image", item.getImage());
 
                 //Start details activity
                 startActivity(intent);
