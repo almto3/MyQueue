@@ -34,15 +34,7 @@ public class BrowseActivity extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 ImageItem item = (ImageItem) parent.getItemAtPosition(position);
-
-                //Create intent
                 Intent intent = new Intent(BrowseActivity.this, MediaDetailsActivity.class);
-                //added the following two lines
-
- //               intent.putExtra("title", item.getTitle());
- //               intent.putExtra("image", item.getImage());
-
-                //Start details activity
                 startActivity(intent);
             }
         });

@@ -19,7 +19,7 @@
     <string name="search_not_implemented">Search screen not implemented
     for alpha release.</string>
 
-    <string name="screenx_text">Hey from our Android development team! We are Erin, Saleh and Kaivan. Computer Science students at the University of Texas at Austin. This is our first Android app.</string>
+    <string name="about">Hey from our Android development team! We are Erin, Saleh and Kaivan. Computer Science students at the University of Texas at Austin. This is our first Android app.</string>
 
     <string name="menu_browse">Browse</string>
     <string name="menu_bookmarks">Bookmarks</string>

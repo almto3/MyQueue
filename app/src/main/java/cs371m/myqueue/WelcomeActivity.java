@@ -29,7 +29,6 @@ public class WelcomeActivity extends Activity {
         Log.d("WelcomeActivity", "setListener");
         RelativeLayout rlayout = (RelativeLayout) findViewById(R.id.screen0);
         rlayout.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 Log.d("WelcomeActivity", "setListener");
