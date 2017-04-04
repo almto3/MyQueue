@@ -30,7 +30,7 @@ public class SelectSourcesActivity extends AppCompatActivity {
         continue_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
-                startActivity(new Intent(SelectSourcesActivity.this, screen2.class));
+                startActivity(new Intent(SelectSourcesActivity.this, BrowseActivity.class));
             }
         });
 
