@@ -29,4 +29,23 @@
     <!-- descriptions -->
     <string name="desc_favorites">Favorites</string>
     <string name="desc_rating">Rating</string>
+
+    <!-- images for grid -->
+    <string-array name="image_ids">
+        <item>@drawable/sample_1</item>
+        <item>@drawable/sample_2</item>
+        <item>@drawable/sample_3</item>
+        <item>@drawable/sample_4</item>
+        <item>@drawable/sample_5</item>
+        <item>@drawable/sample_6</item>
+        <item>@drawable/sample_7</item>
+        <item>@drawable/sample_1</item>
+        <item>@drawable/sample_2</item>
+        <item>@drawable/sample_3</item>
+        <item>@drawable/sample_4</item>
+        <item>@drawable/sample_5</item>
+        <item>@drawable/sample_6</item>
+        <item>@drawable/sample_7</item>
+    </string-array>
+
 </resources>
