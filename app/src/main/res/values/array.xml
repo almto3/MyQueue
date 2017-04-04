@@ -7,4 +7,9 @@
         <item>Amazon Prime (N/A)</item>
     </array>
 
+    <array name="settings_options">
+        <item>Select Media Services</item>
+        <item>About</item>
+    </array>
+
 </resources>
