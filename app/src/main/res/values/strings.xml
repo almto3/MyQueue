@@ -7,8 +7,6 @@
     <string name="hulu_selected">hulu_selected</string>
     <string name="amazon_selected">amazon_selected</string>
 
-    <string name="alpha">(Alpha Release)</string>
-
     <string name="welcome_text">Tap anywhere to continue</string>
 
     <string name="select_source_prompt">Please select the services you would like to see movies and TV shows from:</string>
