@@ -115,18 +115,27 @@ public class MediaDetailsActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
         switch (item.getItemId()) {
             case R.id.menu_browse:
-                startActivity(new Intent(this, BrowseActivity.class));
+                intent = new Intent(this, BrowseActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
                 return true;
             case R.id.menu_bookmarks:
-                startActivity(new Intent(this, BrowseActivity.class));
+                intent = new Intent(this, BrowseActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
                 return true;
             case R.id.menu_search:
-                startActivity(new Intent(this, SearchActivity.class));
+                intent = new Intent(this, SearchActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
                 return true;
             case R.id.menu_settings:
-                startActivity(new Intent(this, SettingsActivity.class));
+                intent = new Intent(this, SettingsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

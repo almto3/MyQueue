@@ -20,11 +20,15 @@
     <string name="details_bookmark">Bookmark</string>
 
     <!-- non static, should be changed case by case -->
-    <string name="details_plot">Four denizers in the world of high-finance predict the credit and housing bubble collapse of the mid-2000s, and decide to take on the big banks for their greed and lack of foresight.</string>
+    <string name="details_plot">Four denizers in the world of high-finance predict the credit
+        and housing bubble collapse of the mid-2000s, and decide to take on the big banks for their
+        greed and lack of foresight.</string>
     <string name="details_rottenScore">88%</string>
     <string name="details_title">The Big Short (2015)</string>
 
-    <string name="search_not_implemented">The search feature isn\'t ready for aplha release</string>
+    <string name="bookmarks_not_implemented">Bookmark feature is not yet supported please enjoy the
+    browsing page for now</string>
+    <string name="search_not_implemented">Search feature is not yet supported</string>
 
     <string name="about">Hey from our Android development team! We are Erin, Saleh and Kaivan. Computer Science students at the University of Texas at Austin. This is our first Android app.</string>
 
