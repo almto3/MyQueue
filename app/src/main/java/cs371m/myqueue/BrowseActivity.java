@@ -6,14 +6,18 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 
@@ -44,7 +48,23 @@ public class BrowseActivity extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 ImageItem item = (ImageItem) parent.getItemAtPosition(position);
+
+                try {
+                    File file = new File(Environment.getExternalStorageDirectory() + "/imageBitmap" + ".png");
+                    Log.e("file: ", file.toString());
+                    FileOutputStream stream = new FileOutputStream(file);
+                    item.getImage().compress(Bitmap.CompressFormat.JPEG, 50, stream);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+
+                //Create intent
                 Intent intent = new Intent(BrowseActivity.this, MediaDetailsActivity.class);
+                intent.putExtra("title", item.getTitle());
+                intent.putExtra("image", "imageBitmap");
+
                 startActivity(intent);
             }
         });
@@ -88,6 +108,7 @@ public class BrowseActivity extends AppCompatActivity {
             String movie_name = imgs.getString(i).replace("res/drawable/", "");
             movie_name = movie_name.replace(".jpg","");
             movie_name = movie_name.replace("_"," ");
+            movie_name = movie_name.toUpperCase();
             imageItems.add(new ImageItem(bitmap, movie_name));
         }
         return imageItems;
