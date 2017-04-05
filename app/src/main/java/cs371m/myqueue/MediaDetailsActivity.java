@@ -32,12 +32,16 @@ public class MediaDetailsActivity extends AppCompatActivity {
         String path = Environment.getExternalStorageDirectory() + "/"+ title + ".png";
         Bitmap bitmap = BitmapFactory.decodeFile(path);
 
+        ImageView imageView = (ImageView) findViewById(R.id.movie_poster);
+        imageView.setImageBitmap(bitmap);
+
         String movie_title = getIntent().getStringExtra("title");
         TextView titleTextView = (TextView) findViewById(R.id.item_details_title);
         titleTextView.setText(movie_title);
 
-        ImageView imageView = (ImageView) findViewById(R.id.movie_poster);
-        imageView.setImageBitmap(bitmap);
+        String rotten = getIntent().getStringExtra("rotten");
+        TextView rottenTextView = (TextView) findViewById(R.id.item_details_rotten_score);
+        rottenTextView.setText(rotten);
 
         Toolbar itemDetailsToolbar = (Toolbar)findViewById(R.id.item_details_toolbar);
         setSupportActionBar(itemDetailsToolbar);

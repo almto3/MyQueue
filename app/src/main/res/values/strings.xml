@@ -57,10 +57,18 @@
         <item>@drawable/spectral_2016</item>
     </string-array>
 
-    <!-- Rotten tomatoes score
+    <!-- Rotten tomatoes score -->
     <string-array name="rotten_tomatoes_score">
-        <string>""</string>
+        <item>"88%"</item>
+        <item>"96%"</item>
+        <item>"87%"</item>
+        <item>"87%"</item>
+        <item>"90%"</item>
+        <item>"95%"</item>
+        <item>"56%"</item>
+        <item>"96%"</item>
+        <item>"25%"</item>
+        <item>"80%"</item>
     </string-array>
-    -->
 
 </resources>
