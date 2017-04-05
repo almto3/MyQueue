@@ -7,6 +7,8 @@
     <string name="hulu_selected">hulu_selected</string>
     <string name="amazon_selected">amazon_selected</string>
 
+    <string name="alpha">(Alpha Release)</string>
+
     <string name="welcome_text">Tap anywhere to continue</string>
 
     <string name="select_source_prompt">Please select the services you would like to see movies and TV shows from:</string>
@@ -22,10 +24,9 @@
     <string name="details_rottenScore">88%</string>
     <string name="details_title">The Big Short (2015)</string>
 
-    <string name="search_not_implemented">Search screen not implemented
-    for alpha release.</string>
+    <string name="search_not_implemented">The search feature isn\'t ready for aplha release</string>
 
-    <string name="screenx_text">Hey from our Android development team! We are Erin, Saleh and Kaivan. Computer Science students at the University of Texas at Austin. This is our first Android app.</string>
+    <string name="about">Hey from our Android development team! We are Erin, Saleh and Kaivan. Computer Science students at the University of Texas at Austin. This is our first Android app.</string>
 
     <string name="menu_browse">Browse</string>
     <string name="menu_bookmarks">Bookmarks</string>

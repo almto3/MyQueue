@@ -6,8 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
+import android.widget.Toast;
 
 /**
  * Created by erinjensby on 4/3/17.
@@ -38,6 +37,7 @@ public class SearchActivity extends AppCompatActivity {
                 startActivity(new Intent(this, BrowseActivity.class));
                 return true;
             case R.id.menu_bookmarks:
+                Toast.makeText(getBaseContext(), "Bookmark feature isn't fully supported right now, we'll take you to browse instead :)", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(this, BrowseActivity.class));
                 return true;
             case R.id.menu_search:

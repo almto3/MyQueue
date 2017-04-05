@@ -17,11 +17,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Demonstration of using fragments to implement different activity layouts.
- * This sample provides a different layout (and activity flow) when run in
- * landscape.
- */
 public class SelectSourcesActivity extends AppCompatActivity {
 
     private static SharedPreferences sharedPrefs;
@@ -35,7 +30,6 @@ public class SelectSourcesActivity extends AppCompatActivity {
         final Button continue_button = (Button) findViewById(R.id.sources_continue);
         continue_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Perform action on click
                 startActivity(new Intent(SelectSourcesActivity.this, BrowseActivity.class));
             }
         });
@@ -125,6 +119,7 @@ public class SelectSourcesActivity extends AppCompatActivity {
 
         void addSource(int index) {
             mCurCheckPosition = index;
+
             SharedPreferences.Editor edit = sharedPrefs.edit();
 
             switch (mCurCheckPosition) {
