@@ -61,7 +61,7 @@
                                 android:layout_weight="1"
                                 android:padding="10dp"
                                 android:adjustViewBounds="true"
-                                android:src="@drawable/big_short"/>
+                                android:src="@drawable/big_short_2015"/>
                         </LinearLayout>
 
                         <LinearLayout

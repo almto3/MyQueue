@@ -2,13 +2,18 @@ package cs371m.myqueue;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.io.File;
 
 
 public class MediaDetailsActivity extends AppCompatActivity {
@@ -25,16 +30,18 @@ public class MediaDetailsActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.media_details_layout);
-        Log.d("MediaDetailsActivity", "onCreate");
         Log.i("MediaDetailsActivity", "onCreate");
 
-        //added
-/*        String title = getIntent().getStringExtra("title");
-        Bitmap bitmap = getIntent().getParcelableExtra("image");
-*/
-        //ImageView imageView = (ImageView) findViewById(R.id.image);
-        //imageView.setImageBitmap(bitmap);
-        //until here, breaks because of this
+        String title = getIntent().getStringExtra("image");
+        String path = Environment.getExternalStorageDirectory() + "/"+ title + ".png";
+        Bitmap bitmap = BitmapFactory.decodeFile(path);
+
+        String movie_title = getIntent().getStringExtra("title");
+        TextView titleTextView = (TextView) findViewById(R.id.item_details_title);
+        titleTextView.setText(movie_title);
+
+        ImageView imageView = (ImageView) findViewById(R.id.movie_poster);
+        imageView.setImageBitmap(bitmap);
 
         Toolbar itemDetailsToolbar = (Toolbar)findViewById(R.id.item_details_toolbar);
         setSupportActionBar(itemDetailsToolbar);

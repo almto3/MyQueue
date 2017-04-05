@@ -2,9 +2,9 @@
 <resources>
     <array name="sources">
         <item>Netflix</item>
-        <item>Hulu (N/A)</item>
-        <item>HBO (N/A)</item>
-        <item>Amazon Prime (N/A)</item>
+        <item>Hulu</item>
+        <item>HBO</item>
+        <item>Amazon Prime</item>
     </array>
 
     <array name="settings_options">
