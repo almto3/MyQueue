@@ -1,0 +1,49 @@
+Team Member Names and UT-EID:
+Saleh Alghusson - soa322
+Erin Jensby - elj467
+Kaivan Shah - kks942
+
+Special Instructions:
+- The app should function without any prior pre requirements.  One needs an
+  android phone with at least android 4.0 while the app is targeted for android 
+  6.0.
+
+Features/Use Cases Completed:
+- Welcome Screen - greets user on their first time opening  the app after 
+  download
+- Select Sources Screen - shown after the Welcome Screen on first use and 
+  available in settings. User selects the sources they would like to see media 
+  from.
+- Browse Screen - used to browse Movies and TV shows.  Since we are not yet 
+  pulling from the API, this screen shows 8 hard-coded posters of movies from 
+  Netflix. Clicking on any of these movies takes you to their detail activity.
+- Movie/Show Description - This shows the user the movie poster, name, release 
+  year, rotten tomato sources, plot summary for a selected Movie or TV show.  
+  This page is dynamic but again since we are not yet pulling from the API the 
+  information is hard coded.
+- Settings Screen - Access to reselect sources and AboutActivity.
+
+Classes and Major Chunks of Code Obtained From Other Sources:
+- Dr. Michael Scott’s TicTacToe code was referenced when writing about_layout
+- SourcesFragment class inside SelectSourcesActivity and SettingsFragment class 
+  inside Settings activity were written by heavily referencing TitlesFragment 
+  class in the FragmentExample code on Dr. Michael Scott’s github.
+- Referenced this when adding Toolbar 
+  https://developer.android.com/training/appbar/setting-up.html#add-toolbar 
+- Layout help came from stackoverflow.com, especially in 
+  media_details_layout.xml.
+- Created the GridView Layout by following this tutorial and borrowed ImageItem   & GridViewAdapter: 
+  http://stacktips.com/tutorials/android/android-gridview-example-building-image-gallery-in-android
+- To fix the failed-binder-transaction, I took help of this stackoverflow post: 
+  http://stackoverflow.com/questions/36007540/failed-binder-transaction-in-android
+
+
+Classes and Major Chunks of Code Completed ourselves:
+- SelectSourcesActivity & select_sources_layout.xml (aside from SourcesFragment 
+  class)
+- SettingsActivity & settings_layout.xml (aside from Settings Fragment class)
+- WelcomeActivity & welcome_layout.xml
+- AboutActivity
+- SearchActivity & search_layout.xml
+- MediaDetailsActivity
+- BrowseActivity & browse_layout.xml and grid_item_layout.xml
