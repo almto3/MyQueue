@@ -58,7 +58,7 @@ public class SettingsActivity extends AppCompatActivity {
      * data to the user as appropriate based on the current UI layout.
      */
 
-    public static class TitlesFragment extends ListFragment {
+    public static class SettingsFragment extends ListFragment {
 
         int mCurCheckPosition = 0;
 
