@@ -34,7 +34,7 @@ public class SearchActivity extends AppCompatActivity {
                 startActivity(new Intent(this, BrowseActivity.class));
                 return true;
             case R.id.menu_bookmarks:
-                Toast.makeText(getBaseContext(), "Bookmark feature isn't fully supported right now, we'll take you to browse instead :)", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), R.string.bookmart_support, Toast.LENGTH_LONG).show();
                 startActivity(new Intent(this, BrowseActivity.class));
                 return true;
             case R.id.menu_search:
