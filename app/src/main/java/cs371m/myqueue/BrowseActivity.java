@@ -47,7 +47,9 @@ public class BrowseActivity extends AppCompatActivity {
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+
                 ImageItem item = (ImageItem) parent.getItemAtPosition(position);
+                TypedArray rotten = getResources().obtainTypedArray(R.array.rotten_tomatoes_score);
 
                 try {
                     File file = new File(Environment.getExternalStorageDirectory() + "/imageBitmap" + ".png");
@@ -64,6 +66,7 @@ public class BrowseActivity extends AppCompatActivity {
                 Intent intent = new Intent(BrowseActivity.this, MediaDetailsActivity.class);
                 intent.putExtra("title", item.getTitle());
                 intent.putExtra("image", "imageBitmap");
+                intent.putExtra("rotten",rotten.getString(position));
 
                 startActivity(intent);
             }
@@ -105,6 +108,7 @@ public class BrowseActivity extends AppCompatActivity {
         TypedArray imgs = getResources().obtainTypedArray(R.array.image_ids);
         for (int i = 0; i < imgs.length(); i++) {
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imgs.getResourceId(i, -1));
+
             String movie_name = imgs.getString(i).replace("res/drawable/", "");
             movie_name = movie_name.replace(".jpg","");
             movie_name = movie_name.replace("_"," ");
