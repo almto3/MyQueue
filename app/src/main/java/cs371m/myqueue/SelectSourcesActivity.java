@@ -75,7 +75,7 @@ public class SelectSourcesActivity extends AppCompatActivity {
              * data to the user as appropriate based on the current UI layout.
              */
 
-    public static class TitlesFragment extends ListFragment {
+    public static class SourcesFragment extends ListFragment {
 
         int mCurCheckPosition = 0;
 

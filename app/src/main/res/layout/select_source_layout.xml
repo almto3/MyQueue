@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="36dp">
-        <fragment class="cs371m.myqueue.SelectSourcesActivity$TitlesFragment"
+        <fragment class="cs371m.myqueue.SelectSourcesActivity$SourcesFragment"
             android:id="@+id/titles"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
