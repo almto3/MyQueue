@@ -1,11 +1,13 @@
 package cs371m.myqueue;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -14,11 +16,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
-
 
 
 public class BrowseActivity extends AppCompatActivity {
@@ -29,6 +29,16 @@ public class BrowseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        boolean previouslyStarted = sharedPrefs.getBoolean(getString(R.string.pref_previously_started), false);
+        if(!previouslyStarted) {
+            SharedPreferences.Editor edit = sharedPrefs.edit();
+            edit.putBoolean(getString(R.string.pref_previously_started), true);
+            edit.commit();
+            startActivity(new Intent(BrowseActivity.this, WelcomeActivity.class));
+        }
+
         setContentView(R.layout.browse_layout);
 
         gridView = (GridView) findViewById(R.id.gridView);
@@ -55,7 +65,6 @@ public class BrowseActivity extends AppCompatActivity {
                 intent.putExtra("title", item.getTitle());
                 intent.putExtra("image", "imageBitmap");
 
-                //Start details activity
                 startActivity(intent);
             }
         });

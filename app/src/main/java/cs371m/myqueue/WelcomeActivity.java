@@ -5,36 +5,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.RelativeLayout;
-
-
-/**
- * Created by scottm on 6/7/2016.
- *
- * A simple about activity.
- */
+import android.widget.LinearLayout;
 
 
 public class WelcomeActivity extends Activity {
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d("WelcomeActivity", "onCreate");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_layout);
         setListener();
-        Log.d("WelcomeActivity", "onCreate");
-        Log.i("WelcomeActivity", "onCreate");
     }
 
     private void setListener(){
         Log.d("WelcomeActivity", "setListener");
-        RelativeLayout rlayout = (RelativeLayout) findViewById(R.id.screen0);
-        rlayout.setOnClickListener(new View.OnClickListener() {
-
+        LinearLayout lLayout = (LinearLayout) findViewById(R.id.welcome_layout);
+        lLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("WelcomeActivity", "setListener");
                 startActivity(new Intent(WelcomeActivity.this, SelectSourcesActivity.class));
-                //return true;
             }
 
         });
