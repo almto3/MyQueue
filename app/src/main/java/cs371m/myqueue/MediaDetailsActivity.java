@@ -75,7 +75,8 @@ public class MediaDetailsActivity extends AppCompatActivity {
         img1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d(TAG, "onClick() - item_details_service0");
-                Toast.makeText(getBaseContext(), "Hulu isn't supported right now", Toast.LENGTH_LONG).show();
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.hulu.com"));
+                startActivity(browserIntent);
             }
         });
 
@@ -94,7 +95,8 @@ public class MediaDetailsActivity extends AppCompatActivity {
         img3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d(TAG, "onClick() - item_details_service2");
-                Toast.makeText(getBaseContext(), "HBO isn't supported right now", Toast.LENGTH_LONG).show();
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.hbo.com"));
+                startActivity(browserIntent);
 
             }
         });
@@ -103,7 +105,8 @@ public class MediaDetailsActivity extends AppCompatActivity {
         img4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d(TAG, "onClick() - item_details_service3");
-                Toast.makeText(getBaseContext(), "amazon prime isn't supported right now", Toast.LENGTH_LONG).show();
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.smile.amazon..com"));
+                startActivity(browserIntent);
 
             }
         });

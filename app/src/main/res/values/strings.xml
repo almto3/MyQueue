@@ -88,4 +88,6 @@
         <item>"80%"</item>
     </string-array>
 
+    <string name="bookmart_support">Bookmark feature isn\'t fully supported right now, we\'ll take you to browse instead :)</string>
+
 </resources>
