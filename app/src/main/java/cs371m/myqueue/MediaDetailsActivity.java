@@ -14,18 +14,8 @@ import android.widget.Toast;
 
 
 public class MediaDetailsActivity extends AppCompatActivity {
-    /*
-    Integer[] imageIDs={
-            R.drawable.martian_poster,
-            R.drawable.netflix,
-            R.drawable.hbo,
-            R.drawable.hulu,
-            R.drawable.bookmark
-    };
-    meh?
-    */
-    private final String TAG = "MediaDetailsActivity";
 
+    private final String TAG = "MediaDetailsActivity";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,7 +23,6 @@ public class MediaDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.media_details_layout);
         Log.d("MediaDetailsActivity", "onCreate");
         Log.i("MediaDetailsActivity", "onCreate");
-
 
         Toolbar itemDetailsToolbar = (Toolbar)findViewById(R.id.item_details_toolbar);
         setSupportActionBar(itemDetailsToolbar);
@@ -95,7 +84,6 @@ public class MediaDetailsActivity extends AppCompatActivity {
 
             }
         });
-
 
     }
 

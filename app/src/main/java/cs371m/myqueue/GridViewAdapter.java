@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
 
+
 public class GridViewAdapter extends ArrayAdapter<ImageItem> {
 
     private Context context;
@@ -38,7 +39,6 @@ public class GridViewAdapter extends ArrayAdapter<ImageItem> {
         } else {
             holder = (ViewHolder) row.getTag();
         }
-
 
         ImageItem item = data.get(position);
         holder.imageTitle.setText(item.getTitle());

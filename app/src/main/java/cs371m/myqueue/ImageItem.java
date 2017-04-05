@@ -2,6 +2,7 @@ package cs371m.myqueue;
 
 import android.graphics.Bitmap;
 
+
 public class ImageItem {
     private Bitmap image;
     private String title;

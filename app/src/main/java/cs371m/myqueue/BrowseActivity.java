@@ -1,6 +1,5 @@
 package cs371m.myqueue;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
@@ -15,9 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-
 import java.util.ArrayList;
-
 
 
 public class BrowseActivity extends AppCompatActivity {

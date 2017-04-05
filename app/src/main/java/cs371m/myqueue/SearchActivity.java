@@ -8,9 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-/**
- * Created by erinjensby on 4/3/17.
- */
 
 public class SearchActivity extends AppCompatActivity {
     @Override

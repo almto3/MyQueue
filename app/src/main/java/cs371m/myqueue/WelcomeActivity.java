@@ -6,51 +6,30 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-
-
-/**
- * Created by scottm on 6/7/2016.
- *
- * A simple about activity.
- */
 
 
 public class WelcomeActivity extends Activity {
-
-    boolean firsttime = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log.d("WelcomeActivity", "onCreate");
 
-        if (firsttime) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.welcome_layout);
-            setListener();
-            firsttime = false;      //need to log this in the prefs
-        }
-        else{
-            openBrowse();
-        }
-
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.welcome_layout);
+        setListener();
     }
 
     private void setListener(){
         Log.d("WelcomeActivity", "setListener");
-        LinearLayout llayout = (LinearLayout) findViewById(R.id.screen0);
-        llayout.setOnClickListener(new View.OnClickListener() {
+        LinearLayout lLayout = (LinearLayout) findViewById(R.id.welcome_layout);
+        lLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("WelcomeActivity", "setListener");
-                openBrowse();
+                startActivity(new Intent(WelcomeActivity.this, SelectSourcesActivity.class));
             }
 
         });
 
-    }
-
-    private void openBrowse(){
-        startActivity(new Intent(WelcomeActivity.this, SelectSourcesActivity.class));
     }
 }
