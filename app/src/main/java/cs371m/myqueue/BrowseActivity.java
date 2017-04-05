@@ -1,10 +1,13 @@
 package cs371m.myqueue;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -25,6 +28,16 @@ public class BrowseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        boolean previouslyStarted = sharedPrefs.getBoolean(getString(R.string.pref_previously_started), false);
+        if(!previouslyStarted) {
+            SharedPreferences.Editor edit = sharedPrefs.edit();
+            edit.putBoolean(getString(R.string.pref_previously_started), true);
+            edit.commit();
+            startActivity(new Intent(BrowseActivity.this, WelcomeActivity.class));
+        }
+
         setContentView(R.layout.browse_layout);
 
         gridView = (GridView) findViewById(R.id.gridView);

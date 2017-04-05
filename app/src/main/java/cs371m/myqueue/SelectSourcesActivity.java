@@ -2,7 +2,9 @@ package cs371m.myqueue;
 
 import android.app.ListFragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -22,6 +24,8 @@ import java.util.List;
  */
 public class SelectSourcesActivity extends AppCompatActivity {
 
+    private static SharedPreferences sharedPrefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +39,8 @@ public class SelectSourcesActivity extends AppCompatActivity {
                 startActivity(new Intent(SelectSourcesActivity.this, BrowseActivity.class));
             }
         });
+
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
         Toolbar selectSourcesToolbar = (Toolbar)findViewById(R.id.select_sources_toolbar);
         setSupportActionBar(selectSourcesToolbar);
@@ -97,6 +103,12 @@ public class SelectSourcesActivity extends AppCompatActivity {
             }
 
             getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+
+            getListView().setItemChecked(0, sharedPrefs.getBoolean(getString(R.string.netflix_selected), false));
+            getListView().setItemChecked(1, sharedPrefs.getBoolean(getString(R.string.hbo_selected), false));
+            getListView().setItemChecked(2, sharedPrefs.getBoolean(getString(R.string.hulu_selected), false));
+            getListView().setItemChecked(3, sharedPrefs.getBoolean(getString(R.string.amazon_selected), false));
+
         }
 
 
@@ -113,8 +125,46 @@ public class SelectSourcesActivity extends AppCompatActivity {
 
         void addSource(int index) {
             mCurCheckPosition = index;
+            SharedPreferences.Editor edit = sharedPrefs.edit();
 
-            // Not yet implemented, currently uses only Netflix automatically
+            switch (mCurCheckPosition) {
+                case 0:
+                    boolean netflix_selected = sharedPrefs.getBoolean(getString(R.string.netflix_selected), false);
+                    if(!netflix_selected) {
+                        edit.putBoolean(getString(R.string.netflix_selected), true);
+                    } else {
+                        edit.putBoolean(getString(R.string.netflix_selected), false);
+                    }
+                    edit.apply();
+                    break;
+                case 1:
+                    boolean hbo_selected = sharedPrefs.getBoolean(getString(R.string.hbo_selected), false);
+                    if(!hbo_selected) {
+                        edit.putBoolean(getString(R.string.hbo_selected), true);
+                    } else {
+                        edit.putBoolean(getString(R.string.hbo_selected), false);
+                    }
+                    edit.apply();
+                    break;
+                case 2:
+                    boolean hulu_selected = sharedPrefs.getBoolean(getString(R.string.hulu_selected), false);
+                    if(!hulu_selected) {
+                        edit.putBoolean(getString(R.string.hulu_selected), true);
+                    } else {
+                        edit.putBoolean(getString(R.string.hulu_selected), false);
+                    }
+                    edit.apply();
+                    break;
+                case 3:
+                    boolean amazon_selected = sharedPrefs.getBoolean(getString(R.string.amazon_selected), false);
+                    if(!amazon_selected) {
+                        edit.putBoolean(getString(R.string.amazon_selected), true);
+                    } else {
+                        edit.putBoolean(getString(R.string.amazon_selected), false);
+                    }
+                    edit.apply();
+                    break;
+            }
 
         }
     }

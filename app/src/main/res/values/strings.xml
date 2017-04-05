@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">MyQueue</string>
 
+    <string name="pref_previously_started">previously_started</string>
+    <string name="netflix_selected">netflix_selected</string>
+    <string name="hbo_selected">hbo_selected</string>
+    <string name="hulu_selected">hulu_selected</string>
+    <string name="amazon_selected">amazon_selected</string>
+
     <string name="welcome_text">Tap anywhere to continue</string>
 
     <string name="select_source_prompt">Please select the services you would like to see movies and TV shows from:</string>
