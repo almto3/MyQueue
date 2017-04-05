@@ -29,18 +29,25 @@ public class SearchActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
         switch (item.getItemId()) {
             case R.id.menu_browse:
-                startActivity(new Intent(this, BrowseActivity.class));
+                intent = new Intent(this, BrowseActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+                startActivity(intent);
                 return true;
             case R.id.menu_bookmarks:
-                Toast.makeText(getBaseContext(), "Bookmark feature isn't fully supported right now, we'll take you to browse instead :)", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(this, BrowseActivity.class));
+                Toast.makeText(getBaseContext(), R.string.bookmarks_not_implemented, Toast.LENGTH_LONG).show();
+                intent = new Intent(this, BrowseActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+                startActivity(intent);
                 return true;
             case R.id.menu_search:
                 return true;
             case R.id.menu_settings:
-                startActivity(new Intent(this, SettingsActivity.class));
+                intent = new Intent(this, SettingsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,15 +38,23 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
         switch (item.getItemId()) {
             case R.id.menu_browse:
-                startActivity(new Intent(this, BrowseActivity.class));
+                intent = new Intent(this, BrowseActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+                startActivity(intent);
                 return true;
             case R.id.menu_bookmarks:
-                startActivity(new Intent(this, BrowseActivity.class));
+                Toast.makeText(getBaseContext(), R.string.bookmarks_not_implemented, Toast.LENGTH_LONG).show();
+                intent = new Intent(this, BrowseActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+                startActivity(intent);
                 return true;
             case R.id.menu_search:
-                startActivity(new Intent(this, SearchActivity.class));
+                intent = new Intent(this, SearchActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+                startActivity(intent);
                 return true;
             case R.id.menu_settings:
                 return true;

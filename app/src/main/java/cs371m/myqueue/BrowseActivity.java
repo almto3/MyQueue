@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -69,7 +71,7 @@ public class BrowseActivity extends AppCompatActivity {
                 intent.putExtra("image", "imageBitmap");
                 intent.putExtra("rotten",rotten.getString(position));
                 intent.putExtra("movie_plot",movie_plot.getString(position));
-
+                intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
                 startActivity(intent);
             }
         });
@@ -86,16 +88,22 @@ public class BrowseActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
         switch (item.getItemId()) {
             case R.id.menu_browse:
                 return true;
             case R.id.menu_bookmarks:
+                Toast.makeText(getBaseContext(), R.string.bookmarks_not_implemented, Toast.LENGTH_LONG).show();
                 return true;
             case R.id.menu_search:
-                startActivity(new Intent(this, SearchActivity.class));
+                intent = new Intent(this, SearchActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+                startActivity(intent);
                 return true;
             case R.id.menu_settings:
-                startActivity(new Intent(this, SettingsActivity.class));
+                intent = new Intent(this, SettingsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
