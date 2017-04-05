@@ -50,6 +50,7 @@ public class BrowseActivity extends AppCompatActivity {
 
                 ImageItem item = (ImageItem) parent.getItemAtPosition(position);
                 TypedArray rotten = getResources().obtainTypedArray(R.array.rotten_tomatoes_score);
+                TypedArray movie_plot = getResources().obtainTypedArray(R.array.movie_plots);
 
                 try {
                     File file = new File(Environment.getExternalStorageDirectory() + "/imageBitmap" + ".png");
@@ -67,6 +68,7 @@ public class BrowseActivity extends AppCompatActivity {
                 intent.putExtra("title", item.getTitle());
                 intent.putExtra("image", "imageBitmap");
                 intent.putExtra("rotten",rotten.getString(position));
+                intent.putExtra("movie_plot",movie_plot.getString(position));
 
                 startActivity(intent);
             }

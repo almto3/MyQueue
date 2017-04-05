@@ -43,9 +43,9 @@ public class MediaDetailsActivity extends AppCompatActivity {
         TextView rottenTextView = (TextView) findViewById(R.id.item_details_rotten_score);
         rottenTextView.setText(rotten);
 
-        String summary = getIntent().getStringExtra("summary");
-        TextView reviewTextView = (TextView) findViewById(R.id.item_details_plot);
-        rottenTextView.setText(summary);
+        String movie_plot = getIntent().getStringExtra("movie_plot");
+        TextView plotTextView = (TextView) findViewById(R.id.item_details_plot);
+        plotTextView.setText(movie_plot);
 
         Toolbar itemDetailsToolbar = (Toolbar)findViewById(R.id.item_details_toolbar);
         setSupportActionBar(itemDetailsToolbar);
