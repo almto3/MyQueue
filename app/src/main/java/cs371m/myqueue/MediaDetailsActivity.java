@@ -137,6 +137,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.menu_bookmarks:
+                Toast.makeText(getBaseContext(), R.string.bookmarks_not_implemented, Toast.LENGTH_LONG).show();
                 intent = new Intent(this, BrowseActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);

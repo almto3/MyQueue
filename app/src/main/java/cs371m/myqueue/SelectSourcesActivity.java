@@ -23,17 +23,21 @@ import java.util.List;
 public class SelectSourcesActivity extends AppCompatActivity {
 
     private static SharedPreferences sharedPrefs;
+    private SelectSourcesActivity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activity = this;
 
         setContentView(R.layout.select_source_layout);
 
         final Button continue_button = (Button) findViewById(R.id.sources_continue);
         continue_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                startActivity(new Intent(SelectSourcesActivity.this, BrowseActivity.class));
+                Intent intent = new Intent(activity, BrowseActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
             }
         });
 

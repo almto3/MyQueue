@@ -97,7 +97,7 @@ public class BrowseActivity extends AppCompatActivity {
                 intent.putExtra("image", "imageBitmap");
                 intent.putExtra("rotten",rotten.getString(position));
                 intent.putExtra("movie_plot",movie_plot.getString(position));
-                intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
             }
         });
