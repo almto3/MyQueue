@@ -1,11 +1,18 @@
 package cs371m.myqueue;
 
+import android.Manifest;
+import android.annotation.TargetApi;
+
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -14,7 +21,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import java.io.File;
 import android.widget.Toast;
 
 
@@ -22,15 +28,21 @@ public class MediaDetailsActivity extends AppCompatActivity {
 
     private final String TAG = "MediaDetailsActivity";
 
+    private static final int REQUEST_WRITE = 0;
+    private static final int REQUEST_READ = 1;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.media_details_layout);
-        Log.i("MediaDetailsActivity", "onCreate");
+        Log.d(TAG, "onCreate");
 
         String title = getIntent().getStringExtra("image");
-        String path = Environment.getExternalStorageDirectory() + "/"+ title + ".png";
+        String path = Environment.getExternalStorageDirectory() + "/"+ title + ".jpg";
         Bitmap bitmap = BitmapFactory.decodeFile(path);
+
+        Log.d("path = ", path);
 
         ImageView imageView = (ImageView) findViewById(R.id.movie_poster);
         imageView.setImageBitmap(bitmap);
@@ -51,6 +63,8 @@ public class MediaDetailsActivity extends AppCompatActivity {
         setSupportActionBar(itemDetailsToolbar);
 
         setListeners();
+
+        checkPermissions();
     }
 
     @Override
@@ -141,4 +155,45 @@ public class MediaDetailsActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
+    protected boolean checkPermissions() {
+        final String TAG = "checkPermissions";
+        int permissionChecka = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int permissionCheckb = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        int permissionCheckc = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE);
+        int permissionCheckd = ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET);
+
+        boolean a = permissionChecka == PackageManager.PERMISSION_GRANTED;
+        boolean b = permissionCheckb == PackageManager.PERMISSION_GRANTED;
+        boolean c = permissionCheckc == PackageManager.PERMISSION_GRANTED;
+        boolean d = permissionCheckd == PackageManager.PERMISSION_GRANTED;
+
+        Log.d(TAG, " - a = " + a);
+        Log.d(TAG, " - b = " + b);
+        Log.d(TAG, " - c = " + c);
+        Log.d(TAG, " - d = " + d);
+
+        if(a)
+            requestWritePermission();
+        if(b)
+            requestReadPermission();
+
+        //couldn't figure out how to programatically retrieve the complied sdk version, but i know it's 23, so we should ask for runtime permissions
+        return !(a && b && c && d);
+    }
+
+    private void requestWritePermission(){
+        final String TAG = "requestWritePermission";
+        Log.d(TAG, "");
+
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE);
+    }
+    private void requestReadPermission(){
+        final String TAG = "requestReadPermission";
+
+        Log.d(TAG, "");
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ);
+    }
+
 }
