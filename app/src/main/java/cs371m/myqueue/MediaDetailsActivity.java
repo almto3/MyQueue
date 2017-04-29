@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import java.io.File;
 import android.widget.Toast;
 
 
@@ -25,6 +24,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.media_details_layout);
         Log.i("MediaDetailsActivity", "onCreate");
 

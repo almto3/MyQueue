@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -18,9 +19,13 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class BrowseActivity extends AppCompatActivity {
@@ -81,6 +86,12 @@ public class BrowseActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        new HttpRequestTask().execute();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
@@ -120,11 +131,41 @@ public class BrowseActivity extends AppCompatActivity {
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imgs.getResourceId(i, -1));
 
             String movie_name = imgs.getString(i).replace("res/drawable/", "");
-            movie_name = movie_name.replace(".jpg","");
-            movie_name = movie_name.replace("_"," ");
+            movie_name = movie_name.replace(".jpg", "");
+            movie_name = movie_name.replace("_", " ");
             movie_name = movie_name.toUpperCase();
             imageItems.add(new ImageItem(bitmap, movie_name));
         }
         return imageItems;
+    }
+
+    private class HttpRequestTask extends AsyncTask<Void, Void, Movies> {
+        @Override
+        protected Movies doInBackground(Void... params) {
+            try {
+                final String url = "http://api-public.guidebox.com/v2/movies?api_key=c302491413726d93c00a4b0192f8bc55fdc56da4&sources=amazon_prime&limit=10";
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                Movies movies = restTemplate.getForObject(url, Movies.class);
+                return movies;
+            } catch (Exception e) {
+                Log.e("MainActivity", e.getMessage(), e);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Movies movies) {
+            List<Result> results = movies.getResults();
+            for (Result result : results) {
+                Log.d("BrowseActivity", result.getTitle());
+            }
+            //TextView greetingIdText = (TextView) findViewById(R.id.id_value);
+            //TextView greetingContentText = (TextView) findViewById(R.id.content_value);
+            //greetingIdText.setText(greeting.getId());
+            //greetingContentText.setText(greeting.getContent());
+        }
+
     }
 }
