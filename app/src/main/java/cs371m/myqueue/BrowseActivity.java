@@ -1,7 +1,9 @@
 package cs371m.myqueue;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,6 +11,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -27,11 +31,18 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.attr.permission;
+
 
 public class BrowseActivity extends AppCompatActivity {
 
     private GridView gridView;
     private GridViewAdapter gridAdapter;
+
+
+    final private String[] PERMISSIONS = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+    private boolean project_permissions = false;
+    private static final int MY_PERMISSIONS_REQUEST = 16969;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +71,28 @@ public class BrowseActivity extends AppCompatActivity {
                 TypedArray movie_plot = getResources().obtainTypedArray(R.array.movie_plots);
 
                 try {
-                    File file = new File(Environment.getExternalStorageDirectory() + "/imageBitmap" + ".png");
-                    Log.e("file: ", file.toString());
+                    String path = Environment.getExternalStorageDirectory().getAbsolutePath();
+                    Log.d("path: ", path );
+                    Log.d("item: ", item.getTitle() );
+                    File file = new File(path + File.separator +"imageBitmap" + ".jpg");
+                    Log.d("file: ", file.toString());
+
+
+                    checkPermissions(PERMISSIONS);
+
+                    if (!project_permissions) {
+                        requestPermissions(PERMISSIONS);
+                    }
+
+                    if(file.exists())
+                        Log.d("EXISTS", "TRUE");
+                    else
+                        Log.d("DOES NOT EXISTS", "TRUE");
+
                     FileOutputStream stream = new FileOutputStream(file);
                     item.getImage().compress(Bitmap.CompressFormat.JPEG, 50, stream);
                 }
-                catch (Exception e)
-                {
+                catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -95,6 +121,34 @@ public class BrowseActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    private void checkPermissions(String[] permissions){
+
+        ArrayList<Boolean> permissions_bools = new ArrayList<Boolean>();
+
+        for (String permission : permissions){
+            int permission_result = ContextCompat.checkSelfPermission(this, permission);
+
+            if (permission_result == PackageManager.PERMISSION_GRANTED) {
+                Log.d("checkPermissions()", permission + ": true");
+                permissions_bools.add(new Boolean(true));
+            }
+            else {
+                Log.d("checkPermissions()", permission + ": false");
+                permissions_bools.add(new Boolean(false));
+            }
+        }
+        project_permissions = true;
+
+        for (Boolean b : permissions_bools)
+            if(b.booleanValue() == false)
+                project_permissions = false;
+        Log.d("checkPermissions()", "project_permissions = " + project_permissions);
+    }
+
+    private void requestPermissions(String[] permission){
+        ActivityCompat.requestPermissions(this, permission, MY_PERMISSIONS_REQUEST);
     }
 
     @Override

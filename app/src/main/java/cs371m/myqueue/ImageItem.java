@@ -14,6 +14,7 @@ public class ImageItem {
     }
 
     public Bitmap getImage() {
+
         return image;
     }
 
