@@ -75,8 +75,6 @@ public class MediaDetailsActivity extends AppCompatActivity {
 
         String title = getIntent().getStringExtra("title");
         String image = getIntent().getStringExtra("image");
-//      titleTextView = (TextView) findViewById(R.id.title);
-//      imageView = (ImageView) findViewById(R.id.image);
         titleTextView.setText(Html.fromHtml(title));
 
         Picasso.with(this).load(image).into(imageView);
@@ -143,7 +141,6 @@ public class MediaDetailsActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     @Override

@@ -1,16 +1,15 @@
 package cs371m.myqueue;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
-import android.content.Context;
 
 import com.squareup.picasso.Picasso;
 
@@ -22,15 +21,6 @@ public class AboutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*
-        Log.d(TAG, "1");
-        ImageView image = (ImageView) findViewById(R.id.about_image);
-        Log.d(TAG, "2");
-        Bitmap bMap = BitmapFactory.decodeResource(getResources(), R.drawable.about);
-        Log.d(TAG, "3");
-        image.setImageBitmap(bMap);
-        Log.d(TAG, "4");
-        */
         setContentView(R.layout.about_layout);
 
         ImageView image = (ImageView) findViewById(R.id.about_image);
@@ -42,6 +32,12 @@ public class AboutActivity extends AppCompatActivity {
 
         Toolbar aboutToolbar = (Toolbar)findViewById(R.id.about_toolbar);
         setSupportActionBar(aboutToolbar);
+
+        findViewById(R.id.git_pic).setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/almto3/MyQueue")));
+            }
+        });
     }
 
     @Override
