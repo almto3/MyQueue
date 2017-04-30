@@ -28,7 +28,7 @@
     browsing page for now</string>
     <string name="search_not_implemented">Search feature is not yet supported</string>
 
-    <string name="about">Hey from our Android development team! We are Erin, Saleh and Kaivan. Computer Science students at the University of Texas at Austin. This is our first Android app.</string>
+    <string name="about">¡Hola! From the coolest Android development team! \nWe are Erin, Saleh and Kaivan. Computer Science students at the University of Texas at Austin. This is our first Android app.</string>
 
     <string name="menu_browse">Browse</string>
     <string name="menu_bookmarks">Bookmarks</string>
@@ -44,6 +44,9 @@
     <!-- descriptions -->
     <string name="desc_favorites">Favorites</string>
     <string name="desc_rating">Rating</string>
+
+    <string name="our_git">Hey, our git is currently set to prive, but we\'ll open it up as soon as we leave beta (approx. jul 2017), you can check out the repo by clicking on the image</string>
+    <string name="our_email">Also, we can reached over email here: b;la@bla.com</string>
 
     <!-- images for grid -->
     <string-array name="image_ids">
