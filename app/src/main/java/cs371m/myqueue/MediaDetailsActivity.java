@@ -13,8 +13,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +24,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 
 public class MediaDetailsActivity extends AppCompatActivity {
@@ -31,6 +35,8 @@ public class MediaDetailsActivity extends AppCompatActivity {
     private static final int REQUEST_WRITE = 0;
     private static final int REQUEST_READ = 1;
 
+    private TextView titleTextView;
+    private ImageView imageView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,7 +44,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
 
         setContentView(R.layout.media_details_layout);
         Log.d(TAG, "onCreate");
-
+/*
         String title = getIntent().getStringExtra("image");
         String path = Environment.getExternalStorageDirectory() + "/"+ title + ".jpg";
         Bitmap bitmap = BitmapFactory.decodeFile(path);
@@ -62,6 +68,21 @@ public class MediaDetailsActivity extends AppCompatActivity {
 
         Toolbar itemDetailsToolbar = (Toolbar)findViewById(R.id.item_details_toolbar);
         setSupportActionBar(itemDetailsToolbar);
+*/
+
+//        ActionBar actionBar = getSupportActionBar();
+ //       actionBar.hide();
+
+        ImageView imageView = (ImageView) findViewById(R.id.movie_poster);
+        TextView titleTextView = (TextView) findViewById(R.id.item_details_title);
+
+        String title = getIntent().getStringExtra("title");
+        String image = getIntent().getStringExtra("image");
+//      titleTextView = (TextView) findViewById(R.id.title);
+//      imageView = (ImageView) findViewById(R.id.image);
+        titleTextView.setText(Html.fromHtml(title));
+
+        Picasso.with(this).load(image).into(imageView);
 
         setListeners();
 

@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class Movies {
     @JsonProperty("total_returned")
     private long totalReturned;
     @JsonProperty("results")
-    private List<Result> results = null;
+    private ArrayList<Result> results = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -59,12 +60,12 @@ public class Movies {
     }
 
     @JsonProperty("results")
-    public List<Result> getResults() {
+    public ArrayList<Result> getResults() {
         return results;
     }
 
     @JsonProperty("results")
-    public void setResults(List<Result> results) {
+    public void setResults(ArrayList<Result> results) {
         this.results = results;
     }
 
