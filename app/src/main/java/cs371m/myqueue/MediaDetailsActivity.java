@@ -1,14 +1,11 @@
 package cs371m.myqueue;
 
 import android.Manifest;
-import android.annotation.TargetApi;
-
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
@@ -89,6 +86,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
 
 //      titleTextView = (TextView) findViewById(R.id.title);
 //      imageView = (ImageView) findViewById(R.id.image);
+
         titleTextView.setText(Html.fromHtml(title));
         rottenTextView.setText(rotten);
         plotTextView.setText(movie_plot);
@@ -156,7 +154,6 @@ public class MediaDetailsActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     @Override
