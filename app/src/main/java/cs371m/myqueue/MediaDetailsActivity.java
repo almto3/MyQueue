@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,55 +33,32 @@ public class MediaDetailsActivity extends AppCompatActivity {
     private static final int REQUEST_WRITE = 0;
     private static final int REQUEST_READ = 1;
 
-    private TextView titleTextView;
-    private ImageView imageView;
 
+    // added by saleh to Keep track of context
+    // http://stackoverflow.com/questions/14057273/android-singleton-with-global-context
+    private static MediaDetailsActivity instance;
+    public static MediaDetailsActivity get() { return instance; }
+    Queue q;
+    String title;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.media_details_layout);
         Log.d(TAG, "onCreate");
-/*
-        String title = getIntent().getStringExtra("image");
-        String path = Environment.getExternalStorageDirectory() + "/"+ title + ".jpg";
-        Bitmap bitmap = BitmapFactory.decodeFile(path);
-
-        Log.d("path = ", path);
-
-        ImageView imageView = (ImageView) findViewById(R.id.movie_poster);
-        imageView.setImageBitmap(bitmap);
-
-        String movie_title = getIntent().getStringExtra("title");
-        TextView titleTextView = (TextView) findViewById(R.id.item_details_title);
-        titleTextView.setText(movie_title);
-
-        String rotten = getIntent().getStringExtra("rotten");
-        TextView rottenTextView = (TextView) findViewById(R.id.item_details_rotten_score);
-        rottenTextView.setText(rotten);
-
-        String movie_plot = getIntent().getStringExtra("movie_plot");
-        TextView plotTextView = (TextView) findViewById(R.id.item_details_plot);
-        plotTextView.setText(movie_plot);
-
-        Toolbar itemDetailsToolbar = (Toolbar)findViewById(R.id.item_details_toolbar);
-        setSupportActionBar(itemDetailsToolbar);
-*/
-
-//        ActionBar actionBar = getSupportActionBar();
- //       actionBar.hide();
+        instance = this;
 
         ImageView imageView = (ImageView) findViewById(R.id.movie_poster);
         TextView titleTextView = (TextView) findViewById(R.id.item_details_title);
 
-        String title = getIntent().getStringExtra("title");
+        title = getIntent().getStringExtra("title");
         String image = getIntent().getStringExtra("image");
         titleTextView.setText(Html.fromHtml(title));
 
         Picasso.with(this).load(image).into(imageView);
+        q = Queue.get();
 
         setListeners();
-
         checkPermissions();
     }
 
@@ -93,11 +71,15 @@ public class MediaDetailsActivity extends AppCompatActivity {
     public void setListeners() {
         Log.d(TAG, "setListeners()");
 
-        ImageView img0 = (ImageView) findViewById(R.id.item_details_bookmarkIcon);
-        img0.setOnClickListener(new View.OnClickListener() {
+        TableRow row0 = (TableRow) findViewById(R.id.tableRow4);
+        row0.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d(TAG, "onClick() - item_details_bookmarkIcon");
-                Toast.makeText(getBaseContext(), "Bookmark feature isn't fully supported right now", Toast.LENGTH_LONG).show();
+                boolean x = q.addMovie(title);
+                if(x)
+                    Toast.makeText(getBaseContext(), title + " added to Queue", Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(getBaseContext(), title + " is already in Queue", Toast.LENGTH_LONG).show();
 
             }
         });
