@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -19,6 +20,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
 
 
 public class MediaDetailsActivity extends AppCompatActivity {
@@ -62,8 +66,12 @@ public class MediaDetailsActivity extends AppCompatActivity {
 
         titleTextView.setText(Html.fromHtml(title));
         rottenTextView.setText(rotten);
-        plotTextView.setText(movie_plot);
         Picasso.with(this).load(image).into(imageView);
+        plotTextView.setText(movie_plot);
+        //trying to get the details of the movie
+
+
+        //plotTextView.setText(movieDb.getOverview());
         q = Queue.get();
 
         setListeners();
@@ -202,5 +210,6 @@ public class MediaDetailsActivity extends AppCompatActivity {
         Log.d(TAG, "");
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ);
     }
+
 
 }

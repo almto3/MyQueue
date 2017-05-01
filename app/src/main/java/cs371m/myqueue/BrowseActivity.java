@@ -35,6 +35,7 @@ public class BrowseActivity extends AppCompatActivity {
     private GridViewAdapter gridAdapter;
     private ArrayList<Result> results;
     private ArrayList<GridItem> mGridData;
+    private ArrayList<String> listPlot = new ArrayList<>(100);
 
     final private String[] PERMISSIONS = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
     private boolean project_permissions = false;
@@ -68,37 +69,7 @@ public class BrowseActivity extends AppCompatActivity {
                 GridItem item = (GridItem) parent.getItemAtPosition(position);
                 Result result = results.get(position);
 
-             //   TypedArray rotten = getResources().obtainTypedArray(R.array.rotten_tomatoes_score);
-             //   TypedArray movie_plot = getResources().obtainTypedArray(R.array.movie_plots);
 
-/*
-                try {
-                    String path = Environment.getExternalStorageDirectory().getAbsolutePath();
-                    Log.d("path: ", path );
-                    Log.d("item: ", item.getTitle() );
-                    File file = new File(path + File.separator +"imageBitmap" + ".jpg");
-                    Log.d("file: ", file.toString());
-
-
-                    checkPermissions(PERMISSIONS);
-
-                    if (!project_permissions) {
-                        requestPermissions(PERMISSIONS);
-                    }
-
-                    if(file.exists())
-                        Log.d("EXISTS", "TRUE");
-                    else
-                        Log.d("DOES NOT EXISTS", "TRUE");
-
-                    FileOutputStream stream = new FileOutputStream(file);
-                    item.getImage().compress(Bitmap.CompressFormat.JPEG, 50, stream);
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-*/
                 //Create intent
                 Intent intent = new Intent(BrowseActivity.this, MediaDetailsActivity.class);
                 //List<String> hello = result.getAlternateTitles();
@@ -106,9 +77,14 @@ public class BrowseActivity extends AppCompatActivity {
 
                 intent.putExtra("title", result.getTitle()).
                         putExtra("image", result.getPoster120x171()).
-                        putExtra("rotten_tomatoes",result.getRottentomatoes()).
-                        putExtra("movie_plot",result.getThemoviedb()).
+                        putExtra("rotten_tomatoes",Long.toString(result.getRottentomatoes())).
                         putExtra("id", result.getId());
+
+
+
+                Log.d("Did we get the plot: ", listPlot.get(position));
+                intent.putExtra("movie_plot", listPlot.get(position));
+
 
                 startActivity(intent);
 /*
@@ -200,6 +176,7 @@ public class BrowseActivity extends AppCompatActivity {
                 Movies movies = restTemplate.getForObject(url, Movies.class);
                 results = movies.getResults();
                 GridItem item;
+                tMDB movieDb = new tMDB();
                 for (Result result : results) {
                     Log.d("BrowseActivity", result.getTitle());
                     item = new GridItem();
@@ -207,8 +184,18 @@ public class BrowseActivity extends AppCompatActivity {
                     Log.d("BrowseActivity", item.getTitle());
                     item.setImage(result.getPoster120x171());
                     mGridData.add(item);
+
+                    long movie_plot = result.getThemoviedb();
+                    final String url2 = "https://api.themoviedb.org/3/movie/" + Long.toString(movie_plot) + "?api_key=2fb9522ed230e5f6dae69f6206113021";
+                    RestTemplate restTemplate2 = new RestTemplate();
+                    restTemplate2.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                    movieDb= restTemplate.getForObject(url2, tMDB.class);
+                    listPlot.add(movieDb.getOverview());
                 }
                 return movies;
+
+                //get movie overview from tMDB
+
             } catch (Exception e) {
                 Log.e("MainActivity", e.getMessage(), e);
             }
