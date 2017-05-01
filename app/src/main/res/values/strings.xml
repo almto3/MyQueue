@@ -12,7 +12,7 @@
     <string name="select_source_prompt">Please select the services you would like to see movies and TV shows from:</string>
 
     <!-- static details data -->
-    <string name="details_rottenText">Rotten Tomatoes Score:</string>
+    <string name="details_rottenText">The tMDB Score:</string>
     <string name="details_plotSummary">Plot Summary:</string>
     <string name="details_available_sources">Available On</string>
     <string name="details_bookmark">Queue</string>

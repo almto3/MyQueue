@@ -64,9 +64,9 @@ public class MediaDetailsActivity extends AppCompatActivity {
         String rotten = getIntent().getStringExtra("rotten_tomatoes");
         String movie_plot = getIntent().getStringExtra("movie_plot");
 
+        Picasso.with(this).load(image).into(imageView);
         titleTextView.setText(Html.fromHtml(title));
         rottenTextView.setText(rotten);
-        Picasso.with(this).load(image).into(imageView);
         plotTextView.setText(movie_plot);
         //trying to get the details of the movie
 

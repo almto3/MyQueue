@@ -23,19 +23,17 @@ import android.widget.Toast;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
 
 
 public class BrowseActivity extends AppCompatActivity {
 
     private GridView gridView;
-    private ProgressBar mProgressBar;
 
     private GridViewAdapter gridAdapter;
     private ArrayList<Result> results;
     private ArrayList<GridItem> mGridData;
     private ArrayList<String> listPlot = new ArrayList<>(100);
+    private ArrayList<Double> listRating = new ArrayList<>(100);
 
     final private String[] PERMISSIONS = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
     private boolean project_permissions = false;
@@ -57,7 +55,6 @@ public class BrowseActivity extends AppCompatActivity {
         setContentView(R.layout.browse_layout);
         new HttpRequestTask().execute();
         gridView = (GridView) findViewById(R.id.gridView);
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         mGridData = new ArrayList<>();
         gridAdapter = new GridViewAdapter(this, R.layout.grid_item_layout, mGridData);
@@ -77,10 +74,8 @@ public class BrowseActivity extends AppCompatActivity {
 
                 intent.putExtra("title", result.getTitle()).
                         putExtra("image", result.getPoster120x171()).
-                        putExtra("rotten_tomatoes",Long.toString(result.getRottentomatoes())).
-                        putExtra("id", result.getId());
-
-
+                        putExtra("id", result.getId()).
+                        putExtra("rotten_tomatoes",Double.toString(listRating.get(position)));
 
                 Log.d("Did we get the plot: ", listPlot.get(position));
                 intent.putExtra("movie_plot", listPlot.get(position));
@@ -191,6 +186,7 @@ public class BrowseActivity extends AppCompatActivity {
                     restTemplate2.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                     movieDb= restTemplate.getForObject(url2, tMDB.class);
                     listPlot.add(movieDb.getOverview());
+                    listRating.add(movieDb.getRating());
                 }
                 return movies;
 
