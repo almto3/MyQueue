@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
@@ -24,6 +25,9 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
+
 
 public class MediaDetailsActivity extends AppCompatActivity {
 
@@ -31,9 +35,6 @@ public class MediaDetailsActivity extends AppCompatActivity {
 
     private static final int REQUEST_WRITE = 0;
     private static final int REQUEST_READ = 1;
-
-    private TextView titleTextView;
-    private ImageView imageView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,13 +85,14 @@ public class MediaDetailsActivity extends AppCompatActivity {
         String rotten = getIntent().getStringExtra("rotten_tomatoes");
         String movie_plot = getIntent().getStringExtra("movie_plot");
 
-//      titleTextView = (TextView) findViewById(R.id.title);
-//      imageView = (ImageView) findViewById(R.id.image);
-
         titleTextView.setText(Html.fromHtml(title));
         rottenTextView.setText(rotten);
-        plotTextView.setText(movie_plot);
         Picasso.with(this).load(image).into(imageView);
+        plotTextView.setText(movie_plot);
+        //trying to get the details of the movie
+
+
+        //plotTextView.setText(movieDb.getOverview());
 
         setListeners();
 
@@ -225,5 +227,6 @@ public class MediaDetailsActivity extends AppCompatActivity {
         Log.d(TAG, "");
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ);
     }
+
 
 }

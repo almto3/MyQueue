@@ -35,6 +35,7 @@ public class BrowseActivity extends AppCompatActivity {
     private GridViewAdapter gridAdapter;
     private ArrayList<Result> results;
     private ArrayList<GridItem> mGridData;
+    private ArrayList<String> listPlot = new ArrayList<>(100);
 
     final private String[] PERMISSIONS = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
     private boolean project_permissions = false;
@@ -105,9 +106,11 @@ public class BrowseActivity extends AppCompatActivity {
                 //Pass the image title and url to DetailsActivity
                 intent.putExtra("title", result.getTitle()).
                         putExtra("image", result.getPoster120x171()).
-                        putExtra("rotten_tomatoes",result.getRottentomatoes()).
-                        putExtra("movie_plot",result.getThemoviedb());
+                        putExtra("rotten_tomatoes",Long.toString(result.getRottentomatoes()));
 
+
+                Log.d("Did we get the plot: ", listPlot.get(position));
+                intent.putExtra("movie_plot", listPlot.get(position));
 
                 startActivity(intent);
 /*
@@ -199,6 +202,7 @@ public class BrowseActivity extends AppCompatActivity {
                 Movies movies = restTemplate.getForObject(url, Movies.class);
                 results = movies.getResults();
                 GridItem item;
+                tMDB movieDb = new tMDB();
                 for (Result result : results) {
                     Log.d("BrowseActivity", result.getTitle());
                     item = new GridItem();
@@ -206,8 +210,18 @@ public class BrowseActivity extends AppCompatActivity {
                     Log.d("BrowseActivity", item.getTitle());
                     item.setImage(result.getPoster120x171());
                     mGridData.add(item);
+
+                    long movie_plot = result.getThemoviedb();
+                    final String url2 = "https://api.themoviedb.org/3/movie/" + Long.toString(movie_plot) + "?api_key=2fb9522ed230e5f6dae69f6206113021";
+                    RestTemplate restTemplate2 = new RestTemplate();
+                    restTemplate2.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                    movieDb= restTemplate.getForObject(url2, tMDB.class);
+                    listPlot.add(movieDb.getOverview());
                 }
                 return movies;
+
+                //get movie overview from tMDB
+
             } catch (Exception e) {
                 Log.e("MainActivity", e.getMessage(), e);
             }
