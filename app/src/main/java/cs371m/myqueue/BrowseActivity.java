@@ -23,6 +23,8 @@ import android.widget.Toast;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
 
 public class BrowseActivity extends AppCompatActivity {
@@ -64,6 +66,7 @@ public class BrowseActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
                 GridItem item = (GridItem) parent.getItemAtPosition(position);
+                Result result = results.get(position);
 
              //   TypedArray rotten = getResources().obtainTypedArray(R.array.rotten_tomatoes_score);
              //   TypedArray movie_plot = getResources().obtainTypedArray(R.array.movie_plots);
@@ -98,18 +101,13 @@ public class BrowseActivity extends AppCompatActivity {
 */
                 //Create intent
                 Intent intent = new Intent(BrowseActivity.this, MediaDetailsActivity.class);
-                ImageView imageView = (ImageView) v.findViewById(R.id.image);
-
-                int[] screenLocation = new int[2];
-                imageView.getLocationOnScreen(screenLocation);
-
+                //List<String> hello = result.getAlternateTitles();
                 //Pass the image title and url to DetailsActivity
-                intent.putExtra("left", screenLocation[0]).
-                        putExtra("top", screenLocation[1]).
-                        putExtra("width", imageView.getWidth()).
-                        putExtra("height", imageView.getHeight()).
-                        putExtra("title", item.getTitle()).
-                        putExtra("image", item.getImage());
+                intent.putExtra("title", result.getTitle()).
+                        putExtra("image", result.getPoster120x171()).
+                        putExtra("rotten_tomatoes",result.getRottentomatoes()).
+                        putExtra("movie_plot",result.getThemoviedb());
+
 
                 startActivity(intent);
 /*

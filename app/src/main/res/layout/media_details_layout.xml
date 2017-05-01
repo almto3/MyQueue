@@ -59,9 +59,9 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:padding="10dp"
                                 android:adjustViewBounds="true"
-                                android:src="@drawable/big_short_2015"/>
+                                android:padding="10dp"
+                                android:src="@drawable/big_short_2015" />
                         </LinearLayout>
 
                         <LinearLayout
