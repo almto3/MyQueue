@@ -31,8 +31,6 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.R.attr.permission;
-
 
 public class BrowseActivity extends AppCompatActivity {
 
@@ -197,10 +195,11 @@ public class BrowseActivity extends AppCompatActivity {
         @Override
         protected Movies doInBackground(Void... params) {
             try {
-                final String url = "http://api-public.guidebox.com/v2/movies?api_key=c302491413726d93c00a4b0192f8bc55fdc56da4&sources=amazon_prime&limit=10";
+                final String url = "http://api-public.guidebox.com/v2/movies?api_key=c302491413726d93c00a4b0192f8bc55fdc56da4&sources=amazon_prime&limit=100";
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 Movies movies = restTemplate.getForObject(url, Movies.class);
+
                 return movies;
             } catch (Exception e) {
                 Log.e("MainActivity", e.getMessage(), e);
@@ -212,6 +211,7 @@ public class BrowseActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Movies movies) {
             List<Result> results = movies.getResults();
+
             for (Result result : results) {
                 Log.d("BrowseActivity", result.getTitle());
             }

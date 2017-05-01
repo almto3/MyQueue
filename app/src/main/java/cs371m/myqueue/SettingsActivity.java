@@ -84,11 +84,11 @@ public class SettingsActivity extends AppCompatActivity {
                     android.R.layout.simple_list_item_activated_1,
                     sources));
 
-            if (savedInstanceState != null) {
+            /*if (savedInstanceState != null) {
                 // Restore last state for checked position.
                 mCurCheckPosition
                         = savedInstanceState.getInt("curChoice", 0);
-            }
+            }*/
 
             getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         }

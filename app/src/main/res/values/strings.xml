@@ -9,7 +9,9 @@
 
     <string name="welcome_text">Tap anywhere to continue</string>
 
-    <string name="select_source_prompt">Please select the services you would like to see movies and TV shows from:</string>
+    <string name="select_source_prompt">Please select the services you would like to be included as options when browsing movies: (You can always change these in settings)</string>
+    <string name="select_source_from_settings">Please select the services you would like to be included as options when browsing movies:</string>
+
 
     <!-- static details data -->
     <string name="details_rottenText">Rotten Tomatoes Score:</string>
