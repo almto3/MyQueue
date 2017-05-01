@@ -13,7 +13,8 @@ import java.util.Map;
 public class Queue {
 
     private static Queue instance;
-    private List<Long> queue;       //List equals the ids. SharedPreferences, key = movie:::id. value = title
+    private List<Long> queue;       //List equals the ids. SharedPreferences, key = movie:::id.
+    // value = title
     private static final String TAG = "Queue";
 
     private MediaDetailsActivity app;
@@ -63,7 +64,8 @@ public class Queue {
     }
 
     private void writeMovie(String movie_title, Long movie_id){
-        HelperSharedPreferences.putSharedPreferencesString(app.getApplicationContext() , HelperSharedPreferences.key1_prefix + movie_id, movie_title);
+        HelperSharedPreferences.putSharedPreferencesString(app.getApplicationContext() ,
+                HelperSharedPreferences.key1_prefix + movie_id, movie_title);
     }
 
     private void loadMovies(){
@@ -82,7 +84,8 @@ public class Queue {
         boolean exist = queue.remove(movie_id);
 
         if(exist)
-            HelperSharedPreferences.deleteSharedPreferencesKey(app.getApplicationContext(), HelperSharedPreferences.key1_prefix + movie_id);
+            HelperSharedPreferences.deleteSharedPreferencesKey(app.getApplicationContext(),
+                    HelperSharedPreferences.key1_prefix + movie_id);
         return exist;
     }
     public void deleteMovies(){

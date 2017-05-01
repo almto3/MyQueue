@@ -9,9 +9,10 @@
 
     <string name="welcome_text">Tap anywhere to continue</string>
 
-    <string name="select_source_prompt">Please select the services you would like to be included as options when browsing movies: (You can always change these in settings)</string>
-    <string name="select_source_from_settings">Please select the services you would like to be included as options when browsing movies:</string>
-
+    <string name="select_source_prompt">Please select the services you would like to be included as
+        options when browsing movies: (You can always change these in settings)</string>
+    <string name="select_source_from_settings">Please select the services you would like to be
+        included as options when browsing movies:</string>
 
     <!-- static details data -->
     <string name="details_rottenText">The tMDB Score:</string>
@@ -20,17 +21,18 @@
     <string name="details_bookmark">Queue</string>
 
     <!-- non static, should be changed case by case -->
-    <string name="details_plot">Four denizers in the world of high-finance predict the credit
-        and housing bubble collapse of the mid-2000s, and decide to take on the big banks for their
-        greed and lack of foresight.</string>
-    <string name="details_rottenScore">88%</string>
+    <string name="details_plot">...</string>
+    <string name="details_rottenScore">-.-</string>
     <string name="details_title">The Big Short (2015)</string>
 
     <string name="bookmarks_not_implemented">Bookmark feature is not yet supported please enjoy the
     browsing page for now</string>
     <string name="search_not_implemented">Search feature is not yet supported</string>
+    <string name="force_select_service">You must choose at least one service to browse</string>
 
-    <string name="about">¡Hola! From the coolest Android development team! \nWe are Erin, Saleh and Kaivan. Computer Science students at the University of Texas at Austin. This is our first Android app.</string>
+    <string name="about">¡Hola! From the coolest Android development team! \nWe are Erin, Saleh and
+        Kaivan. Computer Science students at the University of Texas at Austin. This is our first
+        Android app.</string>
 
     <string name="menu_browse">Browse</string>
     <string name="menu_bookmarks">MyQueue</string>
@@ -47,50 +49,8 @@
     <string name="desc_favorites">Favorites</string>
     <string name="desc_rating">Rating</string>
 
-    <string name="our_git">Hey, our git is currently set to private, but we\'ll open it up as soon as we leave beta (approx. jul 2017). The image next will take you to the </string>
+    <string name="our_git">Hey, our git is currently set to private, but we\'ll open it up as soon
+        as we leave beta (approx. jul 2017). The image next will take you to the </string>
     <string name="our_email">Also, we can reached over email here: kaivan@douche.bag</string>
-
-    <!-- images for grid -->
-    <string-array name="image_ids">
-        <item>@drawable/big_short_2015</item>
-        <item>@drawable/spotlight_2015</item>
-        <item>@drawable/kung_fu_panda_3_2016</item>
-        <item>@drawable/kung_fu_panda_2008</item>
-        <item>@drawable/imitation_game_2014</item>
-        <item>@drawable/nightcrawler_2014</item>
-        <item>@drawable/minions_2015</item>
-        <item>@drawable/zootopia_2016</item>
-        <item>@drawable/london_has_fallen_2016</item>
-        <item>@drawable/spectral_2016</item>
-    </string-array>
-
-    <string-array name="movie_plots">
-        <item>Four denizers in the world of high-finance predict the credit and housing bubble collapse of the mid-2000s, and decide to take on the big banks for their greed and lack of foresight.</item>
-        <item>The true story of how the Boston Globe uncovered the massive scandal of child molestation and cover-up within the local Catholic Archdiocese, shaking the entire Catholic Church to its core.</item>
-        <item>Continuing his "legendary adventures of awesomeness", Po must face two hugely epic, but different threats: one supernatural and the other a little closer to his home.</item>
-        <item>The Dragon Warrior has to clash against the savage Tai Lung as China\'s fate hangs in the balance: However, the Dragon Warrior mantle is supposedly mistaken to be bestowed upon an obese panda who is a tyro in martial arts.</item>
-        <item>During World War II, mathematician Alan Turing tries to crack the enigma code with help from fellow mathematicians.</item>
-        <item>When Louis Bloom, a driven man desperate for work, muscles into the world of L.A. crime journalism, he blurs the line between observer and participant to become the star of his own story.</item>
-        <item>Minions Stuart, Kevin and Bob are recruited by Scarlet Overkill, a super-villain who, alongside her inventor husband Herb, hatches a plot to take over the world.</item>
-        <item>In a city of anthropomorphic animals, a rookie bunny cop and a cynical con artist fox must work together to uncover a conspiracy.</item>
-        <item>In London for the Prime Minister\'s funeral, Mike Banning discovers a plot to assassinate all the attending world leaders.</item>
-        <item>A sci-fi/thriller story centered on a special-ops team that is dispatched to fight supernatural beings.</item>
-    </string-array>
-
-    <!-- Rotten tomatoes score -->
-    <string-array name="rotten_tomatoes_score">
-        <item>"88%"</item>
-        <item>"96%"</item>
-        <item>"87%"</item>
-        <item>"87%"</item>
-        <item>"90%"</item>
-        <item>"95%"</item>
-        <item>"56%"</item>
-        <item>"96%"</item>
-        <item>"25%"</item>
-        <item>"80%"</item>
-    </string-array>
-
-    <string name="bookmart_support">Bookmark feature isn\'t fully supported right now, we\'ll take you to browse instead :)</string>
 
 </resources>

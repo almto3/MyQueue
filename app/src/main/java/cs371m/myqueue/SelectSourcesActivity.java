@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -35,13 +36,32 @@ public class SelectSourcesActivity extends AppCompatActivity {
         final Button continue_button = (Button) findViewById(R.id.sources_continue);
         continue_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(activity, BrowseActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
+
+                if (!sharedPrefs.getBoolean(getString(R.string.netflix_selected), false) &&
+                        !sharedPrefs.getBoolean(getString(R.string.hulu_selected), false) &&
+                        !sharedPrefs.getBoolean(getString(R.string.hbo_selected), false) &&
+                        !sharedPrefs.getBoolean(getString(R.string.amazon_selected), false)) {
+                    Toast.makeText(getBaseContext(),
+                            R.string.force_select_service, Toast.LENGTH_LONG).show();
+                } else {
+                    Intent intent = new Intent(activity, BrowseActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    startActivity(intent);
+                }
             }
         });
 
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
+        boolean previouslyStarted = sharedPrefs.getBoolean(getString
+                (R.string.pref_previously_started), false);
+        if(!previouslyStarted) {
+            SharedPreferences.Editor edit = sharedPrefs.edit();
+            edit.putBoolean(getString(R.string.pref_previously_started), true);
+            edit.commit();
+            TextView select_sources_prompt = (TextView) findViewById(R.id.select_sources_prompt);
+            select_sources_prompt.setText(getString(R.string.select_source_prompt));
+        }
 
         Toolbar selectSourcesToolbar = (Toolbar)findViewById(R.id.select_sources_toolbar);
         setSupportActionBar(selectSourcesToolbar);
@@ -64,7 +84,8 @@ public class SelectSourcesActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.menu_bookmarks:
-                Toast.makeText(getBaseContext(), R.string.bookmarks_not_implemented, Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), R.string.bookmarks_not_implemented,
+                        Toast.LENGTH_LONG).show();
                 intent = new Intent(this, BrowseActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
@@ -110,8 +131,8 @@ public class SelectSourcesActivity extends AppCompatActivity {
             getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
             getListView().setItemChecked(0, sharedPrefs.getBoolean(getString(R.string.netflix_selected), false));
-            getListView().setItemChecked(1, sharedPrefs.getBoolean(getString(R.string.hbo_selected), false));
-            getListView().setItemChecked(2, sharedPrefs.getBoolean(getString(R.string.hulu_selected), false));
+            getListView().setItemChecked(1, sharedPrefs.getBoolean(getString(R.string.hulu_selected), false));
+            getListView().setItemChecked(2, sharedPrefs.getBoolean(getString(R.string.hbo_selected), false));
             getListView().setItemChecked(3, sharedPrefs.getBoolean(getString(R.string.amazon_selected), false));
 
         }

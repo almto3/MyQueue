@@ -70,7 +70,8 @@ public class HelperSharedPreferences {
         return preferences.getInt(key, _default);
     }
 
-    public static boolean getSharedPreferencesBoolean(Context context, String key, boolean _default){
+    public static boolean getSharedPreferencesBoolean(Context context, String key,
+                                                      boolean _default){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getBoolean(key, _default);
     }

@@ -30,7 +30,7 @@
         android:alpha="0.55"
         android:textColor="@android:color/black"
         android:textSize="18dp"
-        android:text="@string/select_source_prompt"/>
+        android:text="@string/select_source_from_settings"/>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"

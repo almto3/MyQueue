@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,7 +34,8 @@ public class AboutActivity extends AppCompatActivity {
 
         findViewById(R.id.git_pic).setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/almto3/MyQueue")));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse
+                        ("https://github.com/almto3/MyQueue")));
             }
         });
     }

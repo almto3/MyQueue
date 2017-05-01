@@ -89,7 +89,8 @@ public class MyQueueActivity extends AppCompatActivity {
             case R.id.menu_browse:
                 return true;
             case R.id.menu_bookmarks:
-                Toast.makeText(getBaseContext(), R.string.bookmarks_not_implemented, Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), R.string.bookmarks_not_implemented,
+                        Toast.LENGTH_LONG).show();
                 return true;
             case R.id.menu_search:
                 intent = new Intent(this, SearchActivity.class);
@@ -110,7 +111,8 @@ public class MyQueueActivity extends AppCompatActivity {
         @Override
         protected Movies doInBackground(Void... params) {
             try {
-                final String url = "http://api-public.guidebox.com/v2/movies?api_key=c302491413726d93c00a4b0192f8bc55fdc56da4&sources=amazon_prime&limit=10";
+                final String url = "http://api-public.guidebox.com/v2/movies?api_key=" +
+                        "c302491413726d93c00a4b0192f8bc55fdc56da4&sources=amazon_prime&limit=10";
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 Movies movies = restTemplate.getForObject(url, Movies.class);

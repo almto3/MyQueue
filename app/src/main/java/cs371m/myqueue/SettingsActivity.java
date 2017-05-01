@@ -46,7 +46,8 @@ public class SettingsActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.menu_bookmarks:
-                Toast.makeText(getBaseContext(), R.string.bookmarks_not_implemented, Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), R.string.bookmarks_not_implemented,
+                        Toast.LENGTH_LONG).show();
                 intent = new Intent(this, BrowseActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
@@ -91,8 +92,15 @@ public class SettingsActivity extends AppCompatActivity {
             }*/
 
             getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
         }
 
+        @Override
+        public void onStart() {
+            super.onStart();
+            getListView().setItemChecked(0, false);
+            getListView().setItemChecked(1, false);
+        }
 
         @Override
         public void onSaveInstanceState(Bundle outState) {
