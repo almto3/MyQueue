@@ -34,8 +34,6 @@ public class BrowseActivity extends AppCompatActivity {
     private GridViewAdapter gridAdapter;
     private ArrayList<Result> results;
     private ArrayList<GridItem> mGridData;
-    private ArrayList<String> listPlot = new ArrayList<>(100);
-    private ArrayList<Double> listRating = new ArrayList<>(100);
 
     private String selected_source;
 
@@ -89,29 +87,18 @@ public class BrowseActivity extends AppCompatActivity {
                 GridItem item = (GridItem) parent.getItemAtPosition(position);
                 Result result = results.get(position);
 
-
                 //Create intent
                 Intent intent = new Intent(BrowseActivity.this, MediaDetailsActivity.class);
-                //List<String> hello = result.getAlternateTitles();
-                //Pass the image title and url to MediaDetailsActivity
 
+                //Pass the image title and url to MediaDetailsActivity
                 intent.putExtra("title", result.getTitle()).
                         putExtra("image", result.getPoster120x171()).
                         putExtra("id", result.getId()).
-                        putExtra("rotten_tomatoes",Double.toString(listRating.get(position)));
-
-                Log.d("Did we get the plot: ", listPlot.get(position));
-                intent.putExtra("movie_plot", listPlot.get(position));
-
+                        putExtra("tMDBid", result.getThemoviedb()).
+                        putExtra("selected_source", selected_source);
 
                 startActivity(intent);
-/*
-              intent.putExtra("title", item.getTitle());
-                intent.putExtra("image", "imageBitmap");
-                intent.putExtra("rotten",rotten.getString(position));
-                intent.putExtra("movie_plot",movie_plot.getString(position));
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent); */
+
             }
         });
 
@@ -234,31 +221,19 @@ public class BrowseActivity extends AppCompatActivity {
                 Movies movies = restTemplate.getForObject(url, Movies.class);
 
                 mGridData.clear();
-                listRating.clear();
-                listPlot.clear();
 
                 results = movies.getResults();
                 GridItem item;
-                tMDB movieDb = new tMDB();
+
                 for (Result result : results) {
                     Log.d("BrowseActivity", result.getTitle());
                     item = new GridItem();
                     item.setTitle(result.getTitle());
-                    Log.d("BrowseActivity", item.getTitle());
                     item.setImage(result.getPoster120x171());
+                    item.settMDBid(result.getThemoviedb());
                     mGridData.add(item);
-
-                    long movie_plot = result.getThemoviedb();
-                    final String url2 = "https://api.themoviedb.org/3/movie/" + Long.toString(movie_plot) + "?api_key=2fb9522ed230e5f6dae69f6206113021";
-                    RestTemplate restTemplate2 = new RestTemplate();
-                    restTemplate2.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                    movieDb= restTemplate.getForObject(url2, tMDB.class);
-                    listPlot.add(movieDb.getOverview());
-                    listRating.add(movieDb.getRating());
                 }
                 return movies;
-
-                //get movie overview from tMDB
 
             } catch (Exception e) {
                 Log.e("MainActivity", e.getMessage(), e);
@@ -272,13 +247,8 @@ public class BrowseActivity extends AppCompatActivity {
 
             Log.d("BrowseActivity", "onPostExecute");
             int a = mGridData.size();
-            Log.d("BrowseActivity", Integer.toString(a));
             gridAdapter.setGridData(mGridData);
 
-            //TextView greetingIdText = (TextView) findViewById(R.id.id_value);
-            //TextView greetingContentText = (TextView) findViewById(R.id.content_value);
-            //greetingIdText.setText(greeting.getId());
-            //greetingContentText.setText(greeting.getContent());
         }
 
     }

@@ -7,6 +7,7 @@ package cs371m.myqueue;
 public class GridItem {
 
     String title,image;
+    long tMDBid;
 
     public String getTitle() {
 
@@ -17,6 +18,18 @@ public class GridItem {
     public void setTitle(String title) {
 
         this.title = title;
+
+    }
+
+    public void settMDBid(long tMDBid) {
+
+        this.tMDBid = tMDBid;
+
+    }
+
+    public long gettMDBid() {
+
+        return tMDBid;
 
     }
 

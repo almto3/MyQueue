@@ -40,6 +40,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
     private Queue q;
     private String title;
     private Long id;
+    private Long tMDBid;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,27 +52,37 @@ public class MediaDetailsActivity extends AppCompatActivity {
 
         ImageView imageView = (ImageView) findViewById(R.id.movie_poster);
         TextView titleTextView = (TextView) findViewById(R.id.item_details_title);
-        TextView rottenTextView = (TextView) findViewById(R.id.item_details_rotten_score);
-        TextView plotTextView = (TextView) findViewById(R.id.item_details_plot);
 
         findViewById(R.id.item_details_service0).setVisibility(View.INVISIBLE);
         findViewById(R.id.item_details_service1).setVisibility(View.INVISIBLE);
         findViewById(R.id.item_details_service2).setVisibility(View.INVISIBLE);
+        findViewById(R.id.item_details_service3).setVisibility(View.INVISIBLE);
+
+        String selected_source = getIntent().getStringExtra("selected_source");
+        switch (selected_source) {
+            case "netflix":
+                findViewById(R.id.item_details_service1).setVisibility(View.VISIBLE);
+                break;
+            case "hulu_free,hulu_plus":
+                findViewById(R.id.item_details_service0).setVisibility(View.VISIBLE);
+                break;
+            case "hbo":
+                findViewById(R.id.item_details_service2).setVisibility(View.VISIBLE);
+                break;
+            case "amazon":
+                findViewById(R.id.item_details_service3).setVisibility(View.VISIBLE);
+                break;
+        }
 
         title = getIntent().getStringExtra("title");
         id = getIntent().getLongExtra("id", -1);
         String image = getIntent().getStringExtra("image");
-        String rotten = getIntent().getStringExtra("rotten_tomatoes");
-        String movie_plot = getIntent().getStringExtra("movie_plot");
+        tMDBid = getIntent().getLongExtra("tMDBid", 0);
+        new HttpRequestTask().execute();
 
         Picasso.with(this).load(image).into(imageView);
         titleTextView.setText(Html.fromHtml(title));
-        rottenTextView.setText(rotten);
-        plotTextView.setText(movie_plot);
-        //trying to get the details of the movie
 
-
-        //plotTextView.setText(movieDb.getOverview());
         q = Queue.get();
 
         setListeners();
@@ -171,7 +182,6 @@ public class MediaDetailsActivity extends AppCompatActivity {
         }
     }
 
-
     protected boolean checkPermissions() {
         final String TAG = "checkPermissions";
         int permissionChecka = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -211,5 +221,33 @@ public class MediaDetailsActivity extends AppCompatActivity {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ);
     }
 
+    private class HttpRequestTask extends AsyncTask<Void, Void, tMDB> {
+        @Override
+        protected tMDB doInBackground(Void... params) {
+            try {
+                Log.d("MediaDetailstMDBidValue", Long.toString(tMDBid));
+                final String url2 = "https://api.themoviedb.org/3/movie/" + Long.toString(tMDBid) + "?api_key=2fb9522ed230e5f6dae69f6206113021";
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                tMDB movieDb= restTemplate.getForObject(url2, tMDB.class);
 
+                return movieDb;
+
+            } catch (Exception e) {
+                Log.e("MainActivity", e.getMessage(), e);
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(tMDB tMDB) {
+
+            TextView rottenTextView = (TextView) findViewById(R.id.item_details_rotten_score);
+            TextView plotTextView = (TextView) findViewById(R.id.item_details_plot);
+            rottenTextView.setText(Double.toString(tMDB.getRating()));
+            plotTextView.setText(tMDB.getOverview());
+        }
+
+    }
 }
