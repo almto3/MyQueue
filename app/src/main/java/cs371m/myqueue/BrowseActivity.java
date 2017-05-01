@@ -104,10 +104,10 @@ public class BrowseActivity extends AppCompatActivity {
                 Intent intent = new Intent(BrowseActivity.this, MediaDetailsActivity.class);
                 //List<String> hello = result.getAlternateTitles();
                 //Pass the image title and url to DetailsActivity
+
                 intent.putExtra("title", result.getTitle()).
                         putExtra("image", result.getPoster120x171()).
                         putExtra("rotten_tomatoes",Long.toString(result.getRottentomatoes()));
-
 
                 Log.d("Did we get the plot: ", listPlot.get(position));
                 intent.putExtra("movie_plot", listPlot.get(position));
