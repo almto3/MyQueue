@@ -50,11 +50,24 @@ public class MediaDetailsActivity extends AppCompatActivity {
 
         ImageView imageView = (ImageView) findViewById(R.id.movie_poster);
         TextView titleTextView = (TextView) findViewById(R.id.item_details_title);
+        TextView rottenTextView = (TextView) findViewById(R.id.item_details_rotten_score);
+        TextView plotTextView = (TextView) findViewById(R.id.item_details_plot);
+
+        findViewById(R.id.item_details_service0).setVisibility(View.INVISIBLE);
+        findViewById(R.id.item_details_service1).setVisibility(View.INVISIBLE);
+        findViewById(R.id.item_details_service2).setVisibility(View.INVISIBLE);
 
         title = getIntent().getStringExtra("title");
         String image = getIntent().getStringExtra("image");
-        titleTextView.setText(Html.fromHtml(title));
+        String rotten = getIntent().getStringExtra("rotten_tomatoes");
+        String movie_plot = getIntent().getStringExtra("movie_plot");
 
+//      titleTextView = (TextView) findViewById(R.id.title);
+//      imageView = (ImageView) findViewById(R.id.image);
+
+        titleTextView.setText(Html.fromHtml(title));
+        rottenTextView.setText(rotten);
+        plotTextView.setText(movie_plot);
         Picasso.with(this).load(image).into(imageView);
         q = Queue.get();
 
