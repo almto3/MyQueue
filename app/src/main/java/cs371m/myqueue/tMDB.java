@@ -28,9 +28,16 @@ public class tMDB {
     @JsonProperty("overview")
     private String overview;
 
+    @JsonProperty("vote_average")
+    private double rating;
+
     @JsonProperty("overview")
     public String getOverview() {
         return overview;
     }
 
+    @JsonProperty("vote_average")
+    public double getRating() {
+        return rating;
+    }
 }
