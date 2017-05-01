@@ -16,12 +16,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
+
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +36,8 @@ public class BrowseActivity extends AppCompatActivity {
     private ArrayList<GridItem> mGridData;
     private ArrayList<String> listPlot = new ArrayList<>(100);
     private ArrayList<Double> listRating = new ArrayList<>(100);
+
+    private String selected_source;
 
     final private String[] PERMISSIONS = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
     private boolean project_permissions = false;
@@ -53,7 +57,26 @@ public class BrowseActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.browse_layout);
+
+        final List<String> source_list = new ArrayList<>();
+        if (sharedPrefs.getBoolean(getString(R.string.netflix_selected), false)) {
+            source_list.add("netflix");
+        }
+        if (sharedPrefs.getBoolean(getString(R.string.hulu_selected), false)) {
+            source_list.add("hulu_free,hulu_plus");
+        }
+        if (sharedPrefs.getBoolean(getString(R.string.hbo_selected), false)) {
+            source_list.add("hbo");
+        }
+        if (sharedPrefs.getBoolean(getString(R.string.amazon_selected), false)) {
+            source_list.add("amazon");
+        }
+        selected_source = source_list.get(0);
+
         new HttpRequestTask().execute();
+        Toolbar browseToolbar = (Toolbar)findViewById(R.id.browse_toolbar);
+        setSupportActionBar(browseToolbar);
+
         gridView = (GridView) findViewById(R.id.gridView);
 
         mGridData = new ArrayList<>();
@@ -92,13 +115,53 @@ public class BrowseActivity extends AppCompatActivity {
             }
         });
 
-        Toolbar browseToolbar = (Toolbar)findViewById(R.id.browse_toolbar);
-        setSupportActionBar(browseToolbar);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
+        final List<String> list = new ArrayList<>();
+        final List<String> source_list = new ArrayList<>();
+        if (sharedPrefs.getBoolean(getString(R.string.netflix_selected), false)) {
+            list.add("Netflix");
+            source_list.add("netflix");
+        }
+        if (sharedPrefs.getBoolean(getString(R.string.hulu_selected), false)) {
+            list.add("Hulu");
+            source_list.add("hulu_free,hulu_plus");
+        }
+        if (sharedPrefs.getBoolean(getString(R.string.hbo_selected), false)) {
+            list.add("HBO");
+            source_list.add("hbo");
+        }
+        if (sharedPrefs.getBoolean(getString(R.string.amazon_selected), false)) {
+            list.add("Amazon");
+            source_list.add("amazon_prime");
+        }
+
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinnerAdapter);
+        spinnerAdapter.notifyDataSetChanged();
+        selected_source = source_list.get(0);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // your code here
+                selected_source = source_list.get(position);
+                new HttpRequestTask().execute();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
 
     }
 
@@ -165,10 +228,14 @@ public class BrowseActivity extends AppCompatActivity {
         @Override
         protected Movies doInBackground(Void... params) {
             try {
-                final String url = "http://api-public.guidebox.com/v2/movies?api_key=c302491413726d93c00a4b0192f8bc55fdc56da4&sources=amazon_prime&limit=100";
+                final String url = "http://api-public.guidebox.com/v2/movies?api_key=c302491413726d93c00a4b0192f8bc55fdc56da4&sources=" + selected_source + "&limit=100";
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 Movies movies = restTemplate.getForObject(url, Movies.class);
+
+                mGridData.clear();
+                listRating.clear();
+                listPlot.clear();
 
                 results = movies.getResults();
                 GridItem item;

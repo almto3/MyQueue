@@ -144,20 +144,20 @@ public class SelectSourcesActivity extends AppCompatActivity {
                     edit.apply();
                     break;
                 case 1:
-                    boolean hbo_selected = sharedPrefs.getBoolean(getString(R.string.hbo_selected), false);
+                    boolean hbo_selected = sharedPrefs.getBoolean(getString(R.string.hulu_selected), false);
                     if(!hbo_selected) {
-                        edit.putBoolean(getString(R.string.hbo_selected), true);
+                        edit.putBoolean(getString(R.string.hulu_selected), true);
                     } else {
-                        edit.putBoolean(getString(R.string.hbo_selected), false);
+                        edit.putBoolean(getString(R.string.hulu_selected), false);
                     }
                     edit.apply();
                     break;
                 case 2:
-                    boolean hulu_selected = sharedPrefs.getBoolean(getString(R.string.hulu_selected), false);
+                    boolean hulu_selected = sharedPrefs.getBoolean(getString(R.string.hbo_selected), false);
                     if(!hulu_selected) {
-                        edit.putBoolean(getString(R.string.hulu_selected), true);
+                        edit.putBoolean(getString(R.string.hbo_selected), true);
                     } else {
-                        edit.putBoolean(getString(R.string.hulu_selected), false);
+                        edit.putBoolean(getString(R.string.hbo_selected), false);
                     }
                     edit.apply();
                     break;
