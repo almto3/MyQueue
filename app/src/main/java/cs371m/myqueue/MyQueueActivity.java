@@ -1,14 +1,8 @@
 package cs371m.myqueue;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -41,7 +35,7 @@ public class MyQueueActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-        setContentView(R.layout.my_queue_layout);
+        setContentView(R.layout.browse_layout);
         new HttpRequestTask().execute();
         gridView = (GridView) findViewById(R.id.gridView);
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -69,7 +63,6 @@ public class MyQueueActivity extends AppCompatActivity {
                         putExtra("height", imageView.getHeight()).
                         putExtra("title", item.getTitle()).
                         putExtra("image", item.getImage());
-
                 startActivity(intent);
             }
         });
@@ -81,7 +74,6 @@ public class MyQueueActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
     }
 
     @Override

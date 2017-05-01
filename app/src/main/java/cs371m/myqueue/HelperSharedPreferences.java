@@ -12,7 +12,8 @@ import java.util.Map;
 
 public class HelperSharedPreferences {
 
-    public static final String key1_prefix="movie=";
+    //SharedPreferences, key = movie:::id. value = title
+    public static final String key1_prefix="movie:::";
 
     public static void putSharedPreferencesInt(Context context, String key, int value){
         SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(context);

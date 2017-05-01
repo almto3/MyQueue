@@ -3,16 +3,11 @@ package cs371m.myqueue;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
@@ -38,8 +33,10 @@ public class MediaDetailsActivity extends AppCompatActivity {
     // http://stackoverflow.com/questions/14057273/android-singleton-with-global-context
     private static MediaDetailsActivity instance;
     public static MediaDetailsActivity get() { return instance; }
-    Queue q;
-    String title;
+    private Queue q;
+    private String title;
+    private Long id;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,12 +55,10 @@ public class MediaDetailsActivity extends AppCompatActivity {
         findViewById(R.id.item_details_service2).setVisibility(View.INVISIBLE);
 
         title = getIntent().getStringExtra("title");
+        id = getIntent().getLongExtra("id", -1);
         String image = getIntent().getStringExtra("image");
         String rotten = getIntent().getStringExtra("rotten_tomatoes");
         String movie_plot = getIntent().getStringExtra("movie_plot");
-
-//      titleTextView = (TextView) findViewById(R.id.title);
-//      imageView = (ImageView) findViewById(R.id.image);
 
         titleTextView.setText(Html.fromHtml(title));
         rottenTextView.setText(rotten);
@@ -88,7 +83,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
         row0.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d(TAG, "onClick() - item_details_bookmarkIcon");
-                boolean x = q.addMovie(title);
+                boolean x = q.addMovie(title, id);
                 if(x)
                     Toast.makeText(getBaseContext(), title + " added to Queue", Toast.LENGTH_LONG).show();
                 else

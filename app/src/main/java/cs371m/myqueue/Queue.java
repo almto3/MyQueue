@@ -13,13 +13,13 @@ import java.util.Map;
 public class Queue {
 
     private static Queue instance;
-    private List<String> queue;       //has movie ids
+    private List<Long> queue;       //List equals the ids. SharedPreferences, key = movie:::id. value = title
     private static final String TAG = "Queue";
 
     private MediaDetailsActivity app;
 
     private Queue(){
-        queue = new ArrayList<String>();
+        queue = new ArrayList<Long>();
         app = MediaDetailsActivity.get();
         loadMovies();
     }
@@ -36,26 +36,23 @@ public class Queue {
             instance = new Queue();
         return instance;
     }
-    public static Queue getInstance(){
-        return instance;
+
+    public boolean movieExists(Long movie_id){
+        return queue.contains(movie_id);
     }
 
-    public boolean movieExists(String movie){
-        return queue.contains(movie);
-    }
-
-    public boolean addMovie(String movie){
-        if(movieExists(movie))
+    public boolean addMovie(String movie_title, Long movie_id){
+        if(movieExists(movie_id))
             return false;
-        queue.add(movie);
-        writeMovie(movie);
+        queue.add(movie_id);
+        writeMovie(movie_title, movie_id);
         displayQueue();
         displayPrefs();
         return true;
     }
 
     private void displayQueue(){
-        for(String x : queue)
+        for(Long x : queue)
             Log.d(TAG, "displayQueue --> " + x);
     }
     private void displayPrefs(){
@@ -65,8 +62,8 @@ public class Queue {
         }
     }
 
-    private void writeMovie(String movie){
-        HelperSharedPreferences.putSharedPreferencesString(app.getApplicationContext() , HelperSharedPreferences.key1_prefix + movie, movie);
+    private void writeMovie(String movie_title, Long movie_id){
+        HelperSharedPreferences.putSharedPreferencesString(app.getApplicationContext() , HelperSharedPreferences.key1_prefix + movie_id, movie_title);
     }
 
     private void loadMovies(){
@@ -81,15 +78,15 @@ public class Queue {
         return HelperSharedPreferences.getAll(app.getApplicationContext());
     }
 
-    public boolean deleteMovie(String movie){
-        boolean exist = queue.remove(movie);
+    public boolean deleteMovie(Long movie_id){
+        boolean exist = queue.remove(movie_id);
 
         if(exist)
-            HelperSharedPreferences.deleteSharedPreferencesKey(app.getApplicationContext(), HelperSharedPreferences.key1_prefix + movie);
+            HelperSharedPreferences.deleteSharedPreferencesKey(app.getApplicationContext(), HelperSharedPreferences.key1_prefix + movie_id);
         return exist;
     }
     public void deleteMovies(){
-        for (String x : queue){
+        for (Long x : queue){
             deleteMovie(x);
         }
     }
