@@ -14,10 +14,10 @@
 
 
     <!-- static details data -->
-    <string name="details_rottenText">Rotten Tomatoes Score:</string>
+    <string name="details_rottenText">The tMDB Score:</string>
     <string name="details_plotSummary">Plot Summary:</string>
     <string name="details_available_sources">Available On</string>
-    <string name="details_bookmark">Bookmark</string>
+    <string name="details_bookmark">Queue</string>
 
     <!-- non static, should be changed case by case -->
     <string name="details_plot">Four denizers in the world of high-finance predict the credit
@@ -30,10 +30,10 @@
     browsing page for now</string>
     <string name="search_not_implemented">Search feature is not yet supported</string>
 
-    <string name="about">Hey from our Android development team! We are Erin, Saleh and Kaivan. Computer Science students at the University of Texas at Austin. This is our first Android app.</string>
+    <string name="about">¡Hola! From the coolest Android development team! \nWe are Erin, Saleh and Kaivan. Computer Science students at the University of Texas at Austin. This is our first Android app.</string>
 
     <string name="menu_browse">Browse</string>
-    <string name="menu_bookmarks">Bookmarks</string>
+    <string name="menu_bookmarks">MyQueue</string>
     <string name="menu_search">Search</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_sortBy">Sort By:</string>
@@ -46,6 +46,9 @@
     <!-- descriptions -->
     <string name="desc_favorites">Favorites</string>
     <string name="desc_rating">Rating</string>
+
+    <string name="our_git">Hey, our git is currently set to private, but we\'ll open it up as soon as we leave beta (approx. jul 2017). The image next will take you to the </string>
+    <string name="our_email">Also, we can reached over email here: kaivan@douche.bag</string>
 
     <!-- images for grid -->
     <string-array name="image_ids">

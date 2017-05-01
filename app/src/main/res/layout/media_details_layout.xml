@@ -59,9 +59,9 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:padding="10dp"
                                 android:adjustViewBounds="true"
-                                android:src="@drawable/big_short_2015"/>
+                                android:padding="10dp"
+                                android:src="@drawable/big_short_2015" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -170,6 +170,7 @@
                                     android:id="@+id/tableRow4"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
+                                    android:background="@color/gray"
                                     android:layout_marginTop="15dp">
 
                                     <!-- not sure how many services to add?? will do a max of four for now -->

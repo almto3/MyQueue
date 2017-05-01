@@ -4,12 +4,8 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -21,22 +17,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
-
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class BrowseActivity extends AppCompatActivity {
 
     private GridView gridView;
-    private GridViewAdapter gridAdapter;
 
+    private GridViewAdapter gridAdapter;
+    private ArrayList<Result> results;
+    private ArrayList<GridItem> mGridData;
+    private ArrayList<String> listPlot = new ArrayList<>(100);
+    private ArrayList<Double> listRating = new ArrayList<>(100);
 
     final private String[] PERMISSIONS = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
     private boolean project_permissions = false;
@@ -56,52 +53,42 @@ public class BrowseActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.browse_layout);
-
+        new HttpRequestTask().execute();
         gridView = (GridView) findViewById(R.id.gridView);
-        gridAdapter = new GridViewAdapter(this, R.layout.grid_item_layout, getData());
+
+        mGridData = new ArrayList<>();
+        gridAdapter = new GridViewAdapter(this, R.layout.grid_item_layout, mGridData);
         gridView.setAdapter(gridAdapter);
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+          gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
-                ImageItem item = (ImageItem) parent.getItemAtPosition(position);
-                TypedArray rotten = getResources().obtainTypedArray(R.array.rotten_tomatoes_score);
-                TypedArray movie_plot = getResources().obtainTypedArray(R.array.movie_plots);
+                GridItem item = (GridItem) parent.getItemAtPosition(position);
+                Result result = results.get(position);
 
-                try {
-                    String path = Environment.getExternalStorageDirectory().getAbsolutePath();
-                    Log.d("path: ", path );
-                    Log.d("item: ", item.getTitle() );
-                    File file = new File(path + File.separator +"imageBitmap" + ".jpg");
-                    Log.d("file: ", file.toString());
-
-
-                    checkPermissions(PERMISSIONS);
-
-                    if (!project_permissions) {
-                        requestPermissions(PERMISSIONS);
-                    }
-
-                    if(file.exists())
-                        Log.d("EXISTS", "TRUE");
-                    else
-                        Log.d("DOES NOT EXISTS", "TRUE");
-
-                    FileOutputStream stream = new FileOutputStream(file);
-                    item.getImage().compress(Bitmap.CompressFormat.JPEG, 50, stream);
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
 
                 //Create intent
                 Intent intent = new Intent(BrowseActivity.this, MediaDetailsActivity.class);
-                intent.putExtra("title", item.getTitle());
+                //List<String> hello = result.getAlternateTitles();
+                //Pass the image title and url to MediaDetailsActivity
+
+                intent.putExtra("title", result.getTitle()).
+                        putExtra("image", result.getPoster120x171()).
+                        putExtra("id", result.getId()).
+                        putExtra("rotten_tomatoes",Double.toString(listRating.get(position)));
+
+                Log.d("Did we get the plot: ", listPlot.get(position));
+                intent.putExtra("movie_plot", listPlot.get(position));
+
+
+                startActivity(intent);
+/*
+              intent.putExtra("title", item.getTitle());
                 intent.putExtra("image", "imageBitmap");
                 intent.putExtra("rotten",rotten.getString(position));
                 intent.putExtra("movie_plot",movie_plot.getString(position));
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
+                startActivity(intent); */
             }
         });
 
@@ -112,7 +99,7 @@ public class BrowseActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        new HttpRequestTask().execute();
+
     }
 
     @Override
@@ -173,23 +160,6 @@ public class BrowseActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Prepare some dummy data for gridview
-     */
-    private ArrayList<ImageItem> getData() {
-        final ArrayList<ImageItem> imageItems = new ArrayList<>();
-        TypedArray imgs = getResources().obtainTypedArray(R.array.image_ids);
-        for (int i = 0; i < imgs.length(); i++) {
-            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imgs.getResourceId(i, -1));
-
-            String movie_name = imgs.getString(i).replace("res/drawable/", "");
-            movie_name = movie_name.replace(".jpg", "");
-            movie_name = movie_name.replace("_", " ");
-            movie_name = movie_name.toUpperCase();
-            imageItems.add(new ImageItem(bitmap, movie_name));
-        }
-        return imageItems;
-    }
 
     private class HttpRequestTask extends AsyncTask<Void, Void, Movies> {
         @Override
@@ -200,7 +170,29 @@ public class BrowseActivity extends AppCompatActivity {
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 Movies movies = restTemplate.getForObject(url, Movies.class);
 
+                results = movies.getResults();
+                GridItem item;
+                tMDB movieDb = new tMDB();
+                for (Result result : results) {
+                    Log.d("BrowseActivity", result.getTitle());
+                    item = new GridItem();
+                    item.setTitle(result.getTitle());
+                    Log.d("BrowseActivity", item.getTitle());
+                    item.setImage(result.getPoster120x171());
+                    mGridData.add(item);
+
+                    long movie_plot = result.getThemoviedb();
+                    final String url2 = "https://api.themoviedb.org/3/movie/" + Long.toString(movie_plot) + "?api_key=2fb9522ed230e5f6dae69f6206113021";
+                    RestTemplate restTemplate2 = new RestTemplate();
+                    restTemplate2.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                    movieDb= restTemplate.getForObject(url2, tMDB.class);
+                    listPlot.add(movieDb.getOverview());
+                    listRating.add(movieDb.getRating());
+                }
                 return movies;
+
+                //get movie overview from tMDB
+
             } catch (Exception e) {
                 Log.e("MainActivity", e.getMessage(), e);
             }
@@ -210,11 +202,12 @@ public class BrowseActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Movies movies) {
-            List<Result> results = movies.getResults();
 
-            for (Result result : results) {
-                Log.d("BrowseActivity", result.getTitle());
-            }
+            Log.d("BrowseActivity", "onPostExecute");
+            int a = mGridData.size();
+            Log.d("BrowseActivity", Integer.toString(a));
+            gridAdapter.setGridData(mGridData);
+
             //TextView greetingIdText = (TextView) findViewById(R.id.id_value);
             //TextView greetingContentText = (TextView) findViewById(R.id.content_value);
             //greetingIdText.setText(greeting.getId());

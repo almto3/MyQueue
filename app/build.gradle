@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     buildToolsVersion '25.0.0'
+    useLibrary 'org.apache.http.legacy'
     defaultConfig {
         applicationId "cs371m.myqueue"
         minSdkVersion 15
@@ -36,5 +37,6 @@ dependencies {
     compile 'org.springframework.android:spring-android-rest-template:1.0.1.RELEASE'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.8.8'
     compile 'org.apache.commons:commons-lang3:3.5'
+    compile 'com.squareup.picasso:picasso:2.5.2'
     testCompile 'junit:junit:4.12'
 }

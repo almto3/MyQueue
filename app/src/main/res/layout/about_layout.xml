@@ -23,23 +23,87 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
+        android:background="@color/white"
         android:padding="5dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"/>
 
         <ImageView
             android:id="@+id/about_image"
-            android:src="@drawable/about"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:layout_gravity="center"
-            android:layout_margin="5dp" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"/>
 
         <TextView
             android:id="@+id/about_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/about"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textSize="20sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@color/white"/>
+
+        <TableLayout
+            android:id="@+id/contact_table"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:minHeight="120dp"
+                android:stretchColumns="0,1"
+                android:layout_marginLeft="5dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/git_text"
+                    android:layout_width="250dp"
+                    android:layout_height="match_parent"
+                    android:ellipsize="none"
+                    android:ems="10"
+                    android:text="@string/our_git"
+
+                    android:textSize="16sp" />
+                <ImageView
+                    android:id="@+id/git_pic"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_gravity="center"
+                    android:clickable="true"
+                    android:src="@drawable/github" />
+                <!-- picture from
+                 https://visola.github.io/2012/11/12/dao-repository-and-service-digging-deeper/
+                -->
+            </TableRow>
+        </TableLayout>
+
+        <TextView
+            android:id="@+id/contact_email"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ellipsize="none"
+            android:ems="10"
+            android:text="@string/our_email"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textSize="16sp" />
 
     </LinearLayout>
 </LinearLayout>

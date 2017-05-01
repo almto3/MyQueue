@@ -1,27 +1,28 @@
 package cs371m.myqueue;
 
 import android.Manifest;
-import android.annotation.TargetApi;
-
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
+
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
 
 
 public class MediaDetailsActivity extends AppCompatActivity {
@@ -32,39 +33,48 @@ public class MediaDetailsActivity extends AppCompatActivity {
     private static final int REQUEST_READ = 1;
 
 
+    // added by saleh to Keep track of context
+    // http://stackoverflow.com/questions/14057273/android-singleton-with-global-context
+    private static MediaDetailsActivity instance;
+    public static MediaDetailsActivity get() { return instance; }
+    private Queue q;
+    private String title;
+    private Long id;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.media_details_layout);
         Log.d(TAG, "onCreate");
-
-        String title = getIntent().getStringExtra("image");
-        String path = Environment.getExternalStorageDirectory() + "/"+ title + ".jpg";
-        Bitmap bitmap = BitmapFactory.decodeFile(path);
-
-        Log.d("path = ", path);
+        instance = this;
 
         ImageView imageView = (ImageView) findViewById(R.id.movie_poster);
-        imageView.setImageBitmap(bitmap);
-
-        String movie_title = getIntent().getStringExtra("title");
         TextView titleTextView = (TextView) findViewById(R.id.item_details_title);
-        titleTextView.setText(movie_title);
-
-        String rotten = getIntent().getStringExtra("rotten");
         TextView rottenTextView = (TextView) findViewById(R.id.item_details_rotten_score);
-        rottenTextView.setText(rotten);
-
-        String movie_plot = getIntent().getStringExtra("movie_plot");
         TextView plotTextView = (TextView) findViewById(R.id.item_details_plot);
-        plotTextView.setText(movie_plot);
 
-        Toolbar itemDetailsToolbar = (Toolbar)findViewById(R.id.item_details_toolbar);
-        setSupportActionBar(itemDetailsToolbar);
+        findViewById(R.id.item_details_service0).setVisibility(View.INVISIBLE);
+        findViewById(R.id.item_details_service1).setVisibility(View.INVISIBLE);
+        findViewById(R.id.item_details_service2).setVisibility(View.INVISIBLE);
+
+        title = getIntent().getStringExtra("title");
+        id = getIntent().getLongExtra("id", -1);
+        String image = getIntent().getStringExtra("image");
+        String rotten = getIntent().getStringExtra("rotten_tomatoes");
+        String movie_plot = getIntent().getStringExtra("movie_plot");
+
+        Picasso.with(this).load(image).into(imageView);
+        titleTextView.setText(Html.fromHtml(title));
+        rottenTextView.setText(rotten);
+        plotTextView.setText(movie_plot);
+        //trying to get the details of the movie
+
+
+        //plotTextView.setText(movieDb.getOverview());
+        q = Queue.get();
 
         setListeners();
-
         checkPermissions();
     }
 
@@ -77,11 +87,15 @@ public class MediaDetailsActivity extends AppCompatActivity {
     public void setListeners() {
         Log.d(TAG, "setListeners()");
 
-        ImageView img0 = (ImageView) findViewById(R.id.item_details_bookmarkIcon);
-        img0.setOnClickListener(new View.OnClickListener() {
+        TableRow row0 = (TableRow) findViewById(R.id.tableRow4);
+        row0.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d(TAG, "onClick() - item_details_bookmarkIcon");
-                Toast.makeText(getBaseContext(), "Bookmark feature isn't fully supported right now", Toast.LENGTH_LONG).show();
+                boolean x = q.addMovie(title, id);
+                if(x)
+                    Toast.makeText(getBaseContext(), title + " added to Queue", Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(getBaseContext(), title + " is already in Queue", Toast.LENGTH_LONG).show();
 
             }
         });
@@ -125,7 +139,6 @@ public class MediaDetailsActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     @Override
@@ -197,5 +210,6 @@ public class MediaDetailsActivity extends AppCompatActivity {
         Log.d(TAG, "");
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ);
     }
+
 
 }
