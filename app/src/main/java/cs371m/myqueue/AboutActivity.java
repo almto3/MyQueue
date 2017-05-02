@@ -26,10 +26,11 @@ public class AboutActivity extends AppCompatActivity {
         Picasso.with(this)
                 .load(R.drawable.about)
                 .error(R.drawable.error)
-                .resize(750, 600)
+                .resize(850, 700)
                 .into(image);
 
         Toolbar aboutToolbar = (Toolbar)findViewById(R.id.about_toolbar);
+        aboutToolbar.setTitle("About Us");
         setSupportActionBar(aboutToolbar);
 
         findViewById(R.id.git_pic).setOnClickListener(new View.OnClickListener() {

@@ -28,6 +28,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.settings_layout);
 
         Toolbar settingsToolbar = (Toolbar)findViewById(R.id.settings_toolbar);
+        settingsToolbar.setTitle("Settings");
         setSupportActionBar(settingsToolbar);
 
     }

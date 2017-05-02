@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
@@ -53,6 +54,10 @@ public class MediaDetailsActivity extends AppCompatActivity {
         findViewById(R.id.item_details_service1).setVisibility(View.INVISIBLE);
         findViewById(R.id.item_details_service2).setVisibility(View.INVISIBLE);
         findViewById(R.id.item_details_service3).setVisibility(View.INVISIBLE);
+
+        Toolbar detailsToolbar = (Toolbar)findViewById(R.id.item_details_toolbar);
+        detailsToolbar.setTitle("Media Details");
+        setSupportActionBar(detailsToolbar);
 
         String selected_source = getIntent().getStringExtra("selected_source");
         switch (selected_source) {

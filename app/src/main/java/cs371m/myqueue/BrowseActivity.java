@@ -98,6 +98,7 @@ public class BrowseActivity extends AppCompatActivity {
 
         new HttpRequestTask().execute();
         Toolbar browseToolbar = (Toolbar)findViewById(R.id.browse_toolbar);
+        browseToolbar.setTitle("Browse");
         setSupportActionBar(browseToolbar);
 
         gridView = (GridView) findViewById(R.id.gridView);
