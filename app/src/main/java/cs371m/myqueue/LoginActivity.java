@@ -30,6 +30,12 @@ import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity{
 
+    // added by saleh to Keep track of context
+    // http://stackoverflow.com/questions/14057273/android-singleton-with-global-context
+    private static LoginActivity instance;
+    public static LoginActivity get() { return instance; }
+    private Queue q;
+
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
@@ -109,6 +115,9 @@ public class LoginActivity extends AppCompatActivity{
                 // ...
             }
         };
+
+        instance = this;
+        q = Queue.get();
 
     }
 

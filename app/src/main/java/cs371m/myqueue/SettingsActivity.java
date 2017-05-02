@@ -127,7 +127,7 @@ public class SettingsActivity extends AppCompatActivity {
                     startActivity(new Intent(getActivity(), SelectSourcesActivity.class));
                     break;
                 case 1:     //FAQ
-
+                    startActivity(new Intent(getActivity(), FAQActivity.class));
                     break;
                 case 2:     //About Us
                     startActivity(new Intent(getActivity(), AboutActivity.class));

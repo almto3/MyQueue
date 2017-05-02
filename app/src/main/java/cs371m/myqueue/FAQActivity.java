@@ -13,32 +13,19 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 
 
-public class AboutActivity extends AppCompatActivity {
+public class FAQActivity extends AppCompatActivity {
 
-    private final String TAG = "AboutActivity";
+    private final String TAG = "FAQActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.about_layout);
+        setContentView(R.layout.faq_layout);
 
-        ImageView image = (ImageView) findViewById(R.id.about_image);
-        Picasso.with(this)
-                .load(R.drawable.about)
-                .error(R.drawable.error)
-                .resize(850, 700)
-                .into(image);
+        Toolbar faqToolbar = (Toolbar)findViewById(R.id.faq_toolbar);
+        faqToolbar.setTitle("FAQ");
+        setSupportActionBar(faqToolbar);
 
-        Toolbar aboutToolbar = (Toolbar)findViewById(R.id.about_toolbar);
-        aboutToolbar.setTitle("About Us");
-        setSupportActionBar(aboutToolbar);
-
-        findViewById(R.id.git_pic).setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse
-                        ("https://github.com/almto3/MyQueue")));
-            }
-        });
     }
 
     @Override
@@ -54,7 +41,7 @@ public class AboutActivity extends AppCompatActivity {
                 startActivity(new Intent(this, BrowseActivity.class));
                 return true;
             case R.id.menu_bookmarks:
-                startActivity(new Intent(this, MyQueueActivity.class));
+                startActivity(new Intent(this, BrowseActivity.class));
                 return true;
             case R.id.menu_search:
                 startActivity(new Intent(this, SearchActivity.class));

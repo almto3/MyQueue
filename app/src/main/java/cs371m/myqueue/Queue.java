@@ -22,12 +22,12 @@ public class Queue {
 
 
     private static final String TAG = "Queue";
-    private BrowseActivity app;
+    private LoginActivity app;
 
     private Queue(){
         queue = new HashMap<Long, String>();
 
-        app = BrowseActivity.get();
+        app = LoginActivity.get();
         //cleanMovies();
         parseMovies();
     }
