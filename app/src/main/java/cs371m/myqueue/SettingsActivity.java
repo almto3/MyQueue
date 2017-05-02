@@ -28,6 +28,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.settings_layout);
 
         Toolbar settingsToolbar = (Toolbar)findViewById(R.id.settings_toolbar);
+        settingsToolbar.setTitle("Settings");
         setSupportActionBar(settingsToolbar);
 
     }
@@ -48,9 +49,7 @@ public class SettingsActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.menu_bookmarks:
-                Toast.makeText(getBaseContext(), R.string.bookmarks_not_implemented,
-                        Toast.LENGTH_LONG).show();
-                intent = new Intent(this, BrowseActivity.class);
+                intent = new Intent(this, MyQueueActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 return true;

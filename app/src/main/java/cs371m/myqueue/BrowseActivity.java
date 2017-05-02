@@ -20,7 +20,6 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +32,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BrowseActivity extends AppCompatActivity {
+
+    // added by saleh to Keep track of context
+    // http://stackoverflow.com/questions/14057273/android-singleton-with-global-context
+    private static BrowseActivity instance;
+    public static BrowseActivity get() { return instance; }
+    private Queue q;
 
     private GridView gridView;
 
@@ -100,6 +105,7 @@ public class BrowseActivity extends AppCompatActivity {
 
         new HttpRequestTask().execute();
         Toolbar browseToolbar = (Toolbar)findViewById(R.id.browse_toolbar);
+        browseToolbar.setTitle("Browse");
         setSupportActionBar(browseToolbar);
 
         gridView = (GridView) findViewById(R.id.gridView);
@@ -128,6 +134,8 @@ public class BrowseActivity extends AppCompatActivity {
 
             }
         });
+        instance = this;
+        q = Queue.get();
     }
 
     @Override
@@ -228,8 +236,9 @@ public class BrowseActivity extends AppCompatActivity {
             case R.id.menu_browse:
                 return true;
             case R.id.menu_bookmarks:
-                Toast.makeText(getBaseContext(), R.string.bookmarks_not_implemented,
-                        Toast.LENGTH_LONG).show();
+                intent = new Intent(this, MyQueueActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
                 return true;
             case R.id.menu_search:
                 intent = new Intent(this, SearchActivity.class);

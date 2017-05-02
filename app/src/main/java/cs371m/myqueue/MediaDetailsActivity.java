@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
@@ -32,15 +33,11 @@ public class MediaDetailsActivity extends AppCompatActivity {
     private static final int REQUEST_WRITE = 0;
     private static final int REQUEST_READ = 1;
 
-
-    // added by saleh to Keep track of context
-    // http://stackoverflow.com/questions/14057273/android-singleton-with-global-context
-    private static MediaDetailsActivity instance;
-    public static MediaDetailsActivity get() { return instance; }
-    private Queue q;
     private String title;
     private Long id;
     private Long tMDBid;
+
+    private Queue q;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,7 +45,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
 
         setContentView(R.layout.media_details_layout);
         Log.d(TAG, "onCreate");
-        instance = this;
+
 
         ImageView imageView = (ImageView) findViewById(R.id.movie_poster);
         TextView titleTextView = (TextView) findViewById(R.id.item_details_title);
@@ -57,6 +54,10 @@ public class MediaDetailsActivity extends AppCompatActivity {
         findViewById(R.id.item_details_service1).setVisibility(View.INVISIBLE);
         findViewById(R.id.item_details_service2).setVisibility(View.INVISIBLE);
         findViewById(R.id.item_details_service3).setVisibility(View.INVISIBLE);
+
+        Toolbar detailsToolbar = (Toolbar)findViewById(R.id.item_details_toolbar);
+        detailsToolbar.setTitle("Media Details");
+        setSupportActionBar(detailsToolbar);
 
         String selected_source = getIntent().getStringExtra("selected_source");
         switch (selected_source) {
@@ -85,8 +86,28 @@ public class MediaDetailsActivity extends AppCompatActivity {
 
         q = Queue.get();
 
+        queueOrDequeue();
         setListeners();
         checkPermissions();
+    }
+
+    private void queueOrDequeue() {
+        Log.d(TAG, "queueOrDequeue");
+        if(q.movieExists(id)){
+            TextView t = (TextView) findViewById(R.id.item_details_bookmarkText);
+            t.setText(R.string.details_bookmark_delete);
+
+            ImageView i = (ImageView) findViewById(R.id.item_details_bookmarkIcon);
+            Picasso.with(this).load(R.drawable.bookmark_delete).into(i);
+        }
+        else{
+            TextView t = (TextView) findViewById(R.id.item_details_bookmarkText);
+            t.setText(R.string.details_bookmark);
+
+            ImageView i = (ImageView) findViewById(R.id.item_details_bookmarkIcon);
+            Picasso.with(this).load(R.drawable.bookmark).into(i);
+        }
+
     }
 
     @Override
@@ -102,14 +123,25 @@ public class MediaDetailsActivity extends AppCompatActivity {
         row0.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d(TAG, "onClick() - item_details_bookmarkIcon");
-                boolean x = q.addMovie(title, id);
-                if(x)
-                    Toast.makeText(getBaseContext(), title + " added to Queue",
-                            Toast.LENGTH_LONG).show();
-                else
-                    Toast.makeText(getBaseContext(), title + " is already in Queue",
-                            Toast.LENGTH_LONG).show();
-
+                if(((TextView) findViewById(R.id.item_details_bookmarkText)).getText().equals("Queue")) {
+                    boolean x = q.addMovie(id, title);
+                    if (x)
+                        Toast.makeText(getBaseContext(), title + " added to Queue",
+                                Toast.LENGTH_LONG).show();
+                    else
+                        Toast.makeText(getBaseContext(), title + " is already in Queue",
+                                Toast.LENGTH_LONG).show();
+                }
+                else{
+                    boolean x = q.deleteMovie(id);
+                    if (x)
+                        Toast.makeText(getBaseContext(), title + " deleted from Queue",
+                                Toast.LENGTH_LONG).show();
+                    else
+                        Toast.makeText(getBaseContext(), title + " does not exist in Queue",
+                                Toast.LENGTH_LONG).show();
+                }
+                queueOrDequeue();
             }
         });
 
@@ -168,11 +200,10 @@ public class MediaDetailsActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.menu_bookmarks:
-                Toast.makeText(getBaseContext(), R.string.bookmarks_not_implemented,
-                        Toast.LENGTH_LONG).show();
-                intent = new Intent(this, BrowseActivity.class);
+                intent = new Intent(this, MyQueueActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
+
                 return true;
             case R.id.menu_search:
                 intent = new Intent(this, SearchActivity.class);

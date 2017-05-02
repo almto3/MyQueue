@@ -25,7 +25,7 @@ import java.util.Map;
 @JsonPropertyOrder({
         "total_results",
         "total_returned",
-        "results"
+        "results"                   //10 results
 })
 
 public class Movies {
