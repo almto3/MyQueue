@@ -53,16 +53,17 @@ public class SelectSourcesActivity extends AppCompatActivity {
         continue_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                if (!sharedPrefs.getBoolean(getString(R.string.netflix_selected), false) &&
-                        !sharedPrefs.getBoolean(getString(R.string.hulu_selected), false) &&
-                        !sharedPrefs.getBoolean(getString(R.string.hbo_selected), false) &&
-                        !sharedPrefs.getBoolean(getString(R.string.amazon_selected), false)) {
+                if (!sharedPrefs.getBoolean(getString(R.string.netflix_source), false) &&
+                        !sharedPrefs.getBoolean(getString(R.string.hulu_source), false) &&
+                        !sharedPrefs.getBoolean(getString(R.string.hbo_source), false) &&
+                        !sharedPrefs.getBoolean(getString(R.string.amazon_source), false)) {
                     Toast.makeText(getBaseContext(),
                             R.string.force_select_service, Toast.LENGTH_LONG).show();
                 } else {
                     Intent intent = new Intent(activity, BrowseActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);
+                    SelectSourcesActivity.this.finish();
                 }
             }
         });
@@ -119,8 +120,6 @@ public class SelectSourcesActivity extends AppCompatActivity {
         private DatabaseReference mDatabase;
         private String userId;
 
-        public static int numSelected;
-
         @Override
         public void onActivityCreated(Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
@@ -145,11 +144,10 @@ public class SelectSourcesActivity extends AppCompatActivity {
 
             getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
-            getListView().setItemChecked(0, sharedPrefs.getBoolean(getString(R.string.netflix_selected), false));
-            getListView().setItemChecked(1, sharedPrefs.getBoolean(getString(R.string.hulu_selected), false));
-            getListView().setItemChecked(2, sharedPrefs.getBoolean(getString(R.string.hbo_selected), false));
-            getListView().setItemChecked(3, sharedPrefs.getBoolean(getString(R.string.amazon_selected), false));
-
+            getListView().setItemChecked(0, sharedPrefs.getBoolean(getString(R.string.netflix_source), false));
+            getListView().setItemChecked(1, sharedPrefs.getBoolean(getString(R.string.hulu_source), false));
+            getListView().setItemChecked(2, sharedPrefs.getBoolean(getString(R.string.hbo_source), false));
+            getListView().setItemChecked(3, sharedPrefs.getBoolean(getString(R.string.amazon_source), false));
         }
 
         @Override
@@ -160,7 +158,6 @@ public class SelectSourcesActivity extends AppCompatActivity {
 
         @Override
         public void onListItemClick(ListView l, View v, int position, long id) {
-            numSelected = getListView().getCheckedItemCount();
             addSource(position);
         }
 
@@ -168,61 +165,35 @@ public class SelectSourcesActivity extends AppCompatActivity {
             mCurCheckPosition = index;
 
             SharedPreferences.Editor edit = sharedPrefs.edit();
-
+            boolean source_selected = false;
+            String source = getString(R.string.netflix_source);
             switch (mCurCheckPosition) {
                 case 0:
-                    boolean netflix_selected = sharedPrefs.getBoolean(getString(R.string.netflix_selected), false);
-                    if(!netflix_selected) {
-                        mDatabase.child("users").child(userId).child("services").child
-                                (getString(R.string.netflix_source)).setValue(true);
-                        edit.putBoolean(getString(R.string.netflix_selected), true);
-                    } else {
-                        mDatabase.child("users").child(userId).child("services").child
-                                (getString(R.string.netflix_source)).setValue(false);
-                        edit.putBoolean(getString(R.string.netflix_selected), false);
-                    }
-                    edit.apply();
+                    source = getString(R.string.netflix_source);
+                    source_selected = sharedPrefs.getBoolean(source, false);
                     break;
                 case 1:
-                    boolean hbo_selected = sharedPrefs.getBoolean(getString(R.string.hulu_selected), false);
-                    if(!hbo_selected) {
-                        mDatabase.child("users").child(userId).child("services").child
-                                (getString(R.string.hulu_source)).setValue(true);
-                        edit.putBoolean(getString(R.string.hulu_selected), true);
-                    } else {
-                        mDatabase.child("users").child(userId).child("services").child
-                                (getString(R.string.hulu_source)).setValue(false);
-                        edit.putBoolean(getString(R.string.hulu_selected), false);
-                    }
-                    edit.apply();
+                    source = getString(R.string.hulu_source);
+                    source_selected = sharedPrefs.getBoolean(source, false);
                     break;
                 case 2:
-                    boolean hulu_selected = sharedPrefs.getBoolean(getString(R.string.hbo_selected), false);
-                    if(!hulu_selected) {
-                        mDatabase.child("users").child(userId).child("services").child
-                                (getString(R.string.hbo_source)).setValue(true);
-                        edit.putBoolean(getString(R.string.hbo_selected), true);
-                    } else {
-                        mDatabase.child("users").child(userId).child("services").child
-                                (getString(R.string.hbo_source)).setValue(false);
-                        edit.putBoolean(getString(R.string.hbo_selected), false);
-                    }
-                    edit.apply();
+                    source = getString(R.string.hbo_source);
+                    source_selected = sharedPrefs.getBoolean(source, false);
                     break;
                 case 3:
-                    boolean amazon_selected = sharedPrefs.getBoolean(getString(R.string.amazon_selected), false);
-                    if(!amazon_selected) {
-                        mDatabase.child("users").child(userId).child("services").child
-                                (getString(R.string.amazon_source)).setValue(true);
-                        edit.putBoolean(getString(R.string.amazon_selected), true);
-                    } else {
-                        mDatabase.child("users").child(userId).child("services").child
-                                (getString(R.string.amazon_source)).setValue(false);
-                        edit.putBoolean(getString(R.string.amazon_selected), false);
-                    }
-                    edit.apply();
-                    break;
+                    source = getString(R.string.amazon_source);
+                    source_selected = sharedPrefs.getBoolean(source, false);                    break;
             }
+            if(!source_selected) {
+                mDatabase.child("users").child(userId).child("services").child
+                        (source).setValue(true);
+                edit.putBoolean(source, true);
+            } else {
+                mDatabase.child("users").child(userId).child("services").child
+                        (source).setValue(false);
+                edit.putBoolean(source, false);
+            }
+            edit.commit();
         }
     }
 }

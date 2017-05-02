@@ -38,6 +38,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
     private Long tMDBid;
 
     private Queue q;
+    private String selected_source;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,12 +60,12 @@ public class MediaDetailsActivity extends AppCompatActivity {
         detailsToolbar.setTitle("Media Details");
         setSupportActionBar(detailsToolbar);
 
-        String selected_source = getIntent().getStringExtra("selected_source");
+        selected_source = getIntent().getStringExtra("selected_source");
         switch (selected_source) {
             case "netflix":
                 findViewById(R.id.item_details_service1).setVisibility(View.VISIBLE);
                 break;
-            case "hulu_free,hulu_plus":
+            case "hulu":
                 findViewById(R.id.item_details_service0).setVisibility(View.VISIBLE);
                 break;
             case "hbo":
@@ -124,7 +125,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d(TAG, "onClick() - item_details_bookmarkIcon");
                 if(((TextView) findViewById(R.id.item_details_bookmarkText)).getText().equals("Queue")) {
-                    boolean x = q.addMovie(id, title);
+                    boolean x = q.addMovie(id, selected_source);
                     if (x)
                         Toast.makeText(getBaseContext(), title + " added to Queue",
                                 Toast.LENGTH_LONG).show();

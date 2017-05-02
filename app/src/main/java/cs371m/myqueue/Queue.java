@@ -3,23 +3,16 @@ package cs371m.myqueue;
 
 import android.util.Log;
 
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import android.util.Pair;
 
 //Singleton class, should be called from MediaDetailsActivity
 //should it be called form anywhere because of the toolbar?
 public class Queue {
 
     private static Queue instance;
-    private Map<Long, String> queue;       //Long=id, String=title. SharedPreferences, key = movie:::id. value = title
-
-
+    private Map<Long, String> queue;       //Long=id, String=title. SharedPreferences, key = movie:::id. value = service
 
     private static final String TAG = "Queue";
     private BrowseActivity app;
@@ -31,6 +24,7 @@ public class Queue {
         //cleanMovies();
         parseMovies();
     }
+
     protected static Queue get() {
         Log.d(TAG, "Queue get");
         if(instance == null)
@@ -46,17 +40,17 @@ public class Queue {
     protected boolean movieExists(Long movie_id){
         return queue.containsKey(movie_id);
     }
-    protected boolean addMovie(Long movie_id, String movie_title){
+    protected boolean addMovie(Long movie_id, String selected_source){
         if(movieExists(movie_id))
             return false;
-        queue.put(movie_id, movie_title);
-        writeMovie(movie_id, movie_title);
+        queue.put(movie_id, selected_source);
+        writeMovie(movie_id, selected_source);
         displayQueue();
         return true;
     }
     private void displayQueue(){
         for(Long x : queue.keySet()){
-            Log.d(TAG, "displayQueue --> id = " + x + ", movie = " + queue.get(x));
+            Log.d(TAG, "displayQueue --> id = " + x + ", service = " + queue.get(x));
         }
     }
     private void writeMovie(Long movie_id, String movie_title){
@@ -67,8 +61,9 @@ public class Queue {
     private void parseMovies(){
         Map<String, ?> allEntries = returnMap();
         for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
-            if(entry.getKey().substring(0,5).equals("movie")) {
-                Log.d(TAG, "parseMovies --> id = " + entry.getKey().substring(entry.getKey().lastIndexOf(':') +1 ) + ", movie = " + entry.getValue());
+            Log.d("Queue", entry.getKey());
+            if(entry.getKey().substring(0,3).equals("mov")) {
+                Log.d(TAG, "parseMovies --> id = " + entry.getKey().substring(entry.getKey().lastIndexOf(':') +1 ) + ", service = " + entry.getValue());
                 queue.put(new Long(entry.getKey().substring(entry.getKey().lastIndexOf(':') +1 )), entry.getValue().toString());
             }
         }
@@ -80,7 +75,7 @@ public class Queue {
     protected Set<Long> returnKeys(){
         return queue.keySet();
     }
-    protected String returnMovie(Long key){
+    protected String returnService(Long key){
         return queue.get(key).toString();
     }
     protected boolean deleteMovie(Long movie_id){

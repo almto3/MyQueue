@@ -135,16 +135,16 @@ public class LoginActivity extends AppCompatActivity{
                             String userId = user.getUid();
                             mDatabase.child("users").child(userId).child("services").child
                                     (getString(R.string.netflix_source)).setValue(true);
-                            edit.putBoolean(getString(R.string.netflix_selected), true);
+                            edit.putBoolean(getString(R.string.netflix_source), true);
                             mDatabase.child("users").child(userId).child("services").child
                                     (getString(R.string.hulu_source)).setValue(false);
-                            edit.putBoolean(getString(R.string.hulu_selected), true);
+                            edit.putBoolean(getString(R.string.hulu_source), false);
                             mDatabase.child("users").child(userId).child("services").child
                                     (getString(R.string.hbo_source)).setValue(false);
-                            edit.putBoolean(getString(R.string.hbo_selected), true);
+                            edit.putBoolean(getString(R.string.hbo_source), false);
                             mDatabase.child("users").child(userId).child("services").child
                                     (getString(R.string.amazon_source)).setValue(false);
-                            edit.putBoolean(getString(R.string.amazon_selected), true);
+                            edit.putBoolean(getString(R.string.amazon_source), false);
                             edit.commit();
                             LoginActivity.this.finish();
                         }
@@ -209,25 +209,25 @@ public class LoginActivity extends AppCompatActivity{
                                 switch (itemSnapshot.getKey()) {
                                     case "netflix":
                                         Log.d("LoginActivity", "adding netflix to sharedPrefs");
-                                        edit.putBoolean(getString(R.string.netflix_selected),
+                                        edit.putBoolean(getString(R.string.netflix_source),
                                                 (Boolean) itemSnapshot.getValue());
                                         edit.commit();
                                         break;
                                     case "hulu":
                                         Log.d("LoginActivity", "adding hulu to sharedPrefs");
-                                        edit.putBoolean(getString(R.string.hulu_selected),
+                                        edit.putBoolean(getString(R.string.hulu_source),
                                                 (Boolean) itemSnapshot.getValue());
                                         edit.commit();
                                         break;
                                     case "hbo":
                                         Log.d("LoginActivity", "adding hbo to sharedPrefs");
-                                        edit.putBoolean(getString(R.string.hbo_selected),
+                                        edit.putBoolean(getString(R.string.hbo_source),
                                                 (Boolean) itemSnapshot.getValue());
                                         edit.commit();
                                         break;
                                     case "amazon_prime":
                                         Log.d("LoginActivity", "adding amazon to sharedPrefs");
-                                        edit.putBoolean(getString(R.string.amazon_selected),
+                                        edit.putBoolean(getString(R.string.amazon_source),
                                                 (Boolean) itemSnapshot.getValue());
                                         edit.commit();
                                         break;

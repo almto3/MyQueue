@@ -1,12 +1,10 @@
 package cs371m.myqueue;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,8 +14,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
+
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,32 +32,16 @@ public class MyQueueActivity extends AppCompatActivity {
     private ArrayList<Result> results = new ArrayList<>(100);
     private ArrayList<GridItem> mGridData;
 
-    private String selected_source;
     private final String TAG = "MyQueueActivity";
+
+    private List<String> selected_sources = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-
         setContentView(R.layout.my_queue_layout);
-        final List<String> source_list = new ArrayList<>();
-        if (sharedPrefs.getBoolean(getString(R.string.netflix_selected), false)) {
-            source_list.add("netflix");
-        }
-        if (sharedPrefs.getBoolean(getString(R.string.hulu_selected), false)) {
-            source_list.add("hulu_free,hulu_plus");
-        }
-        if (sharedPrefs.getBoolean(getString(R.string.hbo_selected), false)) {
-            source_list.add("hbo");
-        }
-        if (sharedPrefs.getBoolean(getString(R.string.amazon_selected), false)) {
-            source_list.add("amazon");
-        }
-        selected_source = source_list.get(0);
 
-        new MyQueueActivity.HttpRequestTask().execute();
         Toolbar myQueueToolbar = (Toolbar)findViewById(R.id.my_queue_toolbar);
         myQueueToolbar.setTitle("MyQueue!");
         myQueueToolbar.findViewById(R.id.my_queue_toolbar_button).setOnClickListener(new View.OnClickListener() {
@@ -85,6 +69,7 @@ public class MyQueueActivity extends AppCompatActivity {
         });
 
         setSupportActionBar(myQueueToolbar);
+        new MyQueueActivity.HttpRequestTask().execute();
 
         gridView = (GridView) findViewById(R.id.gridView);
 
@@ -106,10 +91,11 @@ public class MyQueueActivity extends AppCompatActivity {
                         putExtra("image", result.getPoster120x171()).
                         putExtra("id", result.getId()).
                         putExtra("tMDBid", result.getThemoviedb()).
-                        putExtra("selected_source", selected_source);
+                        putExtra("selected_source", selected_sources.get(position));
                 startActivity(intent);
             }
         });
+
         q = Queue.get();
     }
 
@@ -129,6 +115,7 @@ public class MyQueueActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        
     }
 
     @Override
@@ -176,7 +163,7 @@ public class MyQueueActivity extends AppCompatActivity {
                 Result result= null;
                 for(Long key : Queue.get().returnKeys()){
                     Log.d(TAG, "HttpRequestTask --> key = " + key);
-                    Log.d(TAG, "HttpRequestTask --> movie = " + Queue.get().returnMovie(key));
+                    //Log.d(TAG, "HttpRequestTask --> service = " + Queue.get().returnService(key));
                     url = "http://api-public.guidebox.com/v2/movies/" + key +"?api_key=c302491413726d93c00a4b0192f8bc55fdc56da4&movie_id=143441";
                     Log.d(TAG, "HttpRequestTask --> url = " + url);
                     RestTemplate restTemplate = new RestTemplate();
@@ -185,6 +172,7 @@ public class MyQueueActivity extends AppCompatActivity {
 
                     if(result != null) {
                         Log.d(TAG, "ADDALL --> " + result.toString());
+                        selected_sources.add(Queue.get().returnService(key));
                         results.add(result);
                     }
                     else
