@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -129,7 +128,10 @@ public class SettingsActivity extends AppCompatActivity {
                     break;
                 case 2:
                     FirebaseAuth.getInstance().signOut();
-                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    startActivity(intent);
+                    getActivity().finish();
                     break;
 
             }

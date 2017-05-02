@@ -26,9 +26,11 @@ public class WelcomeActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Log.d("WelcomeActivity", "setListener");
-                startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
+                Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(intent);
+                WelcomeActivity.this.finish();
             }
-
         });
 
     }
