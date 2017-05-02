@@ -46,7 +46,7 @@ public class BrowseActivity extends AppCompatActivity {
     private ArrayList<GridItem> mGridData;
 
     private String selected_source;
-
+    private final String TAG = "BrowseActivity";
     final private String[] PERMISSIONS = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE};
     private boolean project_permissions = false;
@@ -61,6 +61,7 @@ public class BrowseActivity extends AppCompatActivity {
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences
                 (getBaseContext());
+
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -253,6 +254,9 @@ public class BrowseActivity extends AppCompatActivity {
                 intent = new Intent(this, SettingsActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
+                return true;
+            case R.id.menu_quit:
+                System.exit(0);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
