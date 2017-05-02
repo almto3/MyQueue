@@ -60,15 +60,7 @@ public class BrowseActivity extends AppCompatActivity {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences
                 (getBaseContext());
         if(!checkInternet()){
-            new AlertDialog.Builder(BrowseActivity.this)
-                    .setTitle(R.string.no_connection)
-                    .setMessage(R.string.press_to_refresh)
-                    .setNeutralButton(R.string.refresh, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            restart();
-                        }
-                    })
-                    .show();
+            while (getInternet());
         }
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -148,6 +140,8 @@ public class BrowseActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
     @Override
     protected void onStart() {
@@ -312,6 +306,7 @@ public class BrowseActivity extends AppCompatActivity {
     }
 
     private boolean checkInternet(){
+        Log.d(TAG, "checkInternet");
         if (InternetAccess.getInstance(this).isOnline()) {
             Toast.makeText(getBaseContext(), R.string.online, Toast.LENGTH_LONG).show();
             return true;
@@ -320,6 +315,19 @@ public class BrowseActivity extends AppCompatActivity {
             return false;
         }
 
+    }
+    private boolean getInternet() {
+        Log.d(TAG, "getInternet");
+        new AlertDialog.Builder(BrowseActivity.this)
+                .setTitle(R.string.no_connection)
+                .setMessage(R.string.press_to_refresh)
+                .setNeutralButton(R.string.refresh, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .show();
+        return true;
     }
     private void restart() {
         finish();

@@ -85,7 +85,7 @@
     <string name="online">online</string>
     <string name="offline">offline</string>
     <string name="no_connection">Could not reach the internet</string>
-    <string name="press_to_refresh">This page will not work without a connection, please press on the button to refresh the page</string>
+    <string name="press_to_refresh">This feature will not work without a connection, please press on the button to refresh the page</string>
     <string name="refresh">refresh</string>
 
     <string name="my_queue_delete_conformation">Are you sure you want to delete the whole Queue?</string>
