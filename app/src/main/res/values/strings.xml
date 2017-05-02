@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">MyQueue</string>
 
+    <string name="auth_failed">Email or password incorrect</string>
+
+    <string name="new_user">New user? Create an account</string>
+    <string name="have_account">Have an account? Log in</string>
+
     <string name="pref_previously_started">previously_started</string>
     <string name="netflix_selected">netflix_selected</string>
     <string name="hbo_selected">hbo_selected</string>

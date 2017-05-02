@@ -12,6 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -100,6 +102,7 @@ public class SettingsActivity extends AppCompatActivity {
             super.onStart();
             getListView().setItemChecked(0, false);
             getListView().setItemChecked(1, false);
+            getListView().setItemChecked(2, false);
         }
 
         @Override
@@ -125,6 +128,11 @@ public class SettingsActivity extends AppCompatActivity {
                 case 1:
                     startActivity(new Intent(getActivity(), AboutActivity.class));
                     break;
+                case 2:
+                    FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                    break;
+
             }
         }
     }

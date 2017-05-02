@@ -10,6 +10,7 @@
     <array name="settings_options">
         <item>Select Media Services</item>
         <item>About Us</item>
+        <item>Log out</item>
     </array>
 
 </resources>

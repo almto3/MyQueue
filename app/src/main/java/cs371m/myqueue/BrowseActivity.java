@@ -21,6 +21,9 @@ import android.widget.GridView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
@@ -52,6 +55,11 @@ public class BrowseActivity extends AppCompatActivity {
                 (getString(R.string.pref_previously_started), false);
         if(!previouslyStarted) {
             startActivity(new Intent(BrowseActivity.this, WelcomeActivity.class));
+        }
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            startActivity(new Intent(BrowseActivity.this, LoginActivity.class));
         }
 
         setContentView(R.layout.browse_layout);
