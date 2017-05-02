@@ -1,6 +1,8 @@
 package cs371m.myqueue;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -57,7 +59,17 @@ public class BrowseActivity extends AppCompatActivity {
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences
                 (getBaseContext());
-
+        if(!checkInternet()){
+            new AlertDialog.Builder(BrowseActivity.this)
+                    .setTitle(R.string.no_connection)
+                    .setMessage(R.string.press_to_refresh)
+                    .setNeutralButton(R.string.refresh, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            restart();
+                        }
+                    })
+                    .show();
+        }
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -74,19 +86,19 @@ public class BrowseActivity extends AppCompatActivity {
         }
 
         final List<String> source_list = new ArrayList<>();
-        if (sharedPrefs.getBoolean(getString(R.string.netflix_selected), false)) {
+        if (sharedPrefs.getBoolean(getString(R.string.netflix_source), false)) {
             Log.d("BrowseActivity", "netflix added to source_list");
             source_list.add("netflix");
         }
-        if (sharedPrefs.getBoolean(getString(R.string.hulu_selected), false)) {
+        if (sharedPrefs.getBoolean(getString(R.string.hulu_source), false)) {
             Log.d("BrowseActivity", "hulu added to source_list");
             source_list.add("hulu_free,hulu_plus");
         }
-        if (sharedPrefs.getBoolean(getString(R.string.hbo_selected), false)) {
+        if (sharedPrefs.getBoolean(getString(R.string.hbo_source), false)) {
             Log.d("BrowseActivity", "hbo added to source_list");
             source_list.add("hbo");
         }
-        if (sharedPrefs.getBoolean(getString(R.string.amazon_selected), false)) {
+        if (sharedPrefs.getBoolean(getString(R.string.amazon_source), false)) {
             Log.d("BrowseActivity", "amazon added to source_list");
             source_list.add("amazon");
         }
@@ -135,7 +147,6 @@ public class BrowseActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     @Override
@@ -148,19 +159,19 @@ public class BrowseActivity extends AppCompatActivity {
 
         final List<String> list = new ArrayList<>();
         final List<String> source_list = new ArrayList<>();
-        if (sharedPrefs.getBoolean(getString(R.string.netflix_selected), false)) {
+        if (sharedPrefs.getBoolean(getString(R.string.netflix_source), false)) {
             list.add("Netflix");
             source_list.add("netflix");
         }
-        if (sharedPrefs.getBoolean(getString(R.string.hulu_selected), false)) {
+        if (sharedPrefs.getBoolean(getString(R.string.hulu_source), false)) {
             list.add("Hulu");
             source_list.add("hulu_free,hulu_plus");
         }
-        if (sharedPrefs.getBoolean(getString(R.string.hbo_selected), false)) {
+        if (sharedPrefs.getBoolean(getString(R.string.hbo_source), false)) {
             list.add("HBO");
             source_list.add("hbo");
         }
-        if (sharedPrefs.getBoolean(getString(R.string.amazon_selected), false)) {
+        if (sharedPrefs.getBoolean(getString(R.string.amazon_source), false)) {
             list.add("Amazon");
             source_list.add("amazon_prime");
         }
@@ -301,5 +312,20 @@ public class BrowseActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    private boolean checkInternet(){
+        if (InternetAccess.getInstance(this).isOnline()) {
+            Toast.makeText(getBaseContext(), R.string.online, Toast.LENGTH_LONG).show();
+            return true;
+        } else {
+            Toast.makeText(getBaseContext(), R.string.offline, Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+    }
+    private void restart() {
+        finish();
+        startActivity(getIntent());
     }
 }

@@ -38,6 +38,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
     private Long tMDBid;
 
     private Queue q;
+    private String selected_source;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,11 +54,13 @@ public class MediaDetailsActivity extends AppCompatActivity {
 
 
         Toolbar detailsToolbar = (Toolbar)findViewById(R.id.item_details_toolbar);
-        detailsToolbar.setTitle("Media Details");
+        detailsToolbar.setTitle("Movie Details");
         setSupportActionBar(detailsToolbar);
 
-        String selected_source = getIntent().getStringExtra("selected_source");
+        selected_source = getIntent().getStringExtra("selected_source");
+        Log.d(TAG, "onCreate --> " + selected_source);
         switch (selected_source) {
+
             case "netflix":
                 Picasso.with(this).load(R.drawable.netflix).into(imageView_poster);
                 break;
@@ -67,7 +70,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
             case "hbo":
                 Picasso.with(this).load(R.drawable.hbo).into(imageView_poster);
                 break;
-            case "amazon":
+            case "amazon_prime":
                 Picasso.with(this).load(R.drawable.amazon).into(imageView_poster);
                 break;
         }
@@ -116,26 +119,26 @@ public class MediaDetailsActivity extends AppCompatActivity {
     public void setListeners() {
         Log.d(TAG, "setListeners()");
 
-        TableRow row0 = (TableRow) findViewById(R.id.tableRow4);
-        row0.setOnClickListener(new View.OnClickListener() {
+        TableRow row5 = (TableRow) findViewById(R.id.tableRow5);
+        row5.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d(TAG, "onClick() - item_details_bookmarkIcon");
                 if(((TextView) findViewById(R.id.item_details_bookmarkText)).getText().equals("Queue")) {
-                    boolean x = q.addMovie(id, title);
+                    boolean x = q.addMovie(id, selected_source);
                     if (x)
-                        Toast.makeText(getBaseContext(), title + R.string.details_queue_add,
+                        Toast.makeText(getBaseContext(), title + " " + getResources().getString(R.string.details_queue_add),
                                 Toast.LENGTH_LONG).show();
                     else
-                        Toast.makeText(getBaseContext(), title + R.string.details_queue_already,
+                        Toast.makeText(getBaseContext(), title + " "  + getResources().getString(R.string.details_queue_already),
                                 Toast.LENGTH_LONG).show();
                 }
                 else{
                     boolean x = q.deleteMovie(id);
                     if (x)
-                        Toast.makeText(getBaseContext(), title + R.string.details_queue_delete,
+                        Toast.makeText(getBaseContext(), title + " "  + getResources().getString(R.string.details_queue_delete),
                                 Toast.LENGTH_LONG).show();
                     else
-                        Toast.makeText(getBaseContext(), title + R.string.details_queue_does_not_exist,
+                        Toast.makeText(getBaseContext(), title + " "  + getResources().getString(R.string.details_queue_does_not_exist),
                                 Toast.LENGTH_LONG).show();
                 }
                 queueOrDequeue();
@@ -159,11 +162,11 @@ public class MediaDetailsActivity extends AppCompatActivity {
                     case "hbo":
                         browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.hbogo.com/"));
                         break;
-                    case "amazon":
+                    case "amazon_prime":
                         browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.amazon.com/Prime-Video/b?node=2676882011"));
                         break;
                     default:
-                        Toast.makeText(getBaseContext(), title + " added to Queue",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(), R.string.qué_paso ,Toast.LENGTH_LONG).show();
                         browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.aol.com"));
                 }
                 startActivity(browserIntent);
@@ -205,7 +208,6 @@ public class MediaDetailsActivity extends AppCompatActivity {
     }
 
     protected boolean checkPermissions() {
-        final String TAG = "checkPermissions";
         int permissionChecka = ContextCompat.checkSelfPermission
                 (this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         int permissionCheckb = ContextCompat.checkSelfPermission
@@ -219,11 +221,6 @@ public class MediaDetailsActivity extends AppCompatActivity {
         boolean b = permissionCheckb == PackageManager.PERMISSION_GRANTED;
         boolean c = permissionCheckc == PackageManager.PERMISSION_GRANTED;
         boolean d = permissionCheckd == PackageManager.PERMISSION_GRANTED;
-
-        Log.d(TAG, " - a = " + a);
-        Log.d(TAG, " - b = " + b);
-        Log.d(TAG, " - c = " + c);
-        Log.d(TAG, " - d = " + d);
 
         if(a)
             requestWritePermission();

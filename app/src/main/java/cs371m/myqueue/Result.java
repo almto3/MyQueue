@@ -81,6 +81,10 @@ public class Result {
     private String poster400x570;
     @JsonProperty("artwork_304x171")
     private String artwork_304x171;
+
+
+    public String source;
+
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
