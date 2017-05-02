@@ -149,11 +149,6 @@ public class BrowseActivity extends AppCompatActivity {
         });
     }
 
-    private void restart() {
-        finish();
-        startActivity(getIntent());
-    }
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -328,5 +323,9 @@ public class BrowseActivity extends AppCompatActivity {
             return false;
         }
 
+    }
+    private void restart() {
+        finish();
+        startActivity(getIntent());
     }
 }

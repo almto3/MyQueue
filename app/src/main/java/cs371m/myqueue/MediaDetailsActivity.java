@@ -58,17 +58,19 @@ public class MediaDetailsActivity extends AppCompatActivity {
         setSupportActionBar(detailsToolbar);
 
         selected_source = getIntent().getStringExtra("selected_source");
+        Log.d(TAG, "onCreate --> " + selected_source);
         switch (selected_source) {
+
             case "netflix":
                 Picasso.with(this).load(R.drawable.netflix).into(imageView_poster);
                 break;
-            case "hulu":
+            case "hulu_free,hulu_plus":
                 Picasso.with(this).load(R.drawable.hulu).into(imageView_poster);
                 break;
             case "hbo":
                 Picasso.with(this).load(R.drawable.hbo).into(imageView_poster);
                 break;
-            case "amazon":
+            case "amazon_prime":
                 Picasso.with(this).load(R.drawable.amazon).into(imageView_poster);
                 break;
         }
@@ -160,7 +162,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
                     case "hbo":
                         browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.hbogo.com/"));
                         break;
-                    case "amazon":
+                    case "amazon_prime":
                         browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.amazon.com/Prime-Video/b?node=2676882011"));
                         break;
                     default:
@@ -206,7 +208,6 @@ public class MediaDetailsActivity extends AppCompatActivity {
     }
 
     protected boolean checkPermissions() {
-        final String TAG = "checkPermissions";
         int permissionChecka = ContextCompat.checkSelfPermission
                 (this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         int permissionCheckb = ContextCompat.checkSelfPermission
@@ -220,11 +221,6 @@ public class MediaDetailsActivity extends AppCompatActivity {
         boolean b = permissionCheckb == PackageManager.PERMISSION_GRANTED;
         boolean c = permissionCheckc == PackageManager.PERMISSION_GRANTED;
         boolean d = permissionCheckd == PackageManager.PERMISSION_GRANTED;
-
-        Log.d(TAG, " - a = " + a);
-        Log.d(TAG, " - b = " + b);
-        Log.d(TAG, " - c = " + c);
-        Log.d(TAG, " - d = " + d);
 
         if(a)
             requestWritePermission();
