@@ -124,15 +124,21 @@ public class SettingsActivity extends AppCompatActivity {
             // Not yet implemented, currently uses only Netflix automatically
 
             switch (index) {
-                case 0:
+                case 0:     //select source
                     startActivity(new Intent(getActivity(), SelectSourcesActivity.class));
                     break;
-                case 1:
+                case 1:     //FAQ
+
+                    break;
+                case 2:     //About Us
                     startActivity(new Intent(getActivity(), AboutActivity.class));
                     break;
-                case 2:
+                case 3:     //Log Out
                     FirebaseAuth.getInstance().signOut();
                     startActivity(new Intent(getActivity(), LoginActivity.class));
+                    break;
+                case 4:     //Exit App
+                    System.exit(0);
                     break;
 
             }

@@ -9,8 +9,10 @@
 
     <array name="settings_options">
         <item>Select Media Services</item>
+        <item>FAQ (Frequently Asked Questions)</item>
         <item>About Us</item>
-        <item>Log out</item>
+        <item>Log Out</item>
+        <item>Quit App</item>
     </array>
 
 </resources>
