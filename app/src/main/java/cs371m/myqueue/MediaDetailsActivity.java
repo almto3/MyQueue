@@ -32,15 +32,11 @@ public class MediaDetailsActivity extends AppCompatActivity {
     private static final int REQUEST_WRITE = 0;
     private static final int REQUEST_READ = 1;
 
-
-    // added by saleh to Keep track of context
-    // http://stackoverflow.com/questions/14057273/android-singleton-with-global-context
-    private static MediaDetailsActivity instance;
-    public static MediaDetailsActivity get() { return instance; }
-    private Queue q;
     private String title;
     private Long id;
     private Long tMDBid;
+
+    private Queue q;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,7 +44,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
 
         setContentView(R.layout.media_details_layout);
         Log.d(TAG, "onCreate");
-        instance = this;
+
 
         ImageView imageView = (ImageView) findViewById(R.id.movie_poster);
         TextView titleTextView = (TextView) findViewById(R.id.item_details_title);
@@ -84,7 +80,6 @@ public class MediaDetailsActivity extends AppCompatActivity {
         titleTextView.setText(Html.fromHtml(title));
 
         q = Queue.get();
-
         setListeners();
         checkPermissions();
     }
@@ -102,7 +97,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
         row0.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d(TAG, "onClick() - item_details_bookmarkIcon");
-                boolean x = q.addMovie(title, id);
+                boolean x = q.addMovie(id, title);
                 if(x)
                     Toast.makeText(getBaseContext(), title + " added to Queue", Toast.LENGTH_LONG).show();
                 else
@@ -162,10 +157,11 @@ public class MediaDetailsActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.menu_bookmarks:
-                Toast.makeText(getBaseContext(), R.string.bookmarks_not_implemented, Toast.LENGTH_LONG).show();
-                intent = new Intent(this, BrowseActivity.class);
+                //Toast.makeText(getBaseContext(), R.string.bookmarks_not_implemented, Toast.LENGTH_LONG).show();
+                intent = new Intent(this, MyQueueActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
+
                 return true;
             case R.id.menu_search:
                 intent = new Intent(this, SearchActivity.class);

@@ -1,8 +1,10 @@
 package cs371m.myqueue;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -17,28 +19,57 @@ import android.widget.Toast;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MyQueueActivity extends AppCompatActivity {
+
+    private Queue q;
 
     private GridView gridView;
     private ProgressBar mProgressBar;
 
     private GridViewAdapter gridAdapter;
-    private ArrayList<Result> results;
+    private ArrayList<Result> results = new ArrayList<>(100);
     private ArrayList<GridItem> mGridData;
 
+    private String selected_source;
     private final String TAG = "MyQueueActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        boolean previouslyStarted = sharedPrefs.getBoolean(getString(R.string.pref_previously_started), false);
+        if(!previouslyStarted) {
+            SharedPreferences.Editor edit = sharedPrefs.edit();
+            edit.putBoolean(getString(R.string.pref_previously_started), true);
+            edit.commit();
+            startActivity(new Intent(MyQueueActivity.this, WelcomeActivity.class));
+        }
 
         setContentView(R.layout.browse_layout);
-        new HttpRequestTask().execute();
+        final List<String> source_list = new ArrayList<>();
+        if (sharedPrefs.getBoolean(getString(R.string.netflix_selected), false)) {
+            source_list.add("netflix");
+        }
+        if (sharedPrefs.getBoolean(getString(R.string.hulu_selected), false)) {
+            source_list.add("hulu_free,hulu_plus");
+        }
+        if (sharedPrefs.getBoolean(getString(R.string.hbo_selected), false)) {
+            source_list.add("hbo");
+        }
+        if (sharedPrefs.getBoolean(getString(R.string.amazon_selected), false)) {
+            source_list.add("amazon");
+        }
+        selected_source = source_list.get(0);
+
+        new MyQueueActivity.HttpRequestTask().execute();
+        Toolbar browseToolbar = (Toolbar)findViewById(R.id.browse_toolbar);
+        setSupportActionBar(browseToolbar);
+
         gridView = (GridView) findViewById(R.id.gridView);
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         mGridData = new ArrayList<>();
         gridAdapter = new GridViewAdapter(this, R.layout.grid_item_layout, mGridData);
@@ -48,27 +79,23 @@ public class MyQueueActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
                 GridItem item = (GridItem) parent.getItemAtPosition(position);
+                Result result = results.get(position);
 
                 //Create intent
                 Intent intent = new Intent(MyQueueActivity.this, MediaDetailsActivity.class);
-                ImageView imageView = (ImageView) v.findViewById(R.id.image);
 
-                int[] screenLocation = new int[2];
-                imageView.getLocationOnScreen(screenLocation);
+                //Pass the image title and url to MediaDetailsActivity
+                intent.putExtra("title", result.getTitle()).
+                        putExtra("image", result.getPoster120x171()).
+                        putExtra("id", result.getId()).
+                        putExtra("tMDBid", result.getThemoviedb()).
+                        putExtra("selected_source", selected_source);
 
-                //Pass the image title and url to DetailsActivity
-                intent.putExtra("left", screenLocation[0]).
-                        putExtra("top", screenLocation[1]).
-                        putExtra("width", imageView.getWidth()).
-                        putExtra("height", imageView.getHeight()).
-                        putExtra("title", item.getTitle()).
-                        putExtra("image", item.getImage());
                 startActivity(intent);
+
             }
         });
-
-        Toolbar browseToolbar = (Toolbar)findViewById(R.id.browse_toolbar);
-        setSupportActionBar(browseToolbar);
+        q = Queue.get();
     }
 
     @Override
@@ -87,9 +114,12 @@ public class MyQueueActivity extends AppCompatActivity {
         Intent intent;
         switch (item.getItemId()) {
             case R.id.menu_browse:
+                intent = new Intent(this, BrowseActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+                startActivity(intent);
                 return true;
             case R.id.menu_bookmarks:
-                Toast.makeText(getBaseContext(), R.string.bookmarks_not_implemented, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getBaseContext(), R.string.bookmarks_not_implemented, Toast.LENGTH_LONG).show();
                 return true;
             case R.id.menu_search:
                 intent = new Intent(this, SearchActivity.class);
@@ -110,32 +140,48 @@ public class MyQueueActivity extends AppCompatActivity {
         @Override
         protected Movies doInBackground(Void... params) {
             try {
-                final String url = "http://api-public.guidebox.com/v2/movies?api_key=c302491413726d93c00a4b0192f8bc55fdc56da4&sources=amazon_prime&limit=10";
-                RestTemplate restTemplate = new RestTemplate();
-                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                Movies movies = restTemplate.getForObject(url, Movies.class);
-                results = movies.getResults();
-                GridItem item;
-                for (Result result : results) {
-                    Log.d(TAG, result.getTitle());
-                    item = new GridItem();
-                    item.setTitle(result.getTitle());
-                    Log.d(TAG, item.getTitle());
-                    item.setImage(result.getPoster120x171());
-                    mGridData.add(item);
+                String url = "";
+                Result result= null;
+                for(Long key : Queue.get().returnKeys()){
+                    Log.d(TAG, "HttpRequestTask --> key = " + key);
+                    Log.d(TAG, "HttpRequestTask --> movie = " + Queue.get().returnMovie(key));
+                    url = "http://api-public.guidebox.com/v2/movies/" + key +"?api_key=c302491413726d93c00a4b0192f8bc55fdc56da4&movie_id=143441";
+                    Log.d(TAG, "HttpRequestTask --> url = " + url);
+                    RestTemplate restTemplate = new RestTemplate();
+                    restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                    result = restTemplate.getForObject(url, Result.class);
+
+                    if(result != null) {
+                        Log.d(TAG, "ADDALL --> " + result.toString());
+                        results.add(result);
+                    }
+                    else
+                        Log.d(TAG, "ADDALL --> NULL!!!");
+
                 }
-                return movies;
+
+                GridItem item;
+                if(results != null)
+                    for (Result r : results) {
+                        item = new GridItem();
+                        item.setTitle(r.getTitle());
+                        item.setImage(r.getPoster120x171());
+                        mGridData.add(item);
+                    }
+
+                Movies movie = null;
+                return movie;
             } catch (Exception e) {
-                Log.e("MainActivity", e.getMessage(), e);
+                Log.e(TAG, "EXCEPTION::: " + e.getMessage(), e);
             }
             return null;
         }
 
         @Override
         protected void onPostExecute(Movies movies) {
-            Log.d("BrowseActivity", "onPostExecute");
+            Log.d(TAG, "onPostExecute");
             int a = mGridData.size();
-            Log.d("BrowseActivity", Integer.toString(a));
+            Log.d(TAG, Integer.toString(a));
             gridAdapter.setGridData(mGridData);
         }
     }
