@@ -105,11 +105,14 @@ public class MyQueueActivity extends AppCompatActivity {
     }
 
     private void emptyGrid(){
-        Log.d(TAG, "1");
+        Log.d(TAG, "emptyGrid - 1");
         mGridData.clear();
         //findViewById(R.id.RelativeLayout_myQueue).invalidate();
         findViewById(R.id.gridView).invalidate();
-        Log.d(TAG, "2");
+        Log.d(TAG, "emptyGrid - " + mGridData.toString());
+        gridAdapter.notifyDataSetChanged();
+        gridView.setAdapter(gridAdapter);
+        Log.d(TAG, "emptyGrid - 2");
     }
 
     @Override
@@ -200,7 +203,7 @@ public class MyQueueActivity extends AppCompatActivity {
         protected void onPostExecute(Movies movies) {
             Log.d(TAG, "onPostExecute");
             int a = mGridData.size();
-            Log.d(TAG, Integer.toString(a));
+            Log.d(TAG, "mGridData size = " + Integer.toString(a));
             gridAdapter.setGridData(mGridData);
         }
     }

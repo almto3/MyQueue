@@ -49,12 +49,9 @@ public class MediaDetailsActivity extends AppCompatActivity {
 
 
         ImageView imageView = (ImageView) findViewById(R.id.movie_poster);
+        ImageView imageView_poster = (ImageView) findViewById(R.id.item_details_service);
         TextView titleTextView = (TextView) findViewById(R.id.item_details_title);
 
-        findViewById(R.id.item_details_service0).setVisibility(View.INVISIBLE);
-        findViewById(R.id.item_details_service1).setVisibility(View.INVISIBLE);
-        findViewById(R.id.item_details_service2).setVisibility(View.INVISIBLE);
-        findViewById(R.id.item_details_service3).setVisibility(View.INVISIBLE);
 
         Toolbar detailsToolbar = (Toolbar)findViewById(R.id.item_details_toolbar);
         detailsToolbar.setTitle("Media Details");
@@ -63,16 +60,16 @@ public class MediaDetailsActivity extends AppCompatActivity {
         selected_source = getIntent().getStringExtra("selected_source");
         switch (selected_source) {
             case "netflix":
-                findViewById(R.id.item_details_service1).setVisibility(View.VISIBLE);
+                Picasso.with(this).load(R.drawable.netflix).into(imageView_poster);
                 break;
             case "hulu":
-                findViewById(R.id.item_details_service0).setVisibility(View.VISIBLE);
+                Picasso.with(this).load(R.drawable.hulu).into(imageView_poster);
                 break;
             case "hbo":
-                findViewById(R.id.item_details_service2).setVisibility(View.VISIBLE);
+                Picasso.with(this).load(R.drawable.hbo).into(imageView_poster);
                 break;
             case "amazon":
-                findViewById(R.id.item_details_service3).setVisibility(View.VISIBLE);
+                Picasso.with(this).load(R.drawable.amazon).into(imageView_poster);
                 break;
         }
 
@@ -127,66 +124,50 @@ public class MediaDetailsActivity extends AppCompatActivity {
                 if(((TextView) findViewById(R.id.item_details_bookmarkText)).getText().equals("Queue")) {
                     boolean x = q.addMovie(id, selected_source);
                     if (x)
-                        Toast.makeText(getBaseContext(), title + " added to Queue",
+                        Toast.makeText(getBaseContext(), title + R.string.details_queue_add,
                                 Toast.LENGTH_LONG).show();
                     else
-                        Toast.makeText(getBaseContext(), title + " is already in Queue",
+                        Toast.makeText(getBaseContext(), title + R.string.details_queue_already,
                                 Toast.LENGTH_LONG).show();
                 }
                 else{
                     boolean x = q.deleteMovie(id);
                     if (x)
-                        Toast.makeText(getBaseContext(), title + " deleted from Queue",
+                        Toast.makeText(getBaseContext(), title + R.string.details_queue_delete,
                                 Toast.LENGTH_LONG).show();
                     else
-                        Toast.makeText(getBaseContext(), title + " does not exist in Queue",
+                        Toast.makeText(getBaseContext(), title + R.string.details_queue_does_not_exist,
                                 Toast.LENGTH_LONG).show();
                 }
                 queueOrDequeue();
             }
         });
 
-        ImageView img1 = (ImageView) findViewById(R.id.item_details_service0);
+        ImageView img1 = (ImageView) findViewById(R.id.item_details_service);
         img1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d(TAG, "onClick() - item_details_service0");
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse
-                        ("http://www.hulu.com"));
+                Log.d(TAG, "onClick() - item_details_service");
+
+                String selected_source = getIntent().getStringExtra("selected_source");
+                Intent browserIntent;
+                switch (selected_source) {
+                    case "netflix":
+                        browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.netflix.com"));
+                        break;
+                    case "hulu_free,hulu_plus":
+                        browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.hulu.com"));
+                        break;
+                    case "hbo":
+                        browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.hbogo.com/"));
+                        break;
+                    case "amazon":
+                        browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.amazon.com/Prime-Video/b?node=2676882011"));
+                        break;
+                    default:
+                        Toast.makeText(getBaseContext(), title + " added to Queue",Toast.LENGTH_LONG).show();
+                        browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.aol.com"));
+                }
                 startActivity(browserIntent);
-            }
-        });
-
-        ImageView img2 = (ImageView) findViewById(R.id.item_details_service1);
-        img2.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.d(TAG, "onClick() - item_details_service1");
-
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse
-                        ("http://www.netflix.com"));
-                startActivity(browserIntent);
-
-            }
-        });
-
-        ImageView img3 = (ImageView) findViewById(R.id.item_details_service2);
-        img3.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.d(TAG, "onClick() - item_details_service2");
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse
-                        ("http://www.hbo.com"));
-                startActivity(browserIntent);
-
-            }
-        });
-
-        ImageView img4 = (ImageView) findViewById(R.id.item_details_service3);
-        img4.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.d(TAG, "onClick() - item_details_service3");
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse
-                        ("http://www.smile.amazon..com"));
-                startActivity(browserIntent);
-
             }
         });
     }

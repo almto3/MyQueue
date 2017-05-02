@@ -33,11 +33,7 @@ import java.util.List;
 
 public class BrowseActivity extends AppCompatActivity {
 
-    // added by saleh to Keep track of context
-    // http://stackoverflow.com/questions/14057273/android-singleton-with-global-context
-    private static BrowseActivity instance;
-    public static BrowseActivity get() { return instance; }
-    private Queue q;
+
 
     private GridView gridView;
 
@@ -139,9 +135,6 @@ public class BrowseActivity extends AppCompatActivity {
 
             }
         });
-
-        instance = this;
-        q = Queue.get();
     }
 
     @Override
