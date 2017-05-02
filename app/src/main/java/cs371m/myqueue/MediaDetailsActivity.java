@@ -54,7 +54,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
 
 
         Toolbar detailsToolbar = (Toolbar)findViewById(R.id.item_details_toolbar);
-        detailsToolbar.setTitle("Media Details");
+        detailsToolbar.setTitle("Movie Details");
         setSupportActionBar(detailsToolbar);
 
         selected_source = getIntent().getStringExtra("selected_source");
@@ -126,19 +126,19 @@ public class MediaDetailsActivity extends AppCompatActivity {
                 if(((TextView) findViewById(R.id.item_details_bookmarkText)).getText().equals("Queue")) {
                     boolean x = q.addMovie(id, selected_source);
                     if (x)
-                        Toast.makeText(getBaseContext(), title + R.string.details_queue_add,
+                        Toast.makeText(getBaseContext(), title + " " + getResources().getString(R.string.details_queue_add),
                                 Toast.LENGTH_LONG).show();
                     else
-                        Toast.makeText(getBaseContext(), title + R.string.details_queue_already,
+                        Toast.makeText(getBaseContext(), title + " "  + getResources().getString(R.string.details_queue_already),
                                 Toast.LENGTH_LONG).show();
                 }
                 else{
                     boolean x = q.deleteMovie(id);
                     if (x)
-                        Toast.makeText(getBaseContext(), title + R.string.details_queue_delete,
+                        Toast.makeText(getBaseContext(), title + " "  + getResources().getString(R.string.details_queue_delete),
                                 Toast.LENGTH_LONG).show();
                     else
-                        Toast.makeText(getBaseContext(), title + R.string.details_queue_does_not_exist,
+                        Toast.makeText(getBaseContext(), title + " "  + getResources().getString(R.string.details_queue_does_not_exist),
                                 Toast.LENGTH_LONG).show();
                 }
                 queueOrDequeue();
