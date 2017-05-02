@@ -44,6 +44,7 @@
     <string name="menu_settings">Settings</string>
     <string name="menu_sortBy">Sort By:</string>
     <string name="menu_genre">Genre:</string>
+    <string name="menu_button_delete">Empty Queue</string>
 
     <string name="sort_choose">Choose a Sort</string>
     <string name="already_here">You\'re already there</string>

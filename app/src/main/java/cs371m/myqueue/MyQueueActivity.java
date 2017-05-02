@@ -1,10 +1,12 @@
 package cs371m.myqueue;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -13,8 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
@@ -27,7 +27,6 @@ public class MyQueueActivity extends AppCompatActivity {
     private Queue q;
 
     private GridView gridView;
-    private ProgressBar mProgressBar;
 
     private GridViewAdapter gridAdapter;
     private ArrayList<Result> results = new ArrayList<>(100);
@@ -49,7 +48,7 @@ public class MyQueueActivity extends AppCompatActivity {
             startActivity(new Intent(MyQueueActivity.this, WelcomeActivity.class));
         }
 
-        setContentView(R.layout.browse_layout);
+        setContentView(R.layout.my_queue_layout);
         final List<String> source_list = new ArrayList<>();
         if (sharedPrefs.getBoolean(getString(R.string.netflix_selected), false)) {
             source_list.add("netflix");
@@ -66,8 +65,32 @@ public class MyQueueActivity extends AppCompatActivity {
         selected_source = source_list.get(0);
 
         new MyQueueActivity.HttpRequestTask().execute();
-        Toolbar browseToolbar = (Toolbar)findViewById(R.id.browse_toolbar);
-        setSupportActionBar(browseToolbar);
+        Toolbar myQueueToolbar = (Toolbar)findViewById(R.id.my_queue_toolbar);
+        myQueueToolbar.setTitle("MyQueue!");
+        myQueueToolbar.findViewById(R.id.my_queue_toolbar_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG,"Clicked");
+
+                new AlertDialog.Builder(MyQueueActivity.this)
+                        .setTitle("Empty Queue?")
+                        .setMessage("Are you sure you want to delete the whole Queue?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                q.deleteAllMovies();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+        });
+
+        setSupportActionBar(myQueueToolbar);
 
         gridView = (GridView) findViewById(R.id.gridView);
 
