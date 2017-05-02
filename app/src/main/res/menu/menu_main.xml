@@ -24,5 +24,10 @@
         android:icon="@drawable/ic_settings"
         android:alpha="0.7"
         app:showAsAction="never" />
+    <item android:id="@+id/menu_quit"
+        android:title="@string/menu_quit"
+        android:icon="@drawable/ic_settings"
+        android:alpha="0.7"
+        app:showAsAction="never" />
 
 </menu>

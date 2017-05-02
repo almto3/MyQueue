@@ -38,6 +38,7 @@
         Kaivan. Computer Science students at the University of Texas at Austin. This is our first
         Android app.</string>
 
+    <string name="menu_quit">Quit</string>
     <string name="menu_browse">Browse</string>
     <string name="menu_bookmarks">MyQueue</string>
     <string name="menu_search">Search</string>

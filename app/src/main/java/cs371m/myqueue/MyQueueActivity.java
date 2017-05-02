@@ -40,13 +40,6 @@ public class MyQueueActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        boolean previouslyStarted = sharedPrefs.getBoolean(getString(R.string.pref_previously_started), false);
-        if(!previouslyStarted) {
-            SharedPreferences.Editor edit = sharedPrefs.edit();
-            edit.putBoolean(getString(R.string.pref_previously_started), true);
-            edit.commit();
-            startActivity(new Intent(MyQueueActivity.this, WelcomeActivity.class));
-        }
 
         setContentView(R.layout.my_queue_layout);
         final List<String> source_list = new ArrayList<>();
@@ -78,6 +71,7 @@ public class MyQueueActivity extends AppCompatActivity {
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 q.deleteAllMovies();
+                                emptyGrid();
                             }
                         })
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -113,12 +107,23 @@ public class MyQueueActivity extends AppCompatActivity {
                         putExtra("id", result.getId()).
                         putExtra("tMDBid", result.getThemoviedb()).
                         putExtra("selected_source", selected_source);
-
                 startActivity(intent);
-
             }
         });
         q = Queue.get();
+    }
+
+    private void restart() {
+        finish();
+        startActivity(getIntent());
+    }
+
+    private void emptyGrid(){
+        Log.d(TAG, "1");
+        mGridData.clear();
+        //findViewById(R.id.RelativeLayout_myQueue).invalidate();
+        findViewById(R.id.gridView).invalidate();
+        Log.d(TAG, "2");
     }
 
     @Override
@@ -154,6 +159,9 @@ public class MyQueueActivity extends AppCompatActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 return true;
+            case R.id.menu_quit:
+                System.exit(0);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -163,6 +171,7 @@ public class MyQueueActivity extends AppCompatActivity {
         @Override
         protected Movies doInBackground(Void... params) {
             try {
+
                 String url = "";
                 Result result= null;
                 for(Long key : Queue.get().returnKeys()){

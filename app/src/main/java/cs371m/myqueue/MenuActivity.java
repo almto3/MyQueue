@@ -47,13 +47,16 @@ public class MenuActivity extends Activity implements View.OnClickListener{
             case R.id.select_services_button:
                 Intent services_intent = new Intent(MenuActivity.this, SelectSourcesActivity.class);
                 startActivity(services_intent);
-                // do your code
+
                 break;
 
             case R.id.settings_button:
                 Intent settings_intent = new Intent(MenuActivity.this, SettingsActivity.class);
                 startActivity(settings_intent);
-                // do your code
+
+                break;
+            case R.id.menu_quit:
+                System.exit(0);
                 break;
 
             default:

@@ -49,6 +49,9 @@ public class SearchActivity extends AppCompatActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 return true;
+            case R.id.menu_quit:
+                System.exit(0);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

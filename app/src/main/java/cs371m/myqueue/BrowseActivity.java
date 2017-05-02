@@ -44,7 +44,7 @@ public class BrowseActivity extends AppCompatActivity {
     private ArrayList<GridItem> mGridData;
 
     private String selected_source;
-
+    private final String TAG = "BrowseActivity";
     final private String[] PERMISSIONS = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE};
     private boolean project_permissions = false;
@@ -58,8 +58,12 @@ public class BrowseActivity extends AppCompatActivity {
                 (getBaseContext());
         boolean previouslyStarted = sharedPrefs.getBoolean
                 (getString(R.string.pref_previously_started), false);
+        Log.d(TAG, "" + previouslyStarted);
         if(!previouslyStarted) {
-            startActivity(new Intent(BrowseActivity.this, WelcomeActivity.class));
+            Intent intent;
+            intent = new Intent(this, WelcomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(intent);
         }
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -238,6 +242,9 @@ public class BrowseActivity extends AppCompatActivity {
                 intent = new Intent(this, SettingsActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
+                return true;
+            case R.id.menu_quit:
+                System.exit(0);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
