@@ -20,6 +20,7 @@ public class Queue {
     private Map<Long, String> queue;       //Long=id, String=title. SharedPreferences, key = movie:::id. value = title
 
 
+
     private static final String TAG = "Queue";
     private BrowseActivity app;
 
@@ -60,6 +61,7 @@ public class Queue {
     }
     private void writeMovie(Long movie_id, String movie_title){
         HelperSharedPreferences.putSharedPreferencesString(app.getApplicationContext() , HelperSharedPreferences.key1_prefix + movie_id, movie_title);
+
     }
     //must run when queue is started, to load it up from the sharedprefs
     private void parseMovies(){
@@ -83,7 +85,6 @@ public class Queue {
     }
     protected boolean deleteMovie(Long movie_id){
         Object exist = queue.remove(movie_id);
-
         if(exist != null)
             HelperSharedPreferences.deleteSharedPreferencesKey(app.getApplicationContext(), HelperSharedPreferences.key1_prefix + movie_id);
         return exist != null;

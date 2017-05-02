@@ -1,6 +1,5 @@
 package cs371m.myqueue;
 
-import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Context;
 import android.text.Html;
@@ -10,7 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 public class GridViewAdapter extends ArrayAdapter<GridItem> {
 
@@ -24,7 +26,6 @@ public class GridViewAdapter extends ArrayAdapter<GridItem> {
         this.mContext = mContext;
         this.mGridData = mGridData;
     }
-
 
     /**
      * Updates grid data and refresh grid items.

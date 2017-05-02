@@ -12,6 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -46,7 +48,6 @@ public class SettingsActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.menu_bookmarks:
-                //Toast.makeText(getBaseContext(), R.string.bookmarks_not_implemented, Toast.LENGTH_LONG).show();
                 intent = new Intent(this, MyQueueActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
@@ -91,8 +92,16 @@ public class SettingsActivity extends AppCompatActivity {
             }*/
 
             getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
         }
 
+        @Override
+        public void onStart() {
+            super.onStart();
+            getListView().setItemChecked(0, false);
+            getListView().setItemChecked(1, false);
+            getListView().setItemChecked(2, false);
+        }
 
         @Override
         public void onSaveInstanceState(Bundle outState) {
@@ -117,6 +126,11 @@ public class SettingsActivity extends AppCompatActivity {
                 case 1:
                     startActivity(new Intent(getActivity(), AboutActivity.class));
                     break;
+                case 2:
+                    FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                    break;
+
             }
         }
     }

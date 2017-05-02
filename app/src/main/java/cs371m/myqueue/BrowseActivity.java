@@ -20,6 +20,8 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.Spinner;
 import android.widget.Toast;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
@@ -43,7 +45,8 @@ public class BrowseActivity extends AppCompatActivity {
 
     private String selected_source;
 
-    final private String[] PERMISSIONS = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+    final private String[] PERMISSIONS = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE};
     private boolean project_permissions = false;
     private static final int MY_PERMISSIONS_REQUEST = 16969;
 
@@ -51,13 +54,17 @@ public class BrowseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        boolean previouslyStarted = sharedPrefs.getBoolean(getString(R.string.pref_previously_started), false);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences
+                (getBaseContext());
+        boolean previouslyStarted = sharedPrefs.getBoolean
+                (getString(R.string.pref_previously_started), false);
         if(!previouslyStarted) {
-            SharedPreferences.Editor edit = sharedPrefs.edit();
-            edit.putBoolean(getString(R.string.pref_previously_started), true);
-            edit.commit();
             startActivity(new Intent(BrowseActivity.this, WelcomeActivity.class));
+        }
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            startActivity(new Intent(BrowseActivity.this, LoginActivity.class));
         }
 
         setContentView(R.layout.browse_layout);
@@ -75,6 +82,18 @@ public class BrowseActivity extends AppCompatActivity {
         if (sharedPrefs.getBoolean(getString(R.string.amazon_selected), false)) {
             source_list.add("amazon");
         }
+
+        Log.d("Browse source_list size", Integer.toString(source_list.size()));
+        if (source_list.size() == 0) {
+            Log.d("BrowseActivity", "check true");
+            source_list.add("netflix");
+            Intent intent = new Intent(this, SelectSourcesActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(intent);
+            Toast.makeText(getBaseContext(),
+                    R.string.force_select_service, Toast.LENGTH_LONG).show();
+        }
+
         selected_source = source_list.get(0);
 
         new HttpRequestTask().execute();
@@ -114,7 +133,8 @@ public class BrowseActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences
+                (getBaseContext());
 
         final List<String> list = new ArrayList<>();
         final List<String> source_list = new ArrayList<>();
@@ -136,15 +156,19 @@ public class BrowseActivity extends AppCompatActivity {
         }
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>
+                (this, android.R.layout.simple_spinner_item, list);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
         spinnerAdapter.notifyDataSetChanged();
+        if (source_list.size() == 0) {
+            source_list.add("netflix");
+        }
         selected_source = source_list.get(0);
-
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView,
+                                       int position, long id) {
                 // your code here
                 selected_source = source_list.get(position);
                 new HttpRequestTask().execute();
@@ -224,7 +248,9 @@ public class BrowseActivity extends AppCompatActivity {
         @Override
         protected Movies doInBackground(Void... params) {
             try {
-                final String url = "http://api-public.guidebox.com/v2/movies?api_key=c302491413726d93c00a4b0192f8bc55fdc56da4&sources=" + selected_source + "&limit=100";
+                final String url = "http://api-public.guidebox.com/v2/movies?api_key=" +
+                        "c302491413726d93c00a4b0192f8bc55fdc56da4&sources=" + selected_source +
+                        "&limit=100";
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 Movies movies = restTemplate.getForObject(url, Movies.class);

@@ -26,7 +26,7 @@ public class WelcomeActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Log.d("WelcomeActivity", "setListener");
-                startActivity(new Intent(WelcomeActivity.this, SelectSourcesActivity.class));
+                startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
             }
 
         });

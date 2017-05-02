@@ -119,7 +119,7 @@ public class MyQueueActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.menu_bookmarks:
-                //Toast.makeText(getBaseContext(), R.string.bookmarks_not_implemented, Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), R.string.already_here, Toast.LENGTH_LONG).show();
                 return true;
             case R.id.menu_search:
                 intent = new Intent(this, SearchActivity.class);
@@ -157,7 +157,6 @@ public class MyQueueActivity extends AppCompatActivity {
                     }
                     else
                         Log.d(TAG, "ADDALL --> NULL!!!");
-
                 }
 
                 GridItem item;

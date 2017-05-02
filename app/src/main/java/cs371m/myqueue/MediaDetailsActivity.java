@@ -99,9 +99,11 @@ public class MediaDetailsActivity extends AppCompatActivity {
                 Log.d(TAG, "onClick() - item_details_bookmarkIcon");
                 boolean x = q.addMovie(id, title);
                 if(x)
-                    Toast.makeText(getBaseContext(), title + " added to Queue", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), title + " added to Queue",
+                            Toast.LENGTH_LONG).show();
                 else
-                    Toast.makeText(getBaseContext(), title + " is already in Queue", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), title + " is already in Queue",
+                            Toast.LENGTH_LONG).show();
 
             }
         });
@@ -110,7 +112,8 @@ public class MediaDetailsActivity extends AppCompatActivity {
         img1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d(TAG, "onClick() - item_details_service0");
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.hulu.com"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse
+                        ("http://www.hulu.com"));
                 startActivity(browserIntent);
             }
         });
@@ -120,7 +123,8 @@ public class MediaDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d(TAG, "onClick() - item_details_service1");
 
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.netflix.com"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse
+                        ("http://www.netflix.com"));
                 startActivity(browserIntent);
 
             }
@@ -130,7 +134,8 @@ public class MediaDetailsActivity extends AppCompatActivity {
         img3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d(TAG, "onClick() - item_details_service2");
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.hbo.com"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse
+                        ("http://www.hbo.com"));
                 startActivity(browserIntent);
 
             }
@@ -140,7 +145,8 @@ public class MediaDetailsActivity extends AppCompatActivity {
         img4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d(TAG, "onClick() - item_details_service3");
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.smile.amazon..com"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse
+                        ("http://www.smile.amazon..com"));
                 startActivity(browserIntent);
 
             }
@@ -157,7 +163,6 @@ public class MediaDetailsActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.menu_bookmarks:
-                //Toast.makeText(getBaseContext(), R.string.bookmarks_not_implemented, Toast.LENGTH_LONG).show();
                 intent = new Intent(this, MyQueueActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
@@ -180,10 +185,14 @@ public class MediaDetailsActivity extends AppCompatActivity {
 
     protected boolean checkPermissions() {
         final String TAG = "checkPermissions";
-        int permissionChecka = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        int permissionCheckb = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
-        int permissionCheckc = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE);
-        int permissionCheckd = ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET);
+        int permissionChecka = ContextCompat.checkSelfPermission
+                (this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int permissionCheckb = ContextCompat.checkSelfPermission
+                (this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        int permissionCheckc = ContextCompat.checkSelfPermission
+                (this, Manifest.permission.ACCESS_NETWORK_STATE);
+        int permissionCheckd = ContextCompat.checkSelfPermission
+                (this, Manifest.permission.INTERNET);
 
         boolean a = permissionChecka == PackageManager.PERMISSION_GRANTED;
         boolean b = permissionCheckb == PackageManager.PERMISSION_GRANTED;
@@ -200,7 +209,8 @@ public class MediaDetailsActivity extends AppCompatActivity {
         if(b)
             requestReadPermission();
 
-        //couldn't figure out how to programatically retrieve the complied sdk version, but i know it's 23, so we should ask for runtime permissions
+        //couldn't figure out how to programatically retrieve the complied sdk version, but i know
+        // it's 23, so we should ask for runtime permissions
         return !(a && b && c && d);
     }
 
@@ -208,13 +218,15 @@ public class MediaDetailsActivity extends AppCompatActivity {
         final String TAG = "requestWritePermission";
         Log.d(TAG, "");
 
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE);
+        ActivityCompat.requestPermissions(this, new String[]
+                {Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE);
     }
     private void requestReadPermission(){
         final String TAG = "requestReadPermission";
 
         Log.d(TAG, "");
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ);
+        ActivityCompat.requestPermissions(this, new String[]
+                {Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ);
     }
 
     private class HttpRequestTask extends AsyncTask<Void, Void, tMDB> {
@@ -222,7 +234,8 @@ public class MediaDetailsActivity extends AppCompatActivity {
         protected tMDB doInBackground(Void... params) {
             try {
                 Log.d("MediaDetailstMDBidValue", Long.toString(tMDBid));
-                final String url2 = "https://api.themoviedb.org/3/movie/" + Long.toString(tMDBid) + "?api_key=2fb9522ed230e5f6dae69f6206113021";
+                final String url2 = "https://api.themoviedb.org/3/movie/" + Long.toString(tMDBid) +
+                        "?api_key=2fb9522ed230e5f6dae69f6206113021";
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 tMDB movieDb= restTemplate.getForObject(url2, tMDB.class);
