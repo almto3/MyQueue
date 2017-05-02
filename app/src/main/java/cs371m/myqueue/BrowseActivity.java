@@ -23,6 +23,8 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
@@ -45,24 +47,29 @@ public class BrowseActivity extends AppCompatActivity {
     private boolean project_permissions = false;
     private static final int MY_PERMISSIONS_REQUEST = 16969;
 
+    private DatabaseReference mDatabase;
+    private String userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences
                 (getBaseContext());
-        boolean previouslyStarted = sharedPrefs.getBoolean
-                (getString(R.string.pref_previously_started), false);
-        if(!previouslyStarted) {
-            startActivity(new Intent(BrowseActivity.this, WelcomeActivity.class));
-        }
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        userId = user.getUid();
         if (user == null) {
+            Intent intent = new Intent(BrowseActivity.this, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.putExtra("keep", false);
+            startActivity(intent);
             startActivity(new Intent(BrowseActivity.this, LoginActivity.class));
+            BrowseActivity.this.finish();
         }
 
-        setContentView(R.layout.browse_layout);
 
         final List<String> source_list = new ArrayList<>();
         if (sharedPrefs.getBoolean(getString(R.string.netflix_selected), false)) {
@@ -78,18 +85,18 @@ public class BrowseActivity extends AppCompatActivity {
             source_list.add("amazon");
         }
 
-        Log.d("Browse source_list size", Integer.toString(source_list.size()));
         if (source_list.size() == 0) {
             Log.d("BrowseActivity", "check true");
             source_list.add("netflix");
-            Intent intent = new Intent(this, SelectSourcesActivity.class);
+            Intent intent = new Intent(BrowseActivity.this, SelectSourcesActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
             Toast.makeText(getBaseContext(),
                     R.string.force_select_service, Toast.LENGTH_LONG).show();
         }
-
         selected_source = source_list.get(0);
+
+        setContentView(R.layout.browse_layout);
 
         new HttpRequestTask().execute();
         Toolbar browseToolbar = (Toolbar)findViewById(R.id.browse_toolbar);
@@ -101,7 +108,7 @@ public class BrowseActivity extends AppCompatActivity {
         gridAdapter = new GridViewAdapter(this, R.layout.grid_item_layout, mGridData);
         gridView.setAdapter(gridAdapter);
 
-          gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
                 GridItem item = (GridItem) parent.getItemAtPosition(position);
@@ -117,16 +124,17 @@ public class BrowseActivity extends AppCompatActivity {
                         putExtra("tMDBid", result.getThemoviedb()).
                         putExtra("selected_source", selected_source);
 
-                startActivity(intent);
+                 startActivity(intent);
 
             }
         });
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences
                 (getBaseContext());
 
@@ -156,6 +164,7 @@ public class BrowseActivity extends AppCompatActivity {
         spinner.setAdapter(spinnerAdapter);
         spinnerAdapter.notifyDataSetChanged();
         if (source_list.size() == 0) {
+            Log.d("BrowseActivity", "this should nvr happen");
             source_list.add("netflix");
         }
         selected_source = source_list.get(0);
@@ -165,6 +174,7 @@ public class BrowseActivity extends AppCompatActivity {
                                        int position, long id) {
                 // your code here
                 selected_source = source_list.get(position);
+                Log.d("BrowseActivity", source_list.get(position));
                 new HttpRequestTask().execute();
             }
 
