@@ -1,6 +1,8 @@
 package cs371m.myqueue;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -57,7 +59,17 @@ public class BrowseActivity extends AppCompatActivity {
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences
                 (getBaseContext());
-
+        if(!checkInternet()){
+            new AlertDialog.Builder(BrowseActivity.this)
+                    .setTitle(R.string.no_connection)
+                    .setMessage(R.string.press_to_refresh)
+                    .setNeutralButton(R.string.refresh, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            restart();
+                        }
+                    })
+                    .show();
+        }
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -136,6 +148,11 @@ public class BrowseActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void restart() {
+        finish();
+        startActivity(getIntent());
     }
 
     @Override
@@ -299,6 +316,17 @@ public class BrowseActivity extends AppCompatActivity {
             int a = mGridData.size();
             gridAdapter.setGridData(mGridData);
 
+        }
+
+    }
+
+    private boolean checkInternet(){
+        if (InternetAccess.getInstance(this).isOnline()) {
+            Toast.makeText(getBaseContext(), R.string.online, Toast.LENGTH_LONG).show();
+            return true;
+        } else {
+            Toast.makeText(getBaseContext(), R.string.offline, Toast.LENGTH_LONG).show();
+            return false;
         }
 
     }

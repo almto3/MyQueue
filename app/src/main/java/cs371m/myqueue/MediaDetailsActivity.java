@@ -116,8 +116,8 @@ public class MediaDetailsActivity extends AppCompatActivity {
     public void setListeners() {
         Log.d(TAG, "setListeners()");
 
-        TableRow row0 = (TableRow) findViewById(R.id.tableRow4);
-        row0.setOnClickListener(new View.OnClickListener() {
+        TableRow row5 = (TableRow) findViewById(R.id.tableRow5);
+        row5.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d(TAG, "onClick() - item_details_bookmarkIcon");
                 if(((TextView) findViewById(R.id.item_details_bookmarkText)).getText().equals("Queue")) {
@@ -163,7 +163,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
                         browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.amazon.com/Prime-Video/b?node=2676882011"));
                         break;
                     default:
-                        Toast.makeText(getBaseContext(), title + " added to Queue",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(), R.string.qué_paso ,Toast.LENGTH_LONG).show();
                         browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.aol.com"));
                 }
                 startActivity(browserIntent);

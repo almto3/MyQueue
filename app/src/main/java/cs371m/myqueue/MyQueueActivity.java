@@ -67,7 +67,7 @@ public class MyQueueActivity extends AppCompatActivity {
 
                 new AlertDialog.Builder(MyQueueActivity.this)
                         .setTitle("Empty Queue?")
-                        .setMessage("Are you sure you want to delete the whole Queue?")
+                        .setMessage(R.string.my_queue_delete_conformation)
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 q.deleteAllMovies();
