@@ -79,6 +79,8 @@ public class Result {
     private String poster240x342;
     @JsonProperty("poster_400x570")
     private String poster400x570;
+    @JsonProperty("artwork_304x171")
+    private String artwork_304x171;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -250,6 +252,14 @@ public class Result {
     @JsonProperty("poster_120x171")
     public void setPoster120x171(String poster120x171) {
         this.poster120x171 = poster120x171;
+    }
+
+    @JsonProperty("artwork_304x171")
+    public String getArtwork_304x171(){ return artwork_304x171; }
+
+    @JsonProperty("artwork_304x171")
+    public void setArtwork_304x171(String artwork_304x171) {
+        this.artwork_304x171 = artwork_304x171;
     }
 
     @JsonProperty("poster_240x342")

@@ -22,6 +22,8 @@ public class MenuActivity extends Activity implements View.OnClickListener{
 
         Button browse = (Button) findViewById(R.id.browse_button);
         browse.setOnClickListener(this); //calling onClick method
+        Button shows = (Button) findViewById(R.id.shows_button);
+        shows.setOnClickListener(this);
         Button myqueue = (Button) findViewById(R.id.myqueue_button);
         myqueue.setOnClickListener(this);
         Button select_services = (Button) findViewById(R.id.select_services_button);
@@ -37,6 +39,11 @@ public class MenuActivity extends Activity implements View.OnClickListener{
             case R.id.browse_button:
                 Intent browse_intent = new Intent(MenuActivity.this, BrowseActivity.class);
                 startActivity(browse_intent);
+                break;
+
+            case R.id.shows_button:
+                Intent shows_intent = new Intent(MenuActivity.this, SeriesActivity.class);
+                startActivity(shows_intent);
                 break;
 
             case R.id.myqueue_button:

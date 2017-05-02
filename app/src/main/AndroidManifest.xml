@@ -48,6 +48,12 @@
         </activity>
 
         <activity
+            android:name=".SeriesActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
