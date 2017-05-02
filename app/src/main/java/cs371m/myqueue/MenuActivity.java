@@ -15,6 +15,11 @@ import android.widget.Button;
 public class MenuActivity extends Activity implements View.OnClickListener{
     Button button;
 
+
+    private static MenuActivity instance;
+    public static MenuActivity get() { return instance; }
+    private Queue q;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +33,10 @@ public class MenuActivity extends Activity implements View.OnClickListener{
         select_services.setOnClickListener(this);
         Button settings = (Button) findViewById(R.id.settings_button);
         settings.setOnClickListener(this);
+
+        instance = this;
+        q = Queue.get();
+
     }
 
     @Override
@@ -47,16 +56,11 @@ public class MenuActivity extends Activity implements View.OnClickListener{
             case R.id.select_services_button:
                 Intent services_intent = new Intent(MenuActivity.this, SelectSourcesActivity.class);
                 startActivity(services_intent);
-
                 break;
 
             case R.id.settings_button:
                 Intent settings_intent = new Intent(MenuActivity.this, SettingsActivity.class);
                 startActivity(settings_intent);
-
-                break;
-            case R.id.menu_quit:
-                System.exit(0);
                 break;
 
             default:

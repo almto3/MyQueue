@@ -62,9 +62,6 @@ public class AboutActivity extends AppCompatActivity {
             case R.id.menu_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
                 return true;
-            case R.id.menu_quit:
-                System.exit(0);
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

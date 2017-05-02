@@ -59,9 +59,6 @@ public class SettingsActivity extends AppCompatActivity {
                 return true;
             case R.id.menu_settings:
                 return true;
-            case R.id.menu_quit:
-                System.exit(0);
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
