@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".AboutActivity">
 
     <android.support.v7.widget.Toolbar
@@ -42,9 +43,8 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="25dp"
             android:background="@color/white"/>
-
         <TextView
             android:id="@+id/faq_text_q1"
             android:layout_width="match_parent"
@@ -58,15 +58,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/faq_a1"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:textSize="15sp" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="25dp"
             android:background="@color/white"/>
-
         <TextView
             android:id="@+id/faq_text_q2"
             android:layout_width="match_parent"
@@ -80,15 +79,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/faq_a2"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:textSize="15sp" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="25dp"
             android:background="@color/white"/>
-
         <TextView
             android:id="@+id/faq_text_q3"
             android:layout_width="match_parent"
@@ -102,15 +100,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/faq_a3"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:textSize="15sp" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="25dp"
             android:background="@color/white"/>
-
         <TextView
             android:id="@+id/faq_text_q4"
             android:layout_width="match_parent"
@@ -124,8 +121,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/faq_a4"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:textSize="15sp" />
 
     </LinearLayout>
