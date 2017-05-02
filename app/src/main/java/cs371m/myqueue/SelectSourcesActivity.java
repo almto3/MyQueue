@@ -30,9 +30,6 @@ public class SelectSourcesActivity extends AppCompatActivity {
     private static SharedPreferences sharedPrefs;
     private SelectSourcesActivity activity;
 
-    private DatabaseReference mDatabase;
-    private String userId;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,10 +48,6 @@ public class SelectSourcesActivity extends AppCompatActivity {
             TextView select_sources_prompt = (TextView) findViewById(R.id.select_sources_prompt);
             select_sources_prompt.setText(getString(R.string.select_source_prompt));
         }
-
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        userId = user.getUid();
 
         final Button continue_button = (Button) findViewById(R.id.sources_continue);
         continue_button.setOnClickListener(new View.OnClickListener() {

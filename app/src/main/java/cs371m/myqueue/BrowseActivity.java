@@ -67,6 +67,7 @@ public class BrowseActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         userId = user.getUid();
         if (user == null) {
+            Log.d("BrowseActivity", "user null, this should never happen");
             Intent intent = new Intent(BrowseActivity.this, LoginActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -76,18 +77,21 @@ public class BrowseActivity extends AppCompatActivity {
             BrowseActivity.this.finish();
         }
 
-
         final List<String> source_list = new ArrayList<>();
         if (sharedPrefs.getBoolean(getString(R.string.netflix_selected), false)) {
+            Log.d("BrowseActivity", "netflix added to source_list");
             source_list.add("netflix");
         }
         if (sharedPrefs.getBoolean(getString(R.string.hulu_selected), false)) {
+            Log.d("BrowseActivity", "hulu added to source_list");
             source_list.add("hulu_free,hulu_plus");
         }
         if (sharedPrefs.getBoolean(getString(R.string.hbo_selected), false)) {
+            Log.d("BrowseActivity", "hbo added to source_list");
             source_list.add("hbo");
         }
         if (sharedPrefs.getBoolean(getString(R.string.amazon_selected), false)) {
+            Log.d("BrowseActivity", "amazon added to source_list");
             source_list.add("amazon");
         }
 
