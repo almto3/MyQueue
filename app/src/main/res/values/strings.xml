@@ -24,6 +24,7 @@
     <string name="details_plotSummary">Plot Summary:</string>
     <string name="details_available_sources">Available On</string>
     <string name="details_bookmark">Queue</string>
+    <string name="details_bookmark_delete">DeQueue</string>
 
     <!-- non static, should be changed case by case -->
     <string name="details_plot">...</string>

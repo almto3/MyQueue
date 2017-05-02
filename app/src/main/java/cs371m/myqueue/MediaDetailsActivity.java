@@ -85,8 +85,29 @@ public class MediaDetailsActivity extends AppCompatActivity {
         titleTextView.setText(Html.fromHtml(title));
 
         q = Queue.get();
+
+        queueOrDequeue();
         setListeners();
         checkPermissions();
+    }
+
+    private void queueOrDequeue() {
+        Log.d(TAG, "queueOrDequeue");
+        if(q.movieExists(id)){
+            TextView t = (TextView) findViewById(R.id.item_details_bookmarkText);
+            t.setText(R.string.details_bookmark_delete);
+
+            ImageView i = (ImageView) findViewById(R.id.item_details_bookmarkIcon);
+            Picasso.with(this).load(R.drawable.bookmark_delete).into(i);
+        }
+        else{
+            TextView t = (TextView) findViewById(R.id.item_details_bookmarkText);
+            t.setText(R.string.details_bookmark);
+
+            ImageView i = (ImageView) findViewById(R.id.item_details_bookmarkIcon);
+            Picasso.with(this).load(R.drawable.bookmark).into(i);
+        }
+
     }
 
     @Override
@@ -102,14 +123,25 @@ public class MediaDetailsActivity extends AppCompatActivity {
         row0.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d(TAG, "onClick() - item_details_bookmarkIcon");
-                boolean x = q.addMovie(id, title);
-                if(x)
-                    Toast.makeText(getBaseContext(), title + " added to Queue",
-                            Toast.LENGTH_LONG).show();
-                else
-                    Toast.makeText(getBaseContext(), title + " is already in Queue",
-                            Toast.LENGTH_LONG).show();
-
+                if(((TextView) findViewById(R.id.item_details_bookmarkText)).getText().equals("Queue")) {
+                    boolean x = q.addMovie(id, title);
+                    if (x)
+                        Toast.makeText(getBaseContext(), title + " added to Queue",
+                                Toast.LENGTH_LONG).show();
+                    else
+                        Toast.makeText(getBaseContext(), title + " is already in Queue",
+                                Toast.LENGTH_LONG).show();
+                }
+                else{
+                    boolean x = q.deleteMovie(id);
+                    if (x)
+                        Toast.makeText(getBaseContext(), title + " deleted from Queue",
+                                Toast.LENGTH_LONG).show();
+                    else
+                        Toast.makeText(getBaseContext(), title + " does not exist in Queue",
+                                Toast.LENGTH_LONG).show();
+                }
+                queueOrDequeue();
             }
         });
 
