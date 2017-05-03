@@ -81,7 +81,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
         tMDBid = getIntent().getLongExtra("tMDBid", 0);
         new HttpRequestTask().execute();
 
-        Picasso.with(this).load(image).into(imageView);
+        Picasso.with(this).load(image).resize(165, 275).into(imageView);
         titleTextView.setText(Html.fromHtml(title));
 
         q = Queue.get();
@@ -269,9 +269,9 @@ public class MediaDetailsActivity extends AppCompatActivity {
 
             TextView rottenTextView = (TextView) findViewById(R.id.item_details_rotten_score);
             TextView plotTextView = (TextView) findViewById(R.id.item_details_plot);
-            rottenTextView.setText(Double.toString(tMDB.getRating()));
-            plotTextView.setText(tMDB.getOverview());
+            if (tMDB != null) {
+                rottenTextView.setText(Double.toString(tMDB.getRating()));
+                plotTextView.setText(tMDB.getOverview());}
         }
-
     }
 }

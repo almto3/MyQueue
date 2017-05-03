@@ -129,6 +129,8 @@ public class SeriesActivity extends AppCompatActivity {
                 //Create intent
                 Intent intent = new Intent(SeriesActivity.this, MediaDetailsActivity.class);
 
+
+                Log.i("image: ", result.getArtwork_304x171());
                 //Pass the image title and url to MediaDetailsActivity
                 intent.putExtra("title", result.getTitle()).
                         putExtra("image", result.getArtwork_304x171()).

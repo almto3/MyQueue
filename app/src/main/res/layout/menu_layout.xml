@@ -27,7 +27,7 @@
         android:textColor="@color/common_google_signin_btn_text_light_default"
         android:textSize="12sp"
         android:layout_marginBottom="40sp"
-        android:layout_marginLeft="80dp"/>
+        android:layout_gravity="center"/>
 
     <Button
         android:id="@+id/shows_button"
