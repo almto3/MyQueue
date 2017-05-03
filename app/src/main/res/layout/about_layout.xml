@@ -18,6 +18,12 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
+    <ScrollView
+        android:id="@+id/fragment_detail_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/layout_root"
         android:layout_width="fill_parent"
@@ -106,4 +112,5 @@
             android:textSize="20sp" />
 
     </LinearLayout>
+    </ScrollView>
 </LinearLayout>

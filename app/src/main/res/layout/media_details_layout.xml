@@ -19,7 +19,6 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <ScrollView
-
         android:id="@+id/fragment_detail_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

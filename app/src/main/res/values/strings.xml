@@ -41,17 +41,19 @@
     <string name="search_not_implemented">Search feature is not yet supported</string>
     <string name="force_select_service">You must choose at least one service to browse</string>
 
-    <string name="faq">This is the FAQ</string>
+    <string name="faq">Instructions to use the app</string>
 
-    <string name="faq_q1">Who is this app targeted for?</string>
-    <string name="faq_q2">What Features are there?</string>
-    <string name="faq_q3">Q3</string>
-    <string name="faq_q4">Q4</string>
+    <string name="faq_q1">Browse Movies</string>
+    <string name="faq_q2">Browse Series</string>
+    <string name="faq_q3">Queue</string>
+    <string name="faq_q4">Select Sources</string>
+    <string name="faq_q5">Settings</string>
 
-    <string name="faq_a1">Anyone who wants to keep track of movies/tv shows from different streaming services</string>
-    <string name="faq_a2">You can choose from 4 different streaming services (Hulu, Netflix, HBOGo and lastly Amazon Prime). You can add movies/tv shows from whichever service you desire, then view the queue later and read the description and the rating</string>
-    <string name="faq_a3">A3</string>
-    <string name="faq_a4">A4</string>
+    <string name="faq_a1">Browse for movies and click on them to get details about it. Add them to the queue if it is your favorite movie.</string>
+    <string name="faq_a2">Browse for series and click on them to get details about it. Add them to the queue if it is your favorite serie.</string>
+    <string name="faq_a3">Check your favorite movies and series that you saved in the queue</string>
+    <string name="faq_a4">You can choose from 4 different streaming services: Hulu, Netflix, HBOGo and Amazon Prime</string>
+    <string name="faq_a5">Go to our about page and read about us. You can also logout of the account.</string>
 
     <string name="menu_browse">Browse</string>
     <string name="menu_bookmarks">MyQueue</string>
@@ -90,7 +92,7 @@
 
     <!-- titles of activities (will be used in the app bar -->
     <string name="activity_about">About US</string>
-    <string name="activity_faq">FAQ</string>
+    <string name="activity_faq">Instructions</string>
     <string name="activity_login">Login</string>
     <string name="activity_media">Media Details</string>
     <string name="activity_menu">Main Menu</string>

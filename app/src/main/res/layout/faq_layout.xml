@@ -19,6 +19,11 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
+    <ScrollView
+        android:id="@+id/fragment_detail_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/layout_root"
         android:layout_width="fill_parent"
@@ -125,5 +130,26 @@
             android:layout_marginRight="10dp"
             android:textSize="15sp" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:background="@color/white"/>
+        <TextView
+            android:id="@+id/faq_text_q5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/faq_q4"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/faq_text_a5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/faq_a4"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textSize="15sp" />
     </LinearLayout>
+    </ScrollView>
 </LinearLayout>
