@@ -61,6 +61,7 @@ public class MenuActivity extends Activity implements View.OnClickListener{
                 Intent settings_intent = new Intent(MenuActivity.this, SettingsActivity.class);
                 settings_intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(settings_intent);
+                this.finish();
                 break;
 
             default:

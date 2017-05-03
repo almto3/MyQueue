@@ -214,7 +214,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
         protected tMDB doInBackground(Void... params) {
             try {
                 Log.d("MediaDetailstMDBidValue", Long.toString(tMDBid));
-                String type = "movies";
+                String type = "movie";
                 if (media_type.equals("shows")) {
                     type = "tv";
                 }
