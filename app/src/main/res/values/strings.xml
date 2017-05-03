@@ -6,13 +6,12 @@
     <string name="new_user">New user? Create an account</string>
     <string name="have_account">Have an account? Log in</string>
 
-    <string name="netflix_source">neflix</string>
+    <string name="netflix_source">netflix</string>
     <string name="hulu_source">hulu</string>
     <string name="hbo_source">hbo</string>
     <string name="amazon_source">amazon_prime</string>
 
     <string name="pref_previously_started">previously_started</string>
-    <string name="pref_previously_selected_sources">previously_selected_sources</string>
 
     <string name="welcome_text">Tap anywhere to continue</string>
 

@@ -91,7 +91,7 @@ public class MyQueueActivity extends AppCompatActivity {
                         putExtra("image", result.getPoster120x171()).
                         putExtra("id", result.getId()).
                         putExtra("tMDBid", result.getThemoviedb()).
-                        putExtra("selected_source", selected_sources.get(position));
+                        putExtra("selected_source", result.source);
                 startActivity(intent);
             }
         });
@@ -172,10 +172,10 @@ public class MyQueueActivity extends AppCompatActivity {
                     RestTemplate restTemplate = new RestTemplate();
                     restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                     result = restTemplate.getForObject(url, Result.class);
+                    result.source = Queue.get().returnService(key);
 
                     if(result != null) {
                         Log.d(TAG, "ADDALL --> " + result.toString());
-                        selected_sources.add(Queue.get().returnService(key));
                         results.add(result);
                     }
                     else

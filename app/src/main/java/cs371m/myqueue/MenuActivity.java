@@ -2,9 +2,7 @@ package cs371m.myqueue;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
@@ -36,25 +34,28 @@ public class MenuActivity extends Activity implements View.OnClickListener{
         switch (v.getId()) {
             case R.id.browse_button:
                 Intent browse_intent = new Intent(MenuActivity.this, BrowseActivity.class);
+                browse_intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(browse_intent);
                 break;
 
             case R.id.myqueue_button:
                 Intent myqueue_intent = new Intent(MenuActivity.this, MyQueueActivity.class);
+                myqueue_intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(myqueue_intent);
                 break;
 
             case R.id.select_services_button:
                 Intent services_intent = new Intent(MenuActivity.this, SelectSourcesActivity.class);
+                services_intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(services_intent);
-
                 break;
 
             case R.id.settings_button:
                 Intent settings_intent = new Intent(MenuActivity.this, SettingsActivity.class);
+                settings_intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(settings_intent);
-
                 break;
+
             case R.id.menu_quit:
                 System.exit(0);
                 break;

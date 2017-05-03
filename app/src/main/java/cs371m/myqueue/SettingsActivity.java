@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 
 public class SettingsActivity extends AppCompatActivity {
@@ -133,7 +134,17 @@ public class SettingsActivity extends AppCompatActivity {
                     startActivity(new Intent(getActivity(), AboutActivity.class));
                     break;
                 case 3:     //Log Out
+                    // clear all shared prefences
+                    LoginActivity app = LoginActivity.get();
+                    Map<String, ?> allEntries = HelperSharedPreferences.getAll(app.getApplicationContext());;
+                    for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+                        if(!entry.getKey().equals(getString(R.string.pref_previously_started))) {
+                            HelperSharedPreferences.deleteSharedPreferencesKey(app.getApplicationContext(), entry.getKey());
+                        }
+                    }
+                    // sign out of firebase
                     FirebaseAuth.getInstance().signOut();
+                    // return to login page
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);

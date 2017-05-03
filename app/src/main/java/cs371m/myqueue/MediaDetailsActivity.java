@@ -160,7 +160,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
                     case "hbo":
                         browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.hbogo.com/"));
                         break;
-                    case "amazon":
+                    case "amazon_prime":
                         browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.amazon.com/Prime-Video/b?node=2676882011"));
                         break;
                     default:
@@ -273,7 +273,6 @@ public class MediaDetailsActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(tMDB tMDB) {
-
             TextView rottenTextView = (TextView) findViewById(R.id.item_details_rotten_score);
             TextView plotTextView = (TextView) findViewById(R.id.item_details_plot);
             rottenTextView.setText(Double.toString(tMDB.getRating()));

@@ -59,6 +59,7 @@ public class LoginActivity extends AppCompatActivity{
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             restoreUserSources();
+            restoreUserQueue();
             startActivity(new Intent(LoginActivity.this, MenuActivity.class));
             LoginActivity.this.finish();
         }
@@ -214,34 +215,60 @@ public class LoginActivity extends AppCompatActivity{
 
                         Log.d("LoginActivity", dataSnapshot.toString());
                         for (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
-                            if ((Boolean) itemSnapshot.getValue()) {
-                                switch (itemSnapshot.getKey()) {
-                                    case "netflix":
-                                        Log.d("LoginActivity", "adding netflix to sharedPrefs");
-                                        edit.putBoolean(getString(R.string.netflix_source),
-                                                (Boolean) itemSnapshot.getValue());
-                                        edit.commit();
-                                        break;
-                                    case "hulu":
-                                        Log.d("LoginActivity", "adding hulu to sharedPrefs");
-                                        edit.putBoolean(getString(R.string.hulu_source),
-                                                (Boolean) itemSnapshot.getValue());
-                                        edit.commit();
-                                        break;
-                                    case "hbo":
-                                        Log.d("LoginActivity", "adding hbo to sharedPrefs");
-                                        edit.putBoolean(getString(R.string.hbo_source),
-                                                (Boolean) itemSnapshot.getValue());
-                                        edit.commit();
-                                        break;
-                                    case "amazon_prime":
-                                        Log.d("LoginActivity", "adding amazon to sharedPrefs");
-                                        edit.putBoolean(getString(R.string.amazon_source),
-                                                (Boolean) itemSnapshot.getValue());
-                                        edit.commit();
-                                        break;
-                                }
+                            Log.d("LoginActivity", itemSnapshot.getKey().toString());
+                            switch (itemSnapshot.getKey()) {
+                                case "hulu":
+                                    Log.d("LoginActivity", "adding hulu to sharedPrefs");
+                                    edit.putBoolean(getString(R.string.hulu_source),
+                                            (Boolean) itemSnapshot.getValue());
+                                    edit.commit();
+                                    break;
+                                case "netflix":
+                                    Log.d("LoginActivity", "adding netflix to sharedPrefs");
+                                    edit.putBoolean(getString(R.string.netflix_source),
+                                            (Boolean) itemSnapshot.getValue());
+                                    edit.commit();
+                                    break;
+                                case "hbo":
+                                    Log.d("LoginActivity", "adding hbo to sharedPrefs");
+                                    edit.putBoolean(getString(R.string.hbo_source),
+                                            (Boolean) itemSnapshot.getValue());
+                                    edit.commit();
+                                    break;
+                                case "amazon_prime":
+                                    Log.d("LoginActivity", "adding amazon to sharedPrefs");
+                                    edit.putBoolean(getString(R.string.amazon_source),
+                                            (Boolean) itemSnapshot.getValue());
+                                    edit.commit();
+                                    break;
+                                default:
+                                    break;
                             }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+
+                });
+    }
+
+    private void restoreUserQueue() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        String userId = user.getUid();
+
+        mDatabase.child("users").child(userId).child("queue").addListenerForSingleValueEvent
+                (new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences
+                                (getBaseContext());
+                        SharedPreferences.Editor edit = sharedPrefs.edit();
+
+                        Log.d("LoginActivity", dataSnapshot.toString());
+                        for (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
+                            
                         }
                     }
 

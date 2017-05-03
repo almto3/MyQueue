@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,16 +37,6 @@ public class SelectSourcesActivity extends AppCompatActivity {
         setContentView(R.layout.select_source_layout);
 
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-
-        boolean previouslyStarted = sharedPrefs.getBoolean(getString
-                (R.string.pref_previously_selected_sources), false);
-        if(!previouslyStarted) {
-            SharedPreferences.Editor edit = sharedPrefs.edit();
-            edit.putBoolean(getString(R.string.pref_previously_selected_sources), true);
-            edit.commit();
-            TextView select_sources_prompt = (TextView) findViewById(R.id.select_sources_prompt);
-            select_sources_prompt.setText(getString(R.string.select_source_prompt));
-        }
 
         final Button continue_button = (Button) findViewById(R.id.sources_continue);
         continue_button.setOnClickListener(new View.OnClickListener() {
