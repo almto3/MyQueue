@@ -47,7 +47,7 @@ public class SelectSourcesActivity extends AppCompatActivity {
                     Toast.makeText(getBaseContext(),
                             R.string.force_select_service, Toast.LENGTH_LONG).show();
                 } else {
-                    Intent intent = new Intent(activity, MoviesActivity.class);
+                    Intent intent = new Intent(activity, MenuActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);
                     SelectSourcesActivity.this.finish();
