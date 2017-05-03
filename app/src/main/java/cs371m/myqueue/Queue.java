@@ -159,6 +159,10 @@ public class Queue {
         queue.clear();
     }
 
+    public void clearQueue() {
+        queue.clear();
+    }
+
     //only for debugging, will clean the sharedprefs of incorrect inputs
     public void cleanMovies(){
         Map<String, ?> allEntries = returnMap();
