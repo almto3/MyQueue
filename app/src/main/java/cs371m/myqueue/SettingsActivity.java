@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -95,10 +96,14 @@ public class SettingsActivity extends AppCompatActivity {
 
                     // clear all shared prefences
                     LoginActivity app = LoginActivity.get();
-                    Map<String, ?> allEntries = HelperSharedPreferences.getAll(app.getApplicationContext());;
+                    Map<String, ?> allEntries = HelperSharedPreferences.getAll
+                            (app.getApplicationContext());;
                     for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
-                        if(!entry.getKey().equals(getString(R.string.pref_previously_started))) {
-                            HelperSharedPreferences.deleteSharedPreferencesKey(app.getApplicationContext(), entry.getKey());
+                        Log.d("LogOut", entry.getKey());
+                        if(!(entry.getKey().equals(getString(R.string.pref_previously_started)) ||
+                                entry.getKey().equals(getString(R.string.pref_prev_on_login)))) {
+                            HelperSharedPreferences.deleteSharedPreferencesKey
+                                    (app.getApplicationContext(), entry.getKey());
                         }
                     }
 

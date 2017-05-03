@@ -14,6 +14,7 @@ public class HelperSharedPreferences {
 
     //SharedPreferences, key = movie:::id. value = title
     public static final String key1_prefix="movie:::";
+    public static final String key2_prefix="type_media:::";
 
     public static void putSharedPreferencesInt(Context context, String key, int value){
         SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(context);

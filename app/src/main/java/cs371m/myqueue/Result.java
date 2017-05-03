@@ -82,7 +82,7 @@ public class Result {
     @JsonProperty("artwork_304x171")
     private String artwork_304x171;
 
-
+    public String type;
     public String source;
 
     @JsonIgnore

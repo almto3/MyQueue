@@ -1,6 +1,8 @@
 package cs371m.myqueue;
 
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -8,7 +10,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -17,13 +21,15 @@ import java.util.Set;
 public class Queue {
 
     private static Queue instance;
-    private Map<Long, String> queue;       //Long=id, String=title. SharedPreferences, key = movie:::id. value = service
+    private Map<Long, List<String>> queue;
+    //Long=id, String=title. SharedPreferences,
+    // key = movie:::id. value = service
 
     private static final String TAG = "Queue";
     private LoginActivity app;
 
     private Queue(){
-        queue = new HashMap<Long, String>();
+        queue = new HashMap<Long, List<String>>();
 
         app = LoginActivity.get();
         //cleanMovies();
@@ -47,19 +53,23 @@ public class Queue {
         return queue.containsKey(movie_id);
     }
 
-    protected boolean addMovie(Long movie_id, String selected_source){
+    protected boolean addMovie(Long movie_id, String selected_source, String media_type){
         if(movieExists(movie_id))
             return false;
+
+        List<String> movie= new ArrayList<String>();
+        movie.add(selected_source);
+        movie.add(media_type);
 
         // add movie to user's queue on firebase
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         String userId = user.getUid();
         mDatabase.child("users").child(userId).child("queue").child
-                (movie_id.toString()).setValue(selected_source);
+                (movie_id.toString()).setValue(movie);
 
-        queue.put(movie_id, selected_source);
-        writeMovie(movie_id, selected_source);
+        queue.put(movie_id, movie);
+        writeMovie(movie_id, movie);
         displayQueue();
         return true;
     }
@@ -70,9 +80,11 @@ public class Queue {
         }
     }
 
-    private void writeMovie(Long movie_id, String movie_title){
-        HelperSharedPreferences.putSharedPreferencesString(app.getApplicationContext() , HelperSharedPreferences.key1_prefix + movie_id, movie_title);
-
+    private void writeMovie(Long movie_id, List<String> movie){
+        HelperSharedPreferences.putSharedPreferencesString(app.getApplicationContext(),
+                HelperSharedPreferences.key1_prefix + movie_id, movie.get(0));
+        HelperSharedPreferences.putSharedPreferencesString(app.getApplicationContext(),
+                HelperSharedPreferences.key2_prefix + movie_id, movie.get(1));
     }
 
     //must run when queue is started, to load it up from the sharedprefs
@@ -81,8 +93,17 @@ public class Queue {
         for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
             Log.d("Queue", entry.getKey());
             if(entry.getKey().substring(0,3).equals("mov")) {
-                Log.d(TAG, "parseMovies --> id = " + entry.getKey().substring(entry.getKey().lastIndexOf(':') +1 ) + ", service = " + entry.getValue());
-                queue.put(new Long(entry.getKey().substring(entry.getKey().lastIndexOf(':') +1 )), entry.getValue().toString());
+                Log.d(TAG, "parseMovies --> id = " +
+                        entry.getKey().substring(entry.getKey().lastIndexOf(':') + 1)
+                        + ", service = " + entry.getValue());
+                Long movieId = new Long(entry.getKey().substring(entry.getKey().lastIndexOf(':') +1 ));
+                SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences
+                        (app.getBaseContext());
+                String media_type = sharedPrefs.getString("type_media:::" + movieId, "");
+                List<String> movie= new ArrayList<String>();
+                movie.add(entry.getValue().toString());
+                movie.add(media_type);
+                queue.put(movieId, movie);
             }
         }
     }
@@ -97,13 +118,21 @@ public class Queue {
     }
 
     protected String returnService(Long key){
-        return queue.get(key).toString();
+        return queue.get(key).get(0).toString();
+    }
+
+    protected String returnType(Long key){
+        return queue.get(key).get(1).toString();
     }
 
     protected boolean deleteMovie(Long movie_id){
         Object exist = queue.remove(movie_id);
         if(exist != null) {
-            HelperSharedPreferences.deleteSharedPreferencesKey(app.getApplicationContext(), HelperSharedPreferences.key1_prefix + movie_id);
+            HelperSharedPreferences.deleteSharedPreferencesKey(app.getApplicationContext(),
+                    HelperSharedPreferences.key1_prefix + movie_id);
+            HelperSharedPreferences.deleteSharedPreferencesKey(app.getApplicationContext(),
+                    HelperSharedPreferences.key2_prefix + movie_id);
+
             // remove movie from user's queue on firebase
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -119,7 +148,11 @@ public class Queue {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         String userId = user.getUid();
         for (Long x : queue.keySet()){
-            HelperSharedPreferences.deleteSharedPreferencesKey(app.getApplicationContext(), HelperSharedPreferences.key1_prefix + x);
+            HelperSharedPreferences.deleteSharedPreferencesKey(app.getApplicationContext(),
+                    HelperSharedPreferences.key1_prefix + x);
+            HelperSharedPreferences.deleteSharedPreferencesKey(app.getApplicationContext(),
+                    HelperSharedPreferences.key2_prefix + x);
+
             mDatabase.child("users").child(userId).child("queue").child
                     (x.toString()).removeValue();
         }
@@ -132,7 +165,13 @@ public class Queue {
         for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
             if(entry.getKey().substring(0,3).equals("mov") && !entry.getKey().contains(":::")) {
                 Log.d(TAG, "cleanMovies --> deleting key " + entry.getKey());
-                HelperSharedPreferences.deleteSharedPreferencesKey(app.getApplicationContext(), entry.getKey());
+                HelperSharedPreferences.deleteSharedPreferencesKey(app.getApplicationContext(),
+                        entry.getKey());
+            }
+            if(entry.getKey().substring(0,3).equals("typ") && !entry.getKey().contains(":::")) {
+                Log.d(TAG, "cleanMovies --> deleting key " + entry.getKey());
+                HelperSharedPreferences.deleteSharedPreferencesKey(app.getApplicationContext(),
+                        entry.getKey());
             }
         }
     }

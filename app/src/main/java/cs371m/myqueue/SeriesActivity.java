@@ -119,6 +119,7 @@ public class SeriesActivity extends AppCompatActivity {
                         putExtra("image", result.getArtwork_304x171()).
                         putExtra("id", result.getId()).
                         putExtra("tMDBid", result.getThemoviedb()).
+                        putExtra("media_type", "shows").
                         putExtra("selected_source", selected_source);
 
                 startActivity(intent);
@@ -163,7 +164,7 @@ public class SeriesActivity extends AppCompatActivity {
         // get previously selected_source
         selected_source = sharedPrefs.getString(getString(R.string.pref_prev_selected), source_list.get(0));
         String source_name = "Netflix";
-        if (selected_source.equals("hulu")) source_name = "Hulu";
+        if (selected_source.equals("hulu_free,hulu_plus")) source_name = "Hulu";
         if (selected_source.equals("hbo")) source_name = "HBO";
         if (selected_source.equals("amazon_prime")) source_name = "Amazon";
         int spinnerPosition = spinnerAdapter.getPosition(source_name);

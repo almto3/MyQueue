@@ -120,6 +120,7 @@ public class MoviesActivity extends AppCompatActivity {
                         putExtra("image", result.getPoster120x171()).
                         putExtra("id", result.getId()).
                         putExtra("tMDBid", result.getThemoviedb()).
+                        putExtra("media_type", "movies").
                         putExtra("selected_source", selected_source);
 
                  startActivity(intent);

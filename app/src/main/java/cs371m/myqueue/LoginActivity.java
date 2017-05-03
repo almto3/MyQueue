@@ -24,6 +24,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by erinjensby on 5/1/17.
  */
@@ -45,9 +48,6 @@ public class LoginActivity extends AppCompatActivity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        instance = this;
-        q = Queue.get();
-
         // app has never been opened
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences
                 (getBaseContext());
@@ -58,6 +58,17 @@ public class LoginActivity extends AppCompatActivity{
             edit.putBoolean(getString(R.string.pref_previously_started), true);
             edit.commit();
             startActivity(new Intent(LoginActivity.this, WelcomeActivity.class));
+        }
+
+        // app has been on log in page in this session
+        boolean previouslyOnLogIn = sharedPrefs.getBoolean(getString(R.string.pref_prev_on_login),
+                false);
+        if (!previouslyOnLogIn) {
+            SharedPreferences.Editor edit = sharedPrefs.edit();
+            edit.putBoolean(getString(R.string.pref_prev_on_login), true);
+            edit.commit();
+            instance = this;
+            q = Queue.get();
         }
 
         // device already logged in
@@ -140,8 +151,8 @@ public class LoginActivity extends AppCompatActivity{
                             startActivity(intent);
 
                             // create default user service choices
-                            SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences
-                                    (getBaseContext());
+                            SharedPreferences sharedPrefs = PreferenceManager.
+                                    getDefaultSharedPreferences(getBaseContext());
                             SharedPreferences.Editor edit = sharedPrefs.edit();
                             DatabaseReference mDatabase = FirebaseDatabase.getInstance()
                                     .getReference();
@@ -217,8 +228,8 @@ public class LoginActivity extends AppCompatActivity{
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences
-                                (getBaseContext());
+                        SharedPreferences sharedPrefs = PreferenceManager.
+                                getDefaultSharedPreferences(getBaseContext());
                         SharedPreferences.Editor edit = sharedPrefs.edit();
 
                         for (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
@@ -267,13 +278,14 @@ public class LoginActivity extends AppCompatActivity{
                 (new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences
-                                (getBaseContext());
-                        SharedPreferences.Editor edit = sharedPrefs.edit();
-
                         Log.d(TAG, dataSnapshot.toString());
                         for (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
-                            q.addMovie(Long.parseLong(itemSnapshot.getKey()), itemSnapshot.getValue().toString());
+                            List<String> movie = new ArrayList<String>();
+                            for (DataSnapshot detailSnapshot : itemSnapshot.getChildren()) {
+                                movie.add(detailSnapshot.getValue().toString());
+                            }
+                            q.addMovie(Long.parseLong(itemSnapshot.getKey()), movie.get(0),
+                                    movie.get(1));
                         }
                     }
 

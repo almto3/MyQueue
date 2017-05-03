@@ -32,6 +32,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
     private static final int REQUEST_READ = 1;
 
     private String title;
+    private String media_type;
     private Long id;
     private Long tMDBid;
 
@@ -72,6 +73,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
         }
 
         title = getIntent().getStringExtra("title");
+        media_type = getIntent().getStringExtra("media_type");
         id = getIntent().getLongExtra("id", -1);
         String image = getIntent().getStringExtra("image");
         tMDBid = getIntent().getLongExtra("tMDBid", 0);
@@ -114,7 +116,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d(TAG, "onClick() - item_details_bookmarkIcon");
                 if(((TextView) findViewById(R.id.item_details_bookmarkText)).getText().equals(getResources().getString(R.string.details_bookmark))) {
-                    boolean x = q.addMovie(id, selected_source);
+                    boolean x = q.addMovie(id, selected_source, media_type);
                     if (x)
                         Toast.makeText(getBaseContext(), title + " " + getResources().getString(R.string.details_queue_add),
                                 Toast.LENGTH_LONG).show();
@@ -212,7 +214,11 @@ public class MediaDetailsActivity extends AppCompatActivity {
         protected tMDB doInBackground(Void... params) {
             try {
                 Log.d("MediaDetailstMDBidValue", Long.toString(tMDBid));
-                final String url2 = "https://api.themoviedb.org/3/movie/" + Long.toString(tMDBid) +
+                String type = "movies";
+                if (media_type.equals("shows")) {
+                    type = "tv";
+                }
+                final String url2 = "https://api.themoviedb.org/3/" + type + "/" + Long.toString(tMDBid) +
                         "?api_key=2fb9522ed230e5f6dae69f6206113021";
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());

@@ -110,10 +110,18 @@ public class QueueActivity extends AppCompatActivity {
 
                 //Pass the image title and url to MediaDetailsActivity
                 intent.putExtra("title", result.getTitle()).
-                        putExtra("image", result.getPoster120x171()).
                         putExtra("id", result.getId()).
                         putExtra("tMDBid", result.getThemoviedb()).
                         putExtra("selected_source", result.source);
+
+                if (result.type.equals("movies")) {
+                    intent.putExtra("media_type", result.type).
+                            putExtra("image", result.getPoster120x171());
+                } else {
+                    intent.putExtra("media_type", result.type).
+                            putExtra("image", result.getArtwork_304x171());
+                }
+
                 startActivity(intent);
             }
         });
@@ -129,12 +137,16 @@ public class QueueActivity extends AppCompatActivity {
                 Result result= null;
                 for(Long key : Queue.get().returnKeys()){
                     Log.d(TAG, "HttpRequestTask --> key = " + key);
-                    url = "http://api-public.guidebox.com/v2/movies/" + key +"?api_key=c302491413726d93c00a4b0192f8bc55fdc56da4&movie_id=143441";
+                    String media_type = Queue.get().returnType(key);
+                    url = "http://api-public.guidebox.com/v2/" + media_type + "/" + key +
+                            "?api_key=c302491413726d93c00a4b0192f8bc55fdc56da4&movie_id=143441";
                     Log.d(TAG, "HttpRequestTask --> url = " + url);
                     RestTemplate restTemplate = new RestTemplate();
-                    restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                    restTemplate.getMessageConverters().add
+                            (new MappingJackson2HttpMessageConverter());
                     result = restTemplate.getForObject(url, Result.class);
                     result.source = Queue.get().returnService(key);
+                    result.type = media_type;
 
                     if(result != null) {
                         Log.d(TAG, "ADDALL --> " + result.toString());
@@ -149,7 +161,11 @@ public class QueueActivity extends AppCompatActivity {
                     for (Result r : results) {
                         item = new GridItem();
                         item.setTitle(r.getTitle());
-                        item.setImage(r.getPoster120x171());
+                        if (r.type.equals("movies")) {
+                            item.setImage(r.getPoster120x171());
+                        } else {
+                            item.setImage(r.getArtwork_304x171());
+                        }
                         mGridData.add(item);
                     }
 
