@@ -95,13 +95,12 @@ public class SettingsActivity extends AppCompatActivity {
                 case 2:     //Log Out
 
                     // clear all shared prefences
-                    LoginActivity app = LoginActivity.get();
+                    MenuActivity app = MenuActivity.get();
                     Map<String, ?> allEntries = HelperSharedPreferences.getAll
                             (app.getApplicationContext());;
                     for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
                         Log.d("LogOut", entry.getKey());
-                        if(!(entry.getKey().equals(getString(R.string.pref_previously_started)) ||
-                                entry.getKey().equals(getString(R.string.pref_prev_on_login)))) {
+                        if(!(entry.getKey().equals(getString(R.string.pref_previously_started)))) {
                             HelperSharedPreferences.deleteSharedPreferencesKey
                                     (app.getApplicationContext(), entry.getKey());
                         }
