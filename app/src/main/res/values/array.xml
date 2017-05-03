@@ -13,4 +13,10 @@
         <item>Log Out</item>
     </array>
 
+    <array name="settings_summaries">
+        <item>Frequently Asked Questions</item>
+        <item>¿Quien somos nosotros?</item>
+        <item>Back to the login page</item>
+    </array>
+
 </resources>
