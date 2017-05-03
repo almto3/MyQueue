@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">MyQueue</string>
 
+    <string name="create_failed">Incorrect email or password( must be atleast 6 characters long</string>
     <string name="auth_failed">Email or password incorrect</string>
 
     <string name="new_user">New user? Create an account</string>
