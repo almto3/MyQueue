@@ -5,8 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -39,31 +37,5 @@ public class AboutActivity extends AppCompatActivity {
                         ("https://github.com/almto3/MyQueue")));
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_browse:
-                startActivity(new Intent(this, MoviesActivity.class));
-                return true;
-            case R.id.menu_bookmarks:
-                startActivity(new Intent(this, QActivity.class));
-                return true;
-            case R.id.menu_search:
-                startActivity(new Intent(this, SearchActivity.class));
-                return true;
-            case R.id.menu_settings:
-                startActivity(new Intent(this, SettingsActivity.class));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 }

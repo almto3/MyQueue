@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -33,37 +31,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent;
-        switch (item.getItemId()) {
-            case R.id.menu_browse:
-                intent = new Intent(this, MoviesActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-                return true;
-            case R.id.menu_bookmarks:
-                intent = new Intent(this, QActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-                return true;
-            case R.id.menu_search:
-                intent = new Intent(this, SearchActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-                return true;
-            case R.id.menu_settings:
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
     /**
      * This is the "top-level" fragment, showing a list of items that the
      * user can pick.  Upon picking an item, it takes care of displaying the
@@ -121,16 +88,13 @@ public class SettingsActivity extends AppCompatActivity {
             // Not yet implemented, currently uses only Netflix automatically
 
             switch (index) {
-                case 0:     //select source
-                    startActivity(new Intent(getActivity(), SelectSourcesActivity.class));
-                    break;
-                case 1:     //FAQ
+                case 0:     //FAQ
                     startActivity(new Intent(getActivity(), FAQActivity.class));
                     break;
-                case 2:     //About Us
+                case 1:     //About Us
                     startActivity(new Intent(getActivity(), AboutActivity.class));
                     break;
-                case 3:     //Log Out
+                case 2:     //Log Out
                     // clear all shared prefences
                     LoginActivity app = LoginActivity.get();
                     Map<String, ?> allEntries = HelperSharedPreferences.getAll(app.getApplicationContext());;
@@ -147,10 +111,6 @@ public class SettingsActivity extends AppCompatActivity {
                     startActivity(intent);
                     getActivity().finish();
                     break;
-                case 4:     //Exit App
-                    System.exit(0);
-                    break;
-
             }
         }
     }

@@ -15,8 +15,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -172,23 +170,39 @@ public class SeriesActivity extends AppCompatActivity {
             source_list.add("amazon_prime");
         }
 
+        // spinner
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>
                 (this, android.R.layout.simple_spinner_item, list);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
         spinnerAdapter.notifyDataSetChanged();
-        if (source_list.size() == 0) {
-            Log.d("MoviesActivity", "this should nvr happen");
-            source_list.add("netflix");
+
+        // get previously selected_source
+        selected_source = sharedPrefs.getString(getString(R.string.pref_prev_selected), source_list.get(0));
+        String source_name = "Netflix";
+        if (selected_source.equals("hulu")) source_name = "Hulu";
+        if (selected_source.equals("hbo")) source_name = "HBO";
+        if (selected_source.equals("amazon_prime")) source_name = "Amazon";
+        int spinnerPosition = spinnerAdapter.getPosition(source_name);
+        Log.d("SeriesActivity","selected src" + source_name);
+        Log.d("SeriesActivity","spinnerPos" + spinnerPosition);
+        if (spinnerPosition >= 0) {
+            spinner.setSelection(spinnerPosition);
         }
-        selected_source = source_list.get(0);
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView,
                                        int position, long id) {
+
                 // your code here
                 selected_source = source_list.get(position);
+                SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences
+                        (getBaseContext());
+                SharedPreferences.Editor edit = sharedPrefs.edit();
+                edit.putString(getString(R.string.pref_prev_selected), selected_source);
+                edit.commit();
                 Log.d("MoviesActivity", source_list.get(position));
                 new HttpRequestTask().execute();
             }
@@ -200,12 +214,6 @@ public class SeriesActivity extends AppCompatActivity {
 
         });
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
     }
 
     private void checkPermissions(String[] permissions){
@@ -235,33 +243,6 @@ public class SeriesActivity extends AppCompatActivity {
     private void requestPermissions(String[] permission){
         ActivityCompat.requestPermissions(this, permission, MY_PERMISSIONS_REQUEST);
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent;
-        switch (item.getItemId()) {
-            case R.id.menu_browse:
-                return true;
-            case R.id.menu_bookmarks:
-                intent = new Intent(this, QActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-                return true;
-            case R.id.menu_search:
-                intent = new Intent(this, SearchActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-                return true;
-            case R.id.menu_settings:
-                intent = new Intent(this, SettingsActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
 
     private class HttpRequestTask extends AsyncTask<Void, Void, Movies> {
         @Override

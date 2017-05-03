@@ -47,7 +47,7 @@ public class MenuActivity extends Activity implements View.OnClickListener{
                 break;
 
             case R.id.myqueue_button:
-                Intent myqueue_intent = new Intent(MenuActivity.this, QActivity.class);
+                Intent myqueue_intent = new Intent(MenuActivity.this, QueueActivity.class);
                 myqueue_intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(myqueue_intent);
                 break;

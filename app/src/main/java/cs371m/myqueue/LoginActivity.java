@@ -182,6 +182,7 @@ public class LoginActivity extends AppCompatActivity{
 
                         if (task.isSuccessful()) {
                             restoreUserSources();
+                            restoreUserQueue();
                             Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                             startActivity(intent);

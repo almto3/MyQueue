@@ -12,11 +12,10 @@
     <string name="amazon_source">amazon_prime</string>
 
     <string name="pref_previously_started">previously_started</string>
+    <string name="pref_prev_selected">previously_selected</string>
 
     <string name="welcome_text">Tap anywhere to continue</string>
 
-    <string name="select_source_prompt">Please select the services you would like to be included as
-        options when browsing movies: (You can always change these in settings)</string>
     <string name="select_source_from_settings">Please select the services you would like to be
         included as options when browsing movies:</string>
 
@@ -36,7 +35,6 @@
     <!-- non static, should be changed case by case -->
     <string name="details_plot">...</string>
     <string name="details_rottenScore">-.-</string>
-    <string name="details_title">The Big Short (2015)</string>
 
     <string name="search_not_implemented">Search feature is not yet supported</string>
     <string name="force_select_service">You must choose at least one service to browse</string>
@@ -80,7 +78,6 @@
         as we leave beta (approx. jul 2017). The image next will take you to the </string>
     <string name="our_email">Also, we can reached over email here: kaivan@douche.bag</string>
 
-
     <string name="online">online</string>
     <string name="offline">offline</string>
     <string name="no_connection">Could not reach the internet</string>
@@ -96,7 +93,7 @@
     <string name="activity_media">Media Details</string>
     <string name="activity_menu">Main Menu</string>
     <string name="activity_movies">Movies</string>
-    <string name="activity_q">Q!</string>
+    <string name="activity_q">Queue</string>
     <string name="activity_search">Search</string>
     <string name="activity_select">Select Sources</string>
     <string name="activity_series">Series</string>

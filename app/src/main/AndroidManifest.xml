@@ -67,7 +67,7 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".QActivity"
+            android:name=".QueueActivity"
             android:screenOrientation="portrait">
         </activity>
 

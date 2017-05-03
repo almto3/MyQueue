@@ -8,12 +8,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
@@ -22,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class QActivity extends AppCompatActivity {
+public class QueueActivity extends AppCompatActivity {
 
     private Queue q;
 
@@ -32,7 +29,7 @@ public class QActivity extends AppCompatActivity {
     private ArrayList<Result> results = new ArrayList<>(100);
     private ArrayList<GridItem> mGridData;
 
-    private final String TAG = "QActivity";
+    private final String TAG = "QueueActivity";
 
     private List<String> selected_sources = new ArrayList<>();
 
@@ -49,7 +46,7 @@ public class QActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d(TAG,"Clicked");
 
-                new AlertDialog.Builder(QActivity.this)
+                new AlertDialog.Builder(QueueActivity.this)
                         .setTitle("Empty Queue?")
                         .setMessage(R.string.my_queue_delete_conformation)
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -69,32 +66,6 @@ public class QActivity extends AppCompatActivity {
         });
 
         setSupportActionBar(myQueueToolbar);
-        new QActivity.HttpRequestTask().execute();
-
-        gridView = (GridView) findViewById(R.id.gridView);
-
-        mGridData = new ArrayList<>();
-        gridAdapter = new GridViewAdapter(this, R.layout.grid_item_layout, mGridData);
-        gridView.setAdapter(gridAdapter);
-
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-
-                GridItem item = (GridItem) parent.getItemAtPosition(position);
-                Result result = results.get(position);
-
-                //Create intent
-                Intent intent = new Intent(QActivity.this, MediaDetailsActivity.class);
-
-                //Pass the image title and url to MediaDetailsActivity
-                intent.putExtra("title", result.getTitle()).
-                        putExtra("image", result.getPoster120x171()).
-                        putExtra("id", result.getId()).
-                        putExtra("tMDBid", result.getThemoviedb()).
-                        putExtra("selected_source", result.source);
-                startActivity(intent);
-            }
-        });
 
         q = Queue.get();
     }
@@ -118,40 +89,36 @@ public class QActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+        results.clear();
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent;
-        switch (item.getItemId()) {
-            case R.id.menu_browse:
-                intent = new Intent(this, MoviesActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+        new QueueActivity.HttpRequestTask().execute();
+
+        gridView = (GridView) findViewById(R.id.gridView);
+
+        mGridData = new ArrayList<>();
+        gridAdapter = new GridViewAdapter(this, R.layout.grid_item_layout, mGridData);
+        gridView.setAdapter(gridAdapter);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+
+                GridItem item = (GridItem) parent.getItemAtPosition(position);
+                Result result = results.get(position);
+
+                //Create intent
+                Intent intent = new Intent(QueueActivity.this, MediaDetailsActivity.class);
+
+                //Pass the image title and url to MediaDetailsActivity
+                intent.putExtra("title", result.getTitle()).
+                        putExtra("image", result.getPoster120x171()).
+                        putExtra("id", result.getId()).
+                        putExtra("tMDBid", result.getThemoviedb()).
+                        putExtra("selected_source", result.source);
                 startActivity(intent);
-                return true;
-            case R.id.menu_bookmarks:
-                Toast.makeText(getBaseContext(), R.string.already_here, Toast.LENGTH_LONG).show();
-                return true;
-            case R.id.menu_search:
-                intent = new Intent(this, SearchActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-                return true;
-            case R.id.menu_settings:
-                intent = new Intent(this, SettingsActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+            }
+        });
+
     }
 
     private class HttpRequestTask extends AsyncTask<Void, Void, Movies> {
