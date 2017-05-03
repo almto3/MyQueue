@@ -13,6 +13,11 @@ import android.widget.Button;
 public class MenuActivity extends Activity implements View.OnClickListener{
     Button button;
 
+
+    private static MenuActivity instance;
+    public static MenuActivity get() { return instance; }
+    private Queue q;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,12 +25,18 @@ public class MenuActivity extends Activity implements View.OnClickListener{
 
         Button browse = (Button) findViewById(R.id.browse_button);
         browse.setOnClickListener(this); //calling onClick method
+        Button shows = (Button) findViewById(R.id.shows_button);
+        shows.setOnClickListener(this);
         Button myqueue = (Button) findViewById(R.id.myqueue_button);
         myqueue.setOnClickListener(this);
         Button select_services = (Button) findViewById(R.id.select_services_button);
         select_services.setOnClickListener(this);
         Button settings = (Button) findViewById(R.id.settings_button);
         settings.setOnClickListener(this);
+
+        instance = this;
+        q = Queue.get();
+
     }
 
     @Override
@@ -33,13 +44,19 @@ public class MenuActivity extends Activity implements View.OnClickListener{
 
         switch (v.getId()) {
             case R.id.browse_button:
-                Intent browse_intent = new Intent(MenuActivity.this, BrowseActivity.class);
+                Intent browse_intent = new Intent(MenuActivity.this, MoviesActivity.class);
                 browse_intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(browse_intent);
                 break;
 
+            case R.id.shows_button:
+                Intent shows_intent = new Intent(MenuActivity.this, SeriesActivity.class);
+                shows_intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivity(shows_intent);
+                break;
+
             case R.id.myqueue_button:
-                Intent myqueue_intent = new Intent(MenuActivity.this, MyQueueActivity.class);
+                Intent myqueue_intent = new Intent(MenuActivity.this, QActivity.class);
                 myqueue_intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(myqueue_intent);
                 break;
@@ -54,10 +71,6 @@ public class MenuActivity extends Activity implements View.OnClickListener{
                 Intent settings_intent = new Intent(MenuActivity.this, SettingsActivity.class);
                 settings_intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(settings_intent);
-                break;
-
-            case R.id.menu_quit:
-                System.exit(0);
                 break;
 
             default:

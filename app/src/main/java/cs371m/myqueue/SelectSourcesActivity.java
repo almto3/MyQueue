@@ -49,7 +49,7 @@ public class SelectSourcesActivity extends AppCompatActivity {
                     Toast.makeText(getBaseContext(),
                             R.string.force_select_service, Toast.LENGTH_LONG).show();
                 } else {
-                    Intent intent = new Intent(activity, BrowseActivity.class);
+                    Intent intent = new Intent(activity, MoviesActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);
                     SelectSourcesActivity.this.finish();
@@ -58,6 +58,7 @@ public class SelectSourcesActivity extends AppCompatActivity {
         });
 
         Toolbar selectSourcesToolbar = (Toolbar)findViewById(R.id.select_sources_toolbar);
+        selectSourcesToolbar.setTitle(R.string.activity_select);
         setSupportActionBar(selectSourcesToolbar);
 
     }
@@ -73,13 +74,13 @@ public class SelectSourcesActivity extends AppCompatActivity {
         Intent intent;
         switch (item.getItemId()) {
             case R.id.menu_browse:
-                intent = new Intent(this, BrowseActivity.class);
+                intent = new Intent(this, MoviesActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
                 startActivity(intent);
                 return true;
             case R.id.menu_bookmarks:
                 //Toast.makeText(getBaseContext(), R.string.bookmarks_not_implemented, Toast.LENGTH_LONG).show();
-                intent = new Intent(this, MyQueueActivity.class);
+                intent = new Intent(this, QActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 return true;
@@ -92,9 +93,6 @@ public class SelectSourcesActivity extends AppCompatActivity {
                 intent = new Intent(this, SettingsActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
-                return true;
-            case R.id.menu_quit:
-                System.exit(0);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -1,8 +1,9 @@
 package cs371m.myqueue;
 
-import android.Manifest;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+/**
+ * Created by Kaivan on 5/2/2017.
+ */
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -22,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -33,7 +35,8 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BrowseActivity extends AppCompatActivity {
+
+public class SeriesActivity extends AppCompatActivity {
 
 
 
@@ -44,9 +47,9 @@ public class BrowseActivity extends AppCompatActivity {
     private ArrayList<GridItem> mGridData;
 
     private String selected_source;
-    private final String TAG = "BrowseActivity";
-    final private String[] PERMISSIONS = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE};
+    private final String TAG = "MoviesActivity";
+    final private String[] PERMISSIONS = new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            android.Manifest.permission.READ_EXTERNAL_STORAGE};
     private boolean project_permissions = false;
     private static final int MY_PERMISSIONS_REQUEST = 16969;
 
@@ -59,54 +62,44 @@ public class BrowseActivity extends AppCompatActivity {
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences
                 (getBaseContext());
-        if(!checkInternet()){
-            new AlertDialog.Builder(BrowseActivity.this)
-                    .setTitle(R.string.no_connection)
-                    .setMessage(R.string.press_to_refresh)
-                    .setNeutralButton(R.string.refresh, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            restart();
-                        }
-                    })
-                    .show();
-        }
+
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         userId = user.getUid();
         if (user == null) {
-            Log.d("BrowseActivity", "user null, this should never happen");
-            Intent intent = new Intent(BrowseActivity.this, LoginActivity.class);
+            Log.d("MoviesActivity", "user null, this should never happen");
+            Intent intent = new Intent(SeriesActivity.this, LoginActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             intent.putExtra("keep", false);
             startActivity(intent);
-            startActivity(new Intent(BrowseActivity.this, LoginActivity.class));
-            BrowseActivity.this.finish();
+            startActivity(new Intent(SeriesActivity.this, LoginActivity.class));
+            SeriesActivity.this.finish();
         }
 
         final List<String> source_list = new ArrayList<>();
         if (sharedPrefs.getBoolean(getString(R.string.netflix_source), false)) {
-            Log.d("BrowseActivity", "netflix added to source_list");
+            Log.d("MoviesActivity", "netflix added to source_list");
             source_list.add("netflix");
         }
         if (sharedPrefs.getBoolean(getString(R.string.hulu_source), false)) {
-            Log.d("BrowseActivity", "hulu added to source_list");
+            Log.d("MoviesActivity", "hulu added to source_list");
             source_list.add("hulu_free,hulu_plus");
         }
         if (sharedPrefs.getBoolean(getString(R.string.hbo_source), false)) {
-            Log.d("BrowseActivity", "hbo added to source_list");
+            Log.d("MoviesActivity", "hbo added to source_list");
             source_list.add("hbo");
         }
         if (sharedPrefs.getBoolean(getString(R.string.amazon_source), false)) {
-            Log.d("BrowseActivity", "amazon added to source_list");
+            Log.d("MoviesActivity", "amazon added to source_list");
             source_list.add("amazon");
         }
 
         if (source_list.size() == 0) {
-            Log.d("BrowseActivity", "check true");
+            Log.d("MoviesActivity", "check true");
             source_list.add("netflix");
-            Intent intent = new Intent(BrowseActivity.this, SelectSourcesActivity.class);
+            Intent intent = new Intent(SeriesActivity.this, SelectSourcesActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
             Toast.makeText(getBaseContext(),
@@ -117,9 +110,9 @@ public class BrowseActivity extends AppCompatActivity {
         setContentView(R.layout.browse_layout);
 
         new HttpRequestTask().execute();
-        Toolbar browseToolbar = (Toolbar)findViewById(R.id.browse_toolbar);
-        browseToolbar.setTitle("Browse");
-        setSupportActionBar(browseToolbar);
+        Toolbar seriesToolbar = (Toolbar)findViewById(R.id.browse_toolbar);
+        seriesToolbar.setTitle(R.string.activity_series);
+        setSupportActionBar(seriesToolbar);
 
         gridView = (GridView) findViewById(R.id.gridView);
 
@@ -134,24 +127,22 @@ public class BrowseActivity extends AppCompatActivity {
                 Result result = results.get(position);
 
                 //Create intent
-                Intent intent = new Intent(BrowseActivity.this, MediaDetailsActivity.class);
+                Intent intent = new Intent(SeriesActivity.this, MediaDetailsActivity.class);
 
+
+                Log.i("image: ", result.getArtwork_304x171());
                 //Pass the image title and url to MediaDetailsActivity
                 intent.putExtra("title", result.getTitle()).
-                        putExtra("image", result.getPoster120x171()).
+                        putExtra("image", result.getArtwork_304x171()).
                         putExtra("id", result.getId()).
                         putExtra("tMDBid", result.getThemoviedb()).
                         putExtra("selected_source", selected_source);
 
-                 startActivity(intent);
+                startActivity(intent);
 
             }
         });
-    }
 
-    private void restart() {
-        finish();
-        startActivity(getIntent());
     }
 
     @Override
@@ -188,7 +179,7 @@ public class BrowseActivity extends AppCompatActivity {
         spinner.setAdapter(spinnerAdapter);
         spinnerAdapter.notifyDataSetChanged();
         if (source_list.size() == 0) {
-            Log.d("BrowseActivity", "this should nvr happen");
+            Log.d("MoviesActivity", "this should nvr happen");
             source_list.add("netflix");
         }
         selected_source = source_list.get(0);
@@ -198,7 +189,7 @@ public class BrowseActivity extends AppCompatActivity {
                                        int position, long id) {
                 // your code here
                 selected_source = source_list.get(position);
-                Log.d("BrowseActivity", source_list.get(position));
+                Log.d("MoviesActivity", source_list.get(position));
                 new HttpRequestTask().execute();
             }
 
@@ -252,7 +243,7 @@ public class BrowseActivity extends AppCompatActivity {
             case R.id.menu_browse:
                 return true;
             case R.id.menu_bookmarks:
-                intent = new Intent(this, MyQueueActivity.class);
+                intent = new Intent(this, QActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 return true;
@@ -266,9 +257,6 @@ public class BrowseActivity extends AppCompatActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 return true;
-            case R.id.menu_quit:
-                System.exit(0);
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -279,7 +267,7 @@ public class BrowseActivity extends AppCompatActivity {
         @Override
         protected Movies doInBackground(Void... params) {
             try {
-                final String url = "http://api-public.guidebox.com/v2/movies?api_key=" +
+                final String url = "http://api-public.guidebox.com/v2/shows?api_key=" +
                         "c302491413726d93c00a4b0192f8bc55fdc56da4&sources=" + selected_source +
                         "&limit=100";
                 RestTemplate restTemplate = new RestTemplate();
@@ -292,10 +280,10 @@ public class BrowseActivity extends AppCompatActivity {
                 GridItem item;
 
                 for (Result result : results) {
-                    Log.d("BrowseActivity", result.getTitle());
+                    Log.d("MoviesActivity", result.getTitle());
                     item = new GridItem();
                     item.setTitle(result.getTitle());
-                    item.setImage(result.getPoster120x171());
+                    item.setImage(result.getArtwork_304x171());
                     item.settMDBid(result.getThemoviedb());
                     mGridData.add(item);
                 }
@@ -311,21 +299,10 @@ public class BrowseActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Movies movies) {
 
-            Log.d("BrowseActivity", "onPostExecute");
+            Log.d("MoviesActivity", "onPostExecute");
             int a = mGridData.size();
             gridAdapter.setGridData(mGridData);
 
-        }
-
-    }
-
-    private boolean checkInternet(){
-        if (InternetAccess.getInstance(this).isOnline()) {
-            Toast.makeText(getBaseContext(), R.string.online, Toast.LENGTH_LONG).show();
-            return true;
-        } else {
-            Toast.makeText(getBaseContext(), R.string.offline, Toast.LENGTH_LONG).show();
-            return false;
         }
 
     }

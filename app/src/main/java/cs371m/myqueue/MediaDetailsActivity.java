@@ -54,21 +54,23 @@ public class MediaDetailsActivity extends AppCompatActivity {
 
 
         Toolbar detailsToolbar = (Toolbar)findViewById(R.id.item_details_toolbar);
-        detailsToolbar.setTitle("Media Details");
+        detailsToolbar.setTitle(R.string.activity_media);
         setSupportActionBar(detailsToolbar);
 
         selected_source = getIntent().getStringExtra("selected_source");
+        Log.d(TAG, "onCreate --> " + selected_source);
         switch (selected_source) {
+
             case "netflix":
                 Picasso.with(this).load(R.drawable.netflix).into(imageView_poster);
                 break;
-            case "hulu":
+            case "hulu_free,hulu_plus":
                 Picasso.with(this).load(R.drawable.hulu).into(imageView_poster);
                 break;
             case "hbo":
                 Picasso.with(this).load(R.drawable.hbo).into(imageView_poster);
                 break;
-            case "amazon":
+            case "amazon_prime":
                 Picasso.with(this).load(R.drawable.amazon).into(imageView_poster);
                 break;
         }
@@ -79,7 +81,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
         tMDBid = getIntent().getLongExtra("tMDBid", 0);
         new HttpRequestTask().execute();
 
-        Picasso.with(this).load(image).into(imageView);
+        Picasso.with(this).load(image).resize(165, 275).into(imageView);
         titleTextView.setText(Html.fromHtml(title));
 
         q = Queue.get();
@@ -124,19 +126,19 @@ public class MediaDetailsActivity extends AppCompatActivity {
                 if(((TextView) findViewById(R.id.item_details_bookmarkText)).getText().equals("Queue")) {
                     boolean x = q.addMovie(id, selected_source);
                     if (x)
-                        Toast.makeText(getBaseContext(), title + R.string.details_queue_add,
+                        Toast.makeText(getBaseContext(), title + " " + getResources().getString(R.string.details_queue_add),
                                 Toast.LENGTH_LONG).show();
                     else
-                        Toast.makeText(getBaseContext(), title + R.string.details_queue_already,
+                        Toast.makeText(getBaseContext(), title + " "  + getResources().getString(R.string.details_queue_already),
                                 Toast.LENGTH_LONG).show();
                 }
                 else{
                     boolean x = q.deleteMovie(id);
                     if (x)
-                        Toast.makeText(getBaseContext(), title + R.string.details_queue_delete,
+                        Toast.makeText(getBaseContext(), title + " "  + getResources().getString(R.string.details_queue_delete),
                                 Toast.LENGTH_LONG).show();
                     else
-                        Toast.makeText(getBaseContext(), title + R.string.details_queue_does_not_exist,
+                        Toast.makeText(getBaseContext(), title + " "  + getResources().getString(R.string.details_queue_does_not_exist),
                                 Toast.LENGTH_LONG).show();
                 }
                 queueOrDequeue();
@@ -177,12 +179,12 @@ public class MediaDetailsActivity extends AppCompatActivity {
         Intent intent;
         switch (item.getItemId()) {
             case R.id.menu_browse:
-                intent = new Intent(this, BrowseActivity.class);
+                intent = new Intent(this, MoviesActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 return true;
             case R.id.menu_bookmarks:
-                intent = new Intent(this, MyQueueActivity.class);
+                intent = new Intent(this, QActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
 
@@ -197,16 +199,12 @@ public class MediaDetailsActivity extends AppCompatActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 return true;
-            case R.id.menu_quit:
-                System.exit(0);
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
     protected boolean checkPermissions() {
-        final String TAG = "checkPermissions";
         int permissionChecka = ContextCompat.checkSelfPermission
                 (this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         int permissionCheckb = ContextCompat.checkSelfPermission
@@ -220,11 +218,6 @@ public class MediaDetailsActivity extends AppCompatActivity {
         boolean b = permissionCheckb == PackageManager.PERMISSION_GRANTED;
         boolean c = permissionCheckc == PackageManager.PERMISSION_GRANTED;
         boolean d = permissionCheckd == PackageManager.PERMISSION_GRANTED;
-
-        Log.d(TAG, " - a = " + a);
-        Log.d(TAG, " - b = " + b);
-        Log.d(TAG, " - c = " + c);
-        Log.d(TAG, " - d = " + d);
 
         if(a)
             requestWritePermission();
@@ -275,9 +268,9 @@ public class MediaDetailsActivity extends AppCompatActivity {
         protected void onPostExecute(tMDB tMDB) {
             TextView rottenTextView = (TextView) findViewById(R.id.item_details_rotten_score);
             TextView plotTextView = (TextView) findViewById(R.id.item_details_plot);
-            rottenTextView.setText(Double.toString(tMDB.getRating()));
-            plotTextView.setText(tMDB.getOverview());
+            if (tMDB != null) {
+                rottenTextView.setText(Double.toString(tMDB.getRating()));
+                plotTextView.setText(tMDB.getOverview());}
         }
-
     }
 }
