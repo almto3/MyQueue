@@ -35,6 +35,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
     private String media_type;
     private Long id;
     private Long tMDBid;
+    String year;
 
     private Queue q;
     private String selected_source;
@@ -73,6 +74,8 @@ public class MediaDetailsActivity extends AppCompatActivity {
         }
 
         title = getIntent().getStringExtra("title");
+        year = getIntent().getStringExtra("year");
+        title = title + "("+year+")";
         media_type = getIntent().getStringExtra("media_type");
         id = getIntent().getLongExtra("id", -1);
         String image = getIntent().getStringExtra("image");

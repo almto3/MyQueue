@@ -33,8 +33,10 @@
 
         <ImageView
             android:id="@+id/about_image"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_gravity="center" />
 
         <View
@@ -76,15 +78,14 @@
                     android:layout_width="250dp"
                     android:layout_height="match_parent"
                     android:ellipsize="none"
-                    android:ems="10"
                     android:text="@string/our_git"
-
-                    android:textSize="16sp" />
+                    android:textSize="20sp" />
                 <ImageView
                     android:id="@+id/git_pic"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginLeft="25dp"
+                    android:layout_marginBottom="25dp"
                     android:layout_gravity="center"
                     android:clickable="true"
                     android:src="@drawable/github" />
@@ -99,11 +100,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ellipsize="none"
-            android:ems="10"
             android:text="@string/our_email"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:textSize="16sp" />
+            android:textSize="20sp" />
 
     </LinearLayout>
 </LinearLayout>
