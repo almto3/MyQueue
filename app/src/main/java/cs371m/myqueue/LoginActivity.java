@@ -177,7 +177,7 @@ public class LoginActivity extends AppCompatActivity{
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
-                            Toast.makeText(LoginActivity.this, R.string.auth_failed,
+                            Toast.makeText(LoginActivity.this, R.string.create_failed,
                                     Toast.LENGTH_SHORT).show();
                         }
 
