@@ -136,6 +136,7 @@ public class BrowseActivity extends AppCompatActivity {
                 //Create intent
                 Intent intent = new Intent(BrowseActivity.this, MediaDetailsActivity.class);
 
+                Log.i("image: ", result.getPoster120x171());
                 //Pass the image title and url to MediaDetailsActivity
                 intent.putExtra("title", result.getTitle()).
                         putExtra("image", result.getPoster120x171()).

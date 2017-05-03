@@ -31,7 +31,7 @@ public class tMDB {
     }
 
     @JsonProperty("vote_average")
-    public double getRating() {
+    public Double getRating() {
         return rating;
     }
 

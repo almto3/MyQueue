@@ -55,7 +55,7 @@ public class GridViewAdapter extends ArrayAdapter<GridItem> {
         GridItem item = mGridData.get(position);
         holder.titleTextView.setText(Html.fromHtml(item.getTitle()));
 
-        Picasso.with(mContext).load(item.getImage()).into(holder.imageView);
+        Picasso.with(mContext).load(item.getImage()).resize(165, 275).into(holder.imageView);
         return row;
     }
 

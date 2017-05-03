@@ -79,19 +79,19 @@ public class SeriesActivity extends AppCompatActivity {
         }
 
         final List<String> source_list = new ArrayList<>();
-        if (sharedPrefs.getBoolean(getString(R.string.netflix_selected), false)) {
+        if (sharedPrefs.getBoolean(getString(R.string.netflix_source), false)) {
             Log.d("BrowseActivity", "netflix added to source_list");
             source_list.add("netflix");
         }
-        if (sharedPrefs.getBoolean(getString(R.string.hulu_selected), false)) {
+        if (sharedPrefs.getBoolean(getString(R.string.hulu_source), false)) {
             Log.d("BrowseActivity", "hulu added to source_list");
             source_list.add("hulu_free,hulu_plus");
         }
-        if (sharedPrefs.getBoolean(getString(R.string.hbo_selected), false)) {
+        if (sharedPrefs.getBoolean(getString(R.string.hbo_source), false)) {
             Log.d("BrowseActivity", "hbo added to source_list");
             source_list.add("hbo");
         }
-        if (sharedPrefs.getBoolean(getString(R.string.amazon_selected), false)) {
+        if (sharedPrefs.getBoolean(getString(R.string.amazon_source), false)) {
             Log.d("BrowseActivity", "amazon added to source_list");
             source_list.add("amazon");
         }
@@ -129,6 +129,8 @@ public class SeriesActivity extends AppCompatActivity {
                 //Create intent
                 Intent intent = new Intent(SeriesActivity.this, MediaDetailsActivity.class);
 
+
+                Log.i("image: ", result.getArtwork_304x171());
                 //Pass the image title and url to MediaDetailsActivity
                 intent.putExtra("title", result.getTitle()).
                         putExtra("image", result.getArtwork_304x171()).
@@ -153,19 +155,19 @@ public class SeriesActivity extends AppCompatActivity {
 
         final List<String> list = new ArrayList<>();
         final List<String> source_list = new ArrayList<>();
-        if (sharedPrefs.getBoolean(getString(R.string.netflix_selected), false)) {
+        if (sharedPrefs.getBoolean(getString(R.string.netflix_source), false)) {
             list.add("Netflix");
             source_list.add("netflix");
         }
-        if (sharedPrefs.getBoolean(getString(R.string.hulu_selected), false)) {
+        if (sharedPrefs.getBoolean(getString(R.string.hulu_source), false)) {
             list.add("Hulu");
             source_list.add("hulu_free,hulu_plus");
         }
-        if (sharedPrefs.getBoolean(getString(R.string.hbo_selected), false)) {
+        if (sharedPrefs.getBoolean(getString(R.string.hbo_source), false)) {
             list.add("HBO");
             source_list.add("hbo");
         }
-        if (sharedPrefs.getBoolean(getString(R.string.amazon_selected), false)) {
+        if (sharedPrefs.getBoolean(getString(R.string.amazon_source), false)) {
             list.add("Amazon");
             source_list.add("amazon_prime");
         }
@@ -254,9 +256,6 @@ public class SeriesActivity extends AppCompatActivity {
                 intent = new Intent(this, SettingsActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
-                return true;
-            case R.id.menu_quit:
-                System.exit(0);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
