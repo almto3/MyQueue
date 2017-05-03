@@ -11,12 +11,6 @@ import android.widget.Button;
  */
 
 public class MenuActivity extends Activity implements View.OnClickListener{
-    Button button;
-
-
-    private static MenuActivity instance;
-    public static MenuActivity get() { return instance; }
-    private Queue q;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,9 +27,6 @@ public class MenuActivity extends Activity implements View.OnClickListener{
         select_services.setOnClickListener(this);
         Button settings = (Button) findViewById(R.id.settings_button);
         settings.setOnClickListener(this);
-
-        instance = this;
-        q = Queue.get();
 
     }
 

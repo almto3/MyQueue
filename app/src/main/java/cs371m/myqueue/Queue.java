@@ -20,12 +20,12 @@ public class Queue {
     private Map<Long, String> queue;       //Long=id, String=title. SharedPreferences, key = movie:::id. value = service
 
     private static final String TAG = "Queue";
-    private MenuActivity app;
+    private LoginActivity app;
 
     private Queue(){
         queue = new HashMap<Long, String>();
 
-        app = MenuActivity.get();
+        app = LoginActivity.get();
         //cleanMovies();
         parseMovies();
     }

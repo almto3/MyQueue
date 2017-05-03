@@ -74,7 +74,7 @@ public class MoviesActivity extends AppCompatActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             intent.putExtra("keep", false);
             startActivity(intent);
-            startActivity(new Intent(MoviesActivity.this, LoginActivity.class));
+//            startActivity(new Intent(MoviesActivity.this, LoginActivity.class));
             MoviesActivity.this.finish();
         }
 
