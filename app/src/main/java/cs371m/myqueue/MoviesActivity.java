@@ -121,7 +121,8 @@ public class MoviesActivity extends AppCompatActivity {
                         putExtra("id", result.getId()).
                         putExtra("tMDBid", result.getThemoviedb()).
                         putExtra("media_type", "movies").
-                        putExtra("selected_source", selected_source);
+                        putExtra("selected_source", selected_source).
+                        putExtra("year",Long.toString(result.getReleaseYear()));
 
                  startActivity(intent);
             }

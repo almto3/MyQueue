@@ -120,7 +120,8 @@ public class SeriesActivity extends AppCompatActivity {
                         putExtra("id", result.getId()).
                         putExtra("tMDBid", result.getThemoviedb()).
                         putExtra("media_type", "shows").
-                        putExtra("selected_source", selected_source);
+                        putExtra("selected_source", selected_source).
+                        putExtra("year",Long.toString(result.getReleaseYear()));
 
                 startActivity(intent);
             }
