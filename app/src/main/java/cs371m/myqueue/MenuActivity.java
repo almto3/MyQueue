@@ -12,6 +12,12 @@ import android.widget.Button;
 
 public class MenuActivity extends Activity implements View.OnClickListener{
 
+    // added by saleh to Keep track of context
+    // http://stackoverflow.com/questions/14057273/android-singleton-with-global-context
+    private static MenuActivity instance;
+    public static MenuActivity get() { return instance; }
+    private Queue q;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +33,9 @@ public class MenuActivity extends Activity implements View.OnClickListener{
         select_services.setOnClickListener(this);
         Button settings = (Button) findViewById(R.id.settings_button);
         settings.setOnClickListener(this);
+
+        instance = this;
+        q = Queue.get();
     }
 
     @Override
@@ -61,7 +70,6 @@ public class MenuActivity extends Activity implements View.OnClickListener{
                 Intent settings_intent = new Intent(MenuActivity.this, SettingsActivity.class);
                 settings_intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(settings_intent);
-                this.finish();
                 break;
 
             default:

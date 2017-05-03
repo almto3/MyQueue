@@ -38,12 +38,6 @@ public class LoginActivity extends AppCompatActivity{
 
     private final String TAG = "LoginActivity";
 
-    // added by saleh to Keep track of context
-    // http://stackoverflow.com/questions/14057273/android-singleton-with-global-context
-    private static LoginActivity instance;
-    public static LoginActivity get() { return instance; }
-    private Queue q;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,24 +54,13 @@ public class LoginActivity extends AppCompatActivity{
             startActivity(new Intent(LoginActivity.this, WelcomeActivity.class));
         }
 
-        // app has been on log in page in this session
-        boolean previouslyOnLogIn = sharedPrefs.getBoolean(getString(R.string.pref_prev_on_login),
-                false);
-        if (!previouslyOnLogIn) {
-            SharedPreferences.Editor edit = sharedPrefs.edit();
-            edit.putBoolean(getString(R.string.pref_prev_on_login), true);
-            edit.commit();
-            instance = this;
-            q = Queue.get();
-        }
-
         // device already logged in
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             restoreUserSources();
             restoreUserQueue();
             startActivity(new Intent(LoginActivity.this, MenuActivity.class));
-            //LoginActivity.this.finish();
+            LoginActivity.this.finish();
         }
 
         mAuth = FirebaseAuth.getInstance();
@@ -104,19 +87,16 @@ public class LoginActivity extends AppCompatActivity{
         final Button switch_mode_button = (Button) findViewById(R.id.switch_mode);
         switch_mode_button.setPaintFlags(switch_mode_button.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         switch_mode_button.setOnClickListener(new View.OnClickListener() {
-            EditText email = (EditText) findViewById(R.id.editEmail);
             EditText password = (EditText) findViewById(R.id.editPassword);
             public void onClick(View v) {
                 if (switch_mode_button.getText().toString().equals(getString
                         (R.string.have_account))) {
                     switch_mode_button.setText(getString(R.string.new_user));
                     login_button.setText("LOGIN");
-                    email.setHint("Email");
                     password.setHint("Password");
                 } else {
                     switch_mode_button.setText(getString(R.string.have_account));
                     login_button.setText("CREATE ACCOUNT");
-                    email.setHint("Enter Valid Email");
                     password.setHint("Password (must be at least 6 characters)");
                 }
             }
@@ -141,6 +121,9 @@ public class LoginActivity extends AppCompatActivity{
 
 
     }
+
+    @Override
+    public void onBackPressed() {}
 
     private void createAccount(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -176,7 +159,7 @@ public class LoginActivity extends AppCompatActivity{
                                     (getString(R.string.amazon_source)).setValue(false);
                             edit.putBoolean(getString(R.string.amazon_source), false);
                             edit.commit();
-                            //LoginActivity.this.finish();
+                            LoginActivity.this.finish();
                         }
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
@@ -206,7 +189,7 @@ public class LoginActivity extends AppCompatActivity{
                             Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                             startActivity(intent);
-                            //LoginActivity.this.finish();
+                            LoginActivity.this.finish();
                         }
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
@@ -289,7 +272,7 @@ public class LoginActivity extends AppCompatActivity{
                             for (DataSnapshot detailSnapshot : itemSnapshot.getChildren()) {
                                 movie.add(detailSnapshot.getValue().toString());
                             }
-                            q.addMovie(Long.parseLong(itemSnapshot.getKey()), movie.get(0),
+                            Queue.get().addMovie(Long.parseLong(itemSnapshot.getKey()), movie.get(0),
                                     movie.get(1));
                         }
                     }
