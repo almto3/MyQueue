@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity{
             restoreUserSources();
             restoreUserQueue();
             startActivity(new Intent(LoginActivity.this, MenuActivity.class));
-            LoginActivity.this.finish();
+            //LoginActivity.this.finish();
         }
 
         mAuth = FirebaseAuth.getInstance();
@@ -101,18 +101,23 @@ public class LoginActivity extends AppCompatActivity{
         });
 
         // switch mode button onClick
-        Button button = (Button) findViewById(R.id.switch_mode);
-        button.setPaintFlags(button.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         final Button switch_mode_button = (Button) findViewById(R.id.switch_mode);
+        switch_mode_button.setPaintFlags(switch_mode_button.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         switch_mode_button.setOnClickListener(new View.OnClickListener() {
+            EditText email = (EditText) findViewById(R.id.editEmail);
+            EditText password = (EditText) findViewById(R.id.editPassword);
             public void onClick(View v) {
                 if (switch_mode_button.getText().toString().equals(getString
                         (R.string.have_account))) {
                     switch_mode_button.setText(getString(R.string.new_user));
                     login_button.setText("LOGIN");
+                    email.setHint("Email");
+                    password.setHint("Password");
                 } else {
                     switch_mode_button.setText(getString(R.string.have_account));
                     login_button.setText("CREATE ACCOUNT");
+                    email.setHint("Enter Valid Email");
+                    password.setHint("Password (must be at least 6 characters)");
                 }
             }
         });
@@ -171,7 +176,7 @@ public class LoginActivity extends AppCompatActivity{
                                     (getString(R.string.amazon_source)).setValue(false);
                             edit.putBoolean(getString(R.string.amazon_source), false);
                             edit.commit();
-                            LoginActivity.this.finish();
+                            //LoginActivity.this.finish();
                         }
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
@@ -201,7 +206,7 @@ public class LoginActivity extends AppCompatActivity{
                             Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                             startActivity(intent);
-                            LoginActivity.this.finish();
+                            //LoginActivity.this.finish();
                         }
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the

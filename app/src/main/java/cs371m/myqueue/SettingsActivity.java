@@ -107,6 +107,9 @@ public class SettingsActivity extends AppCompatActivity {
                         }
                     }
 
+                    // clear queue
+                    Queue.get().deleteAllMovies();
+
                     // sign out of firebase
                     FirebaseAuth.getInstance().signOut();
 
