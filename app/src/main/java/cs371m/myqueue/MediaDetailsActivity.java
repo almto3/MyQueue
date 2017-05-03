@@ -123,7 +123,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
         row5.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d(TAG, "onClick() - item_details_bookmarkIcon");
-                if(((TextView) findViewById(R.id.item_details_bookmarkText)).getText().equals("Queue")) {
+                if(((TextView) findViewById(R.id.item_details_bookmarkText)).getText().equals(getResources().getString(R.string.details_bookmark))) {
                     boolean x = q.addMovie(id, selected_source);
                     if (x)
                         Toast.makeText(getBaseContext(), title + " " + getResources().getString(R.string.details_queue_add),
@@ -132,7 +132,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
                         Toast.makeText(getBaseContext(), title + " "  + getResources().getString(R.string.details_queue_already),
                                 Toast.LENGTH_LONG).show();
                 }
-                else{
+                else if (((TextView) findViewById(R.id.item_details_bookmarkText)).getText().equals(getResources().getString(R.string.details_bookmark_delete))){
                     boolean x = q.deleteMovie(id);
                     if (x)
                         Toast.makeText(getBaseContext(), title + " "  + getResources().getString(R.string.details_queue_delete),
@@ -140,6 +140,9 @@ public class MediaDetailsActivity extends AppCompatActivity {
                     else
                         Toast.makeText(getBaseContext(), title + " "  + getResources().getString(R.string.details_queue_does_not_exist),
                                 Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Toast.makeText(getBaseContext(), title + " "  + getResources().getString(R.string.qué_paso), Toast.LENGTH_LONG).show();
                 }
                 queueOrDequeue();
             }

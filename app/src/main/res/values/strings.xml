@@ -31,7 +31,7 @@
 
     <string name="details_queue_add"> added to Queue</string>
     <string name="details_queue_already"> is already in Queue</string>
-    <string name="details_queue_delete"> deleted from Queue</string>
+    <string name="details_queue_delete"> removed from Queue</string>
     <string name="details_queue_does_not_exist"> does not exist in Queue</string>
 
     <!-- non static, should be changed case by case -->
