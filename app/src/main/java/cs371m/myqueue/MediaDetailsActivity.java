@@ -45,11 +45,9 @@ public class MediaDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.media_details_layout);
         Log.d(TAG, "onCreate");
 
-
         ImageView imageView = (ImageView) findViewById(R.id.movie_poster);
         ImageView imageView_poster = (ImageView) findViewById(R.id.item_details_service);
         TextView titleTextView = (TextView) findViewById(R.id.item_details_title);
-
 
         Toolbar detailsToolbar = (Toolbar)findViewById(R.id.item_details_toolbar);
         detailsToolbar.setTitle(R.string.activity_media);
@@ -223,7 +221,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
                 return movieDb;
 
             } catch (Exception e) {
-                Log.e("MainActivity", e.getMessage(), e);
+                Log.e(TAG, e.getMessage(), e);
             }
 
             return null;

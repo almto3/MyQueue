@@ -78,7 +78,6 @@ public class QueueActivity extends AppCompatActivity {
     private void emptyGrid(){
         Log.d(TAG, "emptyGrid - 1");
         mGridData.clear();
-        //findViewById(R.id.RelativeLayout_myQueue).invalidate();
         findViewById(R.id.gridView).invalidate();
         Log.d(TAG, "emptyGrid - " + mGridData.toString());
         gridAdapter.notifyDataSetChanged();
@@ -130,7 +129,6 @@ public class QueueActivity extends AppCompatActivity {
                 Result result= null;
                 for(Long key : Queue.get().returnKeys()){
                     Log.d(TAG, "HttpRequestTask --> key = " + key);
-                    //Log.d(TAG, "HttpRequestTask --> service = " + Queue.get().returnService(key));
                     url = "http://api-public.guidebox.com/v2/movies/" + key +"?api_key=c302491413726d93c00a4b0192f8bc55fdc56da4&movie_id=143441";
                     Log.d(TAG, "HttpRequestTask --> url = " + url);
                     RestTemplate restTemplate = new RestTemplate();

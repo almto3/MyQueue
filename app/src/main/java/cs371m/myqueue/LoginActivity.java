@@ -33,6 +33,8 @@ public class LoginActivity extends AppCompatActivity{
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
+    private final String TAG = "LoginActivity";
+
     // added by saleh to Keep track of context
     // http://stackoverflow.com/questions/14057273/android-singleton-with-global-context
     private static LoginActivity instance;
@@ -111,10 +113,10 @@ public class LoginActivity extends AppCompatActivity{
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    Log.d("LoginActivity", "onAuthStateChanged:signed_in:" + user.getUid());
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
                     // User is signed out
-                    Log.d("LoginActivity", "onAuthStateChanged:signed_out");
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
                 // ...
             }
@@ -129,7 +131,7 @@ public class LoginActivity extends AppCompatActivity{
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d("LoginActivity", "createUserWithEmail:onComplete:" +
+                        Log.d(TAG, "createUserWithEmail:onComplete:" +
                                 task.isSuccessful());
                         if (task.isSuccessful()) {
                             Intent intent = new Intent(LoginActivity.this,
@@ -178,11 +180,13 @@ public class LoginActivity extends AppCompatActivity{
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d("LoginActivity", "signInWithEmail:onComplete:" + task.isSuccessful());
+                        Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
 
                         if (task.isSuccessful()) {
+                            // pull user info from firebase
                             restoreUserSources();
                             restoreUserQueue();
+
                             Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                             startActivity(intent);
@@ -212,34 +216,33 @@ public class LoginActivity extends AppCompatActivity{
                 (new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+
                         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences
                                 (getBaseContext());
                         SharedPreferences.Editor edit = sharedPrefs.edit();
 
-                        Log.d("LoginActivity", dataSnapshot.toString());
                         for (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
-                            Log.d("LoginActivity", itemSnapshot.getKey().toString());
                             switch (itemSnapshot.getKey()) {
                                 case "hulu":
-                                    Log.d("LoginActivity", "adding hulu to sharedPrefs");
+                                    Log.d(TAG, "adding hulu to sharedPrefs");
                                     edit.putBoolean(getString(R.string.hulu_source),
                                             (Boolean) itemSnapshot.getValue());
                                     edit.commit();
                                     break;
                                 case "netflix":
-                                    Log.d("LoginActivity", "adding netflix to sharedPrefs");
+                                    Log.d(TAG, "adding netflix to sharedPrefs");
                                     edit.putBoolean(getString(R.string.netflix_source),
                                             (Boolean) itemSnapshot.getValue());
                                     edit.commit();
                                     break;
                                 case "hbo":
-                                    Log.d("LoginActivity", "adding hbo to sharedPrefs");
+                                    Log.d(TAG, "adding hbo to sharedPrefs");
                                     edit.putBoolean(getString(R.string.hbo_source),
                                             (Boolean) itemSnapshot.getValue());
                                     edit.commit();
                                     break;
                                 case "amazon_prime":
-                                    Log.d("LoginActivity", "adding amazon to sharedPrefs");
+                                    Log.d(TAG, "adding amazon to sharedPrefs");
                                     edit.putBoolean(getString(R.string.amazon_source),
                                             (Boolean) itemSnapshot.getValue());
                                     edit.commit();
@@ -252,7 +255,6 @@ public class LoginActivity extends AppCompatActivity{
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                     }
-
                 });
     }
 
@@ -269,7 +271,7 @@ public class LoginActivity extends AppCompatActivity{
                                 (getBaseContext());
                         SharedPreferences.Editor edit = sharedPrefs.edit();
 
-                        Log.d("LoginActivity", dataSnapshot.toString());
+                        Log.d(TAG, dataSnapshot.toString());
                         for (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
                             q.addMovie(Long.parseLong(itemSnapshot.getKey()), itemSnapshot.getValue().toString());
                         }
@@ -278,7 +280,6 @@ public class LoginActivity extends AppCompatActivity{
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                     }
-
                 });
     }
 
@@ -295,6 +296,4 @@ public class LoginActivity extends AppCompatActivity{
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
-
-
 }

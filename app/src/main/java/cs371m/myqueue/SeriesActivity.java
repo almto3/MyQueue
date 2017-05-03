@@ -24,8 +24,6 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
@@ -36,23 +34,19 @@ import java.util.List;
 
 public class SeriesActivity extends AppCompatActivity {
 
-
+    private final String TAG = "SeriesActivity";
 
     private GridView gridView;
-
     private GridViewAdapter gridAdapter;
-    private ArrayList<Result> results;
     private ArrayList<GridItem> mGridData;
 
     private String selected_source;
-    private final String TAG = "MoviesActivity";
+    private ArrayList<Result> results;
+
     final private String[] PERMISSIONS = new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
             android.Manifest.permission.READ_EXTERNAL_STORAGE};
     private boolean project_permissions = false;
     private static final int MY_PERMISSIONS_REQUEST = 16969;
-
-    private DatabaseReference mDatabase;
-    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +55,7 @@ public class SeriesActivity extends AppCompatActivity {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences
                 (getBaseContext());
 
-
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        userId = user.getUid();
         if (user == null) {
             Log.d("MoviesActivity", "user null, this should never happen");
             Intent intent = new Intent(SeriesActivity.this, LoginActivity.class);
@@ -78,24 +69,19 @@ public class SeriesActivity extends AppCompatActivity {
 
         final List<String> source_list = new ArrayList<>();
         if (sharedPrefs.getBoolean(getString(R.string.netflix_source), false)) {
-            Log.d("MoviesActivity", "netflix added to source_list");
             source_list.add("netflix");
         }
         if (sharedPrefs.getBoolean(getString(R.string.hulu_source), false)) {
-            Log.d("MoviesActivity", "hulu added to source_list");
             source_list.add("hulu_free,hulu_plus");
         }
         if (sharedPrefs.getBoolean(getString(R.string.hbo_source), false)) {
-            Log.d("MoviesActivity", "hbo added to source_list");
             source_list.add("hbo");
         }
         if (sharedPrefs.getBoolean(getString(R.string.amazon_source), false)) {
-            Log.d("MoviesActivity", "amazon added to source_list");
             source_list.add("amazon");
         }
 
         if (source_list.size() == 0) {
-            Log.d("MoviesActivity", "check true");
             source_list.add("netflix");
             Intent intent = new Intent(SeriesActivity.this, SelectSourcesActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -127,7 +113,6 @@ public class SeriesActivity extends AppCompatActivity {
                 //Create intent
                 Intent intent = new Intent(SeriesActivity.this, MediaDetailsActivity.class);
 
-
                 Log.i("image: ", result.getArtwork_304x171());
                 //Pass the image title and url to MediaDetailsActivity
                 intent.putExtra("title", result.getTitle()).
@@ -137,16 +122,13 @@ public class SeriesActivity extends AppCompatActivity {
                         putExtra("selected_source", selected_source);
 
                 startActivity(intent);
-
             }
         });
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences
                 (getBaseContext());
@@ -185,8 +167,6 @@ public class SeriesActivity extends AppCompatActivity {
         if (selected_source.equals("hbo")) source_name = "HBO";
         if (selected_source.equals("amazon_prime")) source_name = "Amazon";
         int spinnerPosition = spinnerAdapter.getPosition(source_name);
-        Log.d("SeriesActivity","selected src" + source_name);
-        Log.d("SeriesActivity","spinnerPos" + spinnerPosition);
         if (spinnerPosition >= 0) {
             spinner.setSelection(spinnerPosition);
         }
@@ -195,7 +175,6 @@ public class SeriesActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView,
                                        int position, long id) {
-
                 // your code here
                 selected_source = source_list.get(position);
                 SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences
@@ -203,7 +182,6 @@ public class SeriesActivity extends AppCompatActivity {
                 SharedPreferences.Editor edit = sharedPrefs.edit();
                 edit.putString(getString(R.string.pref_prev_selected), selected_source);
                 edit.commit();
-                Log.d("MoviesActivity", source_list.get(position));
                 new HttpRequestTask().execute();
             }
 
@@ -211,9 +189,7 @@ public class SeriesActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parentView) {
                 // your code here
             }
-
         });
-
     }
 
     private void checkPermissions(String[] permissions){
@@ -261,7 +237,6 @@ public class SeriesActivity extends AppCompatActivity {
                 GridItem item;
 
                 for (Result result : results) {
-                    Log.d("MoviesActivity", result.getTitle());
                     item = new GridItem();
                     item.setTitle(result.getTitle());
                     item.setImage(result.getArtwork_304x171());
@@ -271,20 +246,16 @@ public class SeriesActivity extends AppCompatActivity {
                 return movies;
 
             } catch (Exception e) {
-                Log.e("MainActivity", e.getMessage(), e);
+                Log.e(TAG, e.getMessage(), e);
             }
-
             return null;
         }
 
         @Override
         protected void onPostExecute(Movies movies) {
-
-            Log.d("MoviesActivity", "onPostExecute");
+            Log.d(TAG, "onPostExecute");
             int a = mGridData.size();
             gridAdapter.setGridData(mGridData);
-
         }
-
     }
 }

@@ -10,9 +10,11 @@ import android.widget.LinearLayout;
 
 public class WelcomeActivity extends Activity {
 
+    private final String TAG = "WelcomeActivity";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d("WelcomeActivity", "onCreate");
+        Log.d(TAG, "onCreate");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_layout);
@@ -20,12 +22,12 @@ public class WelcomeActivity extends Activity {
     }
 
     private void setListener(){
-        Log.d("WelcomeActivity", "setListener");
+        Log.d(TAG, "setListener");
         LinearLayout lLayout = (LinearLayout) findViewById(R.id.welcome_layout);
         lLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("WelcomeActivity", "setListener");
+                Log.d(TAG, "setListener");
                 Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);

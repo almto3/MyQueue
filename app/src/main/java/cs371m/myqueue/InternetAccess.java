@@ -16,7 +16,6 @@ public class InternetAccess {
     private static InternetAccess instance = new InternetAccess();
     static Context context;
     ConnectivityManager connectivityManager;
-    NetworkInfo wifiInfo, mobileInfo;
     boolean connected = false;
 
     public static InternetAccess getInstance(Context ctx) {

@@ -130,7 +130,8 @@ public class SelectSourcesActivity extends AppCompatActivity {
                     break;
                 case 3:
                     source = getString(R.string.amazon_source);
-                    source_selected = sharedPrefs.getBoolean(source, false);                    break;
+                    source_selected = sharedPrefs.getBoolean(source, false);
+                    break;
             }
             if(!source_selected) {
                 mDatabase.child("users").child(userId).child("services").child

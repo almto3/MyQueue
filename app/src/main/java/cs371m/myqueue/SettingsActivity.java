@@ -28,7 +28,6 @@ public class SettingsActivity extends AppCompatActivity {
         Toolbar settingsToolbar = (Toolbar)findViewById(R.id.settings_toolbar);
         settingsToolbar.setTitle("Settings");
         setSupportActionBar(settingsToolbar);
-
     }
 
     /**
@@ -85,8 +84,6 @@ public class SettingsActivity extends AppCompatActivity {
         void openSetting(int index) {
             mCurCheckPosition = index;
 
-            // Not yet implemented, currently uses only Netflix automatically
-
             switch (index) {
                 case 0:     //FAQ
                     startActivity(new Intent(getActivity(), FAQActivity.class));
@@ -95,6 +92,7 @@ public class SettingsActivity extends AppCompatActivity {
                     startActivity(new Intent(getActivity(), AboutActivity.class));
                     break;
                 case 2:     //Log Out
+
                     // clear all shared prefences
                     LoginActivity app = LoginActivity.get();
                     Map<String, ?> allEntries = HelperSharedPreferences.getAll(app.getApplicationContext());;
@@ -103,8 +101,10 @@ public class SettingsActivity extends AppCompatActivity {
                             HelperSharedPreferences.deleteSharedPreferencesKey(app.getApplicationContext(), entry.getKey());
                         }
                     }
+
                     // sign out of firebase
                     FirebaseAuth.getInstance().signOut();
+
                     // return to login page
                     Intent intent = new Intent(getActivity(), LoginActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);

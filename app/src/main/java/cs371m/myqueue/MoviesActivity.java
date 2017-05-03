@@ -32,16 +32,15 @@ import java.util.List;
 
 public class MoviesActivity extends AppCompatActivity {
 
-
+    private final String TAG = "MoviesActivity";
 
     private GridView gridView;
-
     private GridViewAdapter gridAdapter;
-    private ArrayList<Result> results;
     private ArrayList<GridItem> mGridData;
 
+    private ArrayList<Result> results;
     private String selected_source;
-    private final String TAG = "MoviesActivity";
+
     final private String[] PERMISSIONS = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE};
     private boolean project_permissions = false;
@@ -66,30 +65,24 @@ public class MoviesActivity extends AppCompatActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             intent.putExtra("keep", false);
             startActivity(intent);
-//            startActivity(new Intent(MoviesActivity.this, LoginActivity.class));
             MoviesActivity.this.finish();
         }
 
         final List<String> source_list = new ArrayList<>();
         if (sharedPrefs.getBoolean(getString(R.string.netflix_source), false)) {
-            Log.d("MoviesActivity", "netflix added to source_list");
             source_list.add("netflix");
         }
         if (sharedPrefs.getBoolean(getString(R.string.hulu_source), false)) {
-            Log.d("MoviesActivity", "hulu added to source_list");
             source_list.add("hulu_free,hulu_plus");
         }
         if (sharedPrefs.getBoolean(getString(R.string.hbo_source), false)) {
-            Log.d("MoviesActivity", "hbo added to source_list");
             source_list.add("hbo");
         }
         if (sharedPrefs.getBoolean(getString(R.string.amazon_source), false)) {
-            Log.d("MoviesActivity", "amazon added to source_list");
             source_list.add("amazon_prime");
         }
 
         if (source_list.size() == 0) {
-            Log.d("MoviesActivity", "check true");
             source_list.add("netflix");
             Intent intent = new Intent(MoviesActivity.this, SelectSourcesActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -123,14 +116,13 @@ public class MoviesActivity extends AppCompatActivity {
 
                 Log.i("image: ", result.getPoster120x171());
                 //Pass the image title and url to MediaDetailsActivity
-                intent.putExtra("title", result.getTitle() + " (" + result.getReleaseDate() + ")").
+                intent.putExtra("title", result.getTitle()).
                         putExtra("image", result.getPoster120x171()).
                         putExtra("id", result.getId()).
                         putExtra("tMDBid", result.getThemoviedb()).
                         putExtra("selected_source", selected_source);
 
                  startActivity(intent);
-
             }
         });
     }
@@ -176,8 +168,6 @@ public class MoviesActivity extends AppCompatActivity {
         if (selected_source.equals("hbo")) source_name = "HBO";
         if (selected_source.equals("amazon_prime")) source_name = "Amazon";
         int spinnerPosition = spinnerAdapter.getPosition(source_name);
-        Log.d("MoviesActivity","selected src" + source_name);
-        Log.d("MoviesActivity","spinnerPos" + spinnerPosition);
         if (spinnerPosition >= 0) {
             spinner.setSelection(spinnerPosition);
         }
@@ -194,7 +184,6 @@ public class MoviesActivity extends AppCompatActivity {
                 SharedPreferences.Editor edit = sharedPrefs.edit();
                 edit.putString(getString(R.string.pref_prev_selected), selected_source);
                 edit.commit();
-                Log.d("MoviesActivity", source_list.get(position));
                 new HttpRequestTask().execute();
             }
 
@@ -202,9 +191,7 @@ public class MoviesActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parentView) {
                 // your code here
             }
-
         });
-
     }
 
     private void checkPermissions(String[] permissions){
@@ -252,7 +239,6 @@ public class MoviesActivity extends AppCompatActivity {
                 GridItem item;
 
                 for (Result result : results) {
-                    Log.d("MoviesActivity", result.getTitle());
                     item = new GridItem();
                     item.setTitle(result.getTitle());
                     item.setImage(result.getPoster120x171());
@@ -262,22 +248,20 @@ public class MoviesActivity extends AppCompatActivity {
                 return movies;
 
             } catch (Exception e) {
-                Log.e("MainActivity", e.getMessage(), e);
+                Log.e(TAG, e.getMessage(), e);
             }
-
             return null;
         }
 
         @Override
         protected void onPostExecute(Movies movies) {
 
-            Log.d("MoviesActivity", "onPostExecute");
+            Log.d(TAG, "onPostExecute");
             int a = mGridData.size();
             gridAdapter.setGridData(mGridData);
-
         }
-
     }
+
     //true if there's internet
     private boolean checkInternet(){
         Log.d(TAG, "checkInternet");
@@ -288,8 +272,8 @@ public class MoviesActivity extends AppCompatActivity {
             Toast.makeText(getBaseContext(), R.string.offline, Toast.LENGTH_LONG).show();
             return false;
         }
-
     }
+
     //returns true if button is pressed
     private void getInternet() {
 
@@ -307,8 +291,8 @@ public class MoviesActivity extends AppCompatActivity {
                     }
                 })
                 .show();
-
     }
+
     private void restart() {
         Log.d(TAG, "restart");
         finish();

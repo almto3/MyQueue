@@ -27,7 +27,6 @@ public class MenuActivity extends Activity implements View.OnClickListener{
         select_services.setOnClickListener(this);
         Button settings = (Button) findViewById(R.id.settings_button);
         settings.setOnClickListener(this);
-
     }
 
     @Override
@@ -67,7 +66,5 @@ public class MenuActivity extends Activity implements View.OnClickListener{
             default:
                 break;
         }
-
     }
-
 }
