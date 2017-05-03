@@ -54,7 +54,7 @@ public class MediaDetailsActivity extends AppCompatActivity {
 
 
         Toolbar detailsToolbar = (Toolbar)findViewById(R.id.item_details_toolbar);
-        detailsToolbar.setTitle("Movie Details");
+        detailsToolbar.setTitle(R.string.activity_media);
         setSupportActionBar(detailsToolbar);
 
         selected_source = getIntent().getStringExtra("selected_source");
@@ -179,12 +179,12 @@ public class MediaDetailsActivity extends AppCompatActivity {
         Intent intent;
         switch (item.getItemId()) {
             case R.id.menu_browse:
-                intent = new Intent(this, BrowseActivity.class);
+                intent = new Intent(this, MoviesActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 return true;
             case R.id.menu_bookmarks:
-                intent = new Intent(this, MyQueueActivity.class);
+                intent = new Intent(this, QActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
 

@@ -43,12 +43,12 @@ public class SettingsActivity extends AppCompatActivity {
         Intent intent;
         switch (item.getItemId()) {
             case R.id.menu_browse:
-                intent = new Intent(this, BrowseActivity.class);
+                intent = new Intent(this, MoviesActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 return true;
             case R.id.menu_bookmarks:
-                intent = new Intent(this, MyQueueActivity.class);
+                intent = new Intent(this, QActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 return true;

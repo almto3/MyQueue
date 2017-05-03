@@ -30,7 +30,7 @@ public class AboutActivity extends AppCompatActivity {
                 .into(image);
 
         Toolbar aboutToolbar = (Toolbar)findViewById(R.id.about_toolbar);
-        aboutToolbar.setTitle("About Us");
+        aboutToolbar.setTitle(R.string.about);
         setSupportActionBar(aboutToolbar);
 
         findViewById(R.id.git_pic).setOnClickListener(new View.OnClickListener() {
@@ -51,10 +51,10 @@ public class AboutActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_browse:
-                startActivity(new Intent(this, BrowseActivity.class));
+                startActivity(new Intent(this, MoviesActivity.class));
                 return true;
             case R.id.menu_bookmarks:
-                startActivity(new Intent(this, MyQueueActivity.class));
+                startActivity(new Intent(this, QActivity.class));
                 return true;
             case R.id.menu_search:
                 startActivity(new Intent(this, SearchActivity.class));

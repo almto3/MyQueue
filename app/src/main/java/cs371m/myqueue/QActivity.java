@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MyQueueActivity extends AppCompatActivity {
+public class QActivity extends AppCompatActivity {
 
     private Queue q;
 
@@ -32,7 +32,7 @@ public class MyQueueActivity extends AppCompatActivity {
     private ArrayList<Result> results = new ArrayList<>(100);
     private ArrayList<GridItem> mGridData;
 
-    private final String TAG = "MyQueueActivity";
+    private final String TAG = "QActivity";
 
     private List<String> selected_sources = new ArrayList<>();
 
@@ -43,13 +43,13 @@ public class MyQueueActivity extends AppCompatActivity {
         setContentView(R.layout.my_queue_layout);
 
         Toolbar myQueueToolbar = (Toolbar)findViewById(R.id.my_queue_toolbar);
-        myQueueToolbar.setTitle("MyQueue!");
+        myQueueToolbar.setTitle(R.string.activity_q);
         myQueueToolbar.findViewById(R.id.my_queue_toolbar_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG,"Clicked");
 
-                new AlertDialog.Builder(MyQueueActivity.this)
+                new AlertDialog.Builder(QActivity.this)
                         .setTitle("Empty Queue?")
                         .setMessage(R.string.my_queue_delete_conformation)
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -69,7 +69,7 @@ public class MyQueueActivity extends AppCompatActivity {
         });
 
         setSupportActionBar(myQueueToolbar);
-        new MyQueueActivity.HttpRequestTask().execute();
+        new QActivity.HttpRequestTask().execute();
 
         gridView = (GridView) findViewById(R.id.gridView);
 
@@ -84,7 +84,7 @@ public class MyQueueActivity extends AppCompatActivity {
                 Result result = results.get(position);
 
                 //Create intent
-                Intent intent = new Intent(MyQueueActivity.this, MediaDetailsActivity.class);
+                Intent intent = new Intent(QActivity.this, MediaDetailsActivity.class);
 
                 //Pass the image title and url to MediaDetailsActivity
                 intent.putExtra("title", result.getTitle()).
@@ -132,7 +132,7 @@ public class MyQueueActivity extends AppCompatActivity {
         Intent intent;
         switch (item.getItemId()) {
             case R.id.menu_browse:
-                intent = new Intent(this, BrowseActivity.class);
+                intent = new Intent(this, MoviesActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
                 startActivity(intent);
                 return true;

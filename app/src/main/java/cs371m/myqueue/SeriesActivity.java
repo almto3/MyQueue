@@ -47,7 +47,7 @@ public class SeriesActivity extends AppCompatActivity {
     private ArrayList<GridItem> mGridData;
 
     private String selected_source;
-    private final String TAG = "BrowseActivity";
+    private final String TAG = "MoviesActivity";
     final private String[] PERMISSIONS = new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
             android.Manifest.permission.READ_EXTERNAL_STORAGE};
     private boolean project_permissions = false;
@@ -68,7 +68,7 @@ public class SeriesActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         userId = user.getUid();
         if (user == null) {
-            Log.d("BrowseActivity", "user null, this should never happen");
+            Log.d("MoviesActivity", "user null, this should never happen");
             Intent intent = new Intent(SeriesActivity.this, LoginActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -80,24 +80,24 @@ public class SeriesActivity extends AppCompatActivity {
 
         final List<String> source_list = new ArrayList<>();
         if (sharedPrefs.getBoolean(getString(R.string.netflix_source), false)) {
-            Log.d("BrowseActivity", "netflix added to source_list");
+            Log.d("MoviesActivity", "netflix added to source_list");
             source_list.add("netflix");
         }
         if (sharedPrefs.getBoolean(getString(R.string.hulu_source), false)) {
-            Log.d("BrowseActivity", "hulu added to source_list");
+            Log.d("MoviesActivity", "hulu added to source_list");
             source_list.add("hulu_free,hulu_plus");
         }
         if (sharedPrefs.getBoolean(getString(R.string.hbo_source), false)) {
-            Log.d("BrowseActivity", "hbo added to source_list");
+            Log.d("MoviesActivity", "hbo added to source_list");
             source_list.add("hbo");
         }
         if (sharedPrefs.getBoolean(getString(R.string.amazon_source), false)) {
-            Log.d("BrowseActivity", "amazon added to source_list");
+            Log.d("MoviesActivity", "amazon added to source_list");
             source_list.add("amazon");
         }
 
         if (source_list.size() == 0) {
-            Log.d("BrowseActivity", "check true");
+            Log.d("MoviesActivity", "check true");
             source_list.add("netflix");
             Intent intent = new Intent(SeriesActivity.this, SelectSourcesActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -110,9 +110,9 @@ public class SeriesActivity extends AppCompatActivity {
         setContentView(R.layout.browse_layout);
 
         new HttpRequestTask().execute();
-        Toolbar browseToolbar = (Toolbar)findViewById(R.id.browse_toolbar);
-        browseToolbar.setTitle("Browse");
-        setSupportActionBar(browseToolbar);
+        Toolbar seriesToolbar = (Toolbar)findViewById(R.id.browse_toolbar);
+        seriesToolbar.setTitle(R.string.activity_series);
+        setSupportActionBar(seriesToolbar);
 
         gridView = (GridView) findViewById(R.id.gridView);
 
@@ -177,7 +177,7 @@ public class SeriesActivity extends AppCompatActivity {
         spinner.setAdapter(spinnerAdapter);
         spinnerAdapter.notifyDataSetChanged();
         if (source_list.size() == 0) {
-            Log.d("BrowseActivity", "this should nvr happen");
+            Log.d("MoviesActivity", "this should nvr happen");
             source_list.add("netflix");
         }
         selected_source = source_list.get(0);
@@ -187,7 +187,7 @@ public class SeriesActivity extends AppCompatActivity {
                                        int position, long id) {
                 // your code here
                 selected_source = source_list.get(position);
-                Log.d("BrowseActivity", source_list.get(position));
+                Log.d("MoviesActivity", source_list.get(position));
                 new HttpRequestTask().execute();
             }
 
@@ -241,7 +241,7 @@ public class SeriesActivity extends AppCompatActivity {
             case R.id.menu_browse:
                 return true;
             case R.id.menu_bookmarks:
-                intent = new Intent(this, MyQueueActivity.class);
+                intent = new Intent(this, QActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
                 return true;
@@ -278,7 +278,7 @@ public class SeriesActivity extends AppCompatActivity {
                 GridItem item;
 
                 for (Result result : results) {
-                    Log.d("BrowseActivity", result.getTitle());
+                    Log.d("MoviesActivity", result.getTitle());
                     item = new GridItem();
                     item.setTitle(result.getTitle());
                     item.setImage(result.getArtwork_304x171());
@@ -297,7 +297,7 @@ public class SeriesActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Movies movies) {
 
-            Log.d("BrowseActivity", "onPostExecute");
+            Log.d("MoviesActivity", "onPostExecute");
             int a = mGridData.size();
             gridAdapter.setGridData(mGridData);
 

@@ -42,7 +42,7 @@
         </activity>
 
         <activity
-            android:name=".BrowseActivity"
+            android:name=".MoviesActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
         </activity>
@@ -67,7 +67,7 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".MyQueueActivity"
+            android:name=".QActivity"
             android:screenOrientation="portrait">
         </activity>
 
