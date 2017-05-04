@@ -52,11 +52,11 @@ public class MoviesActivity extends AppCompatActivity {
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences
                 (getBaseContext());
-        /*
+
         if(!checkInternet()){
             getInternet();
         }
-        */
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) {
             Log.d("MoviesActivity", "user null, this should never happen");

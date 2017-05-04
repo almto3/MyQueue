@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
@@ -38,6 +39,10 @@ public class QueueActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.my_queue_layout);
+
+        if(!checkInternet()){
+            getInternet();
+        }
 
         Toolbar myQueueToolbar = (Toolbar)findViewById(R.id.my_queue_toolbar);
         myQueueToolbar.setTitle(R.string.activity_q);
@@ -186,5 +191,36 @@ public class QueueActivity extends AppCompatActivity {
             Log.d(TAG, "mGridData size = " + Integer.toString(a));
             gridAdapter.setGridData(mGridData);
         }
+    }
+
+    //true if there's internet
+    private boolean checkInternet(){
+        Log.d(TAG, "checkInternet");
+        if (InternetAccess.getInstance(this).isOnline()) {
+            Toast.makeText(getBaseContext(), R.string.online, Toast.LENGTH_LONG).show();
+            return true;
+        } else {
+            Toast.makeText(getBaseContext(), R.string.offline, Toast.LENGTH_LONG).show();
+            return false;
+        }
+    }
+
+    //returns true if button is pressed
+    private void getInternet() {
+
+        Log.d(TAG, "getInternet");
+        new AlertDialog.Builder(QueueActivity.this)
+                .setTitle(R.string.no_connection)
+                .setMessage(R.string.press_to_refresh)
+                .setNeutralButton(R.string.refresh, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(!checkInternet()){
+                            getInternet();
+                        }
+                        else
+                            restart();
+                    }
+                })
+                .show();
     }
 }

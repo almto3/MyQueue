@@ -4,6 +4,8 @@ package cs371m.myqueue;
  * Created by Kaivan on 5/2/2017.
  */
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -54,6 +56,10 @@ public class SeriesActivity extends AppCompatActivity {
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences
                 (getBaseContext());
+
+        if(!checkInternet()){
+            getInternet();
+        }
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) {
@@ -261,5 +267,41 @@ public class SeriesActivity extends AppCompatActivity {
             int a = mGridData.size();
             gridAdapter.setGridData(mGridData);
         }
+    }
+
+    //true if there's internet
+    private boolean checkInternet(){
+        Log.d(TAG, "checkInternet");
+        if (InternetAccess.getInstance(this).isOnline()) {
+            Toast.makeText(getBaseContext(), R.string.online, Toast.LENGTH_LONG).show();
+            return true;
+        } else {
+            Toast.makeText(getBaseContext(), R.string.offline, Toast.LENGTH_LONG).show();
+            return false;
+        }
+    }
+
+    //returns true if button is pressed
+    private void getInternet() {
+
+        Log.d(TAG, "getInternet");
+        new AlertDialog.Builder(SeriesActivity.this)
+                .setTitle(R.string.no_connection)
+                .setMessage(R.string.press_to_refresh)
+                .setNeutralButton(R.string.refresh, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(!checkInternet()){
+                            getInternet();
+                        }
+                        else
+                            restart();
+                    }
+                })
+                .show();
+    }
+    private void restart() {
+        Log.d(TAG, "restart");
+        finish();
+        startActivity(getIntent());
     }
 }
