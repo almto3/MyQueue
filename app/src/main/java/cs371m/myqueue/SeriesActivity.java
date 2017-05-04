@@ -109,6 +109,8 @@ public class SeriesActivity extends AppCompatActivity {
 
                 GridItem item = (GridItem) parent.getItemAtPosition(position);
                 Result result = results.get(position);
+                String year = result.getFirst_aired();
+                year = year.substring(0,4);
 
                 //Create intent
                 Intent intent = new Intent(SeriesActivity.this, MediaDetailsActivity.class);
@@ -121,7 +123,7 @@ public class SeriesActivity extends AppCompatActivity {
                         putExtra("tMDBid", result.getThemoviedb()).
                         putExtra("media_type", "shows").
                         putExtra("selected_source", selected_source).
-                        putExtra("year",Long.toString(result.getReleaseYear()));
+                        putExtra("year",year);
 
                 startActivity(intent);
             }

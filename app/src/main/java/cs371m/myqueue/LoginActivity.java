@@ -24,6 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.apache.commons.lang3.ObjectUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,13 +75,17 @@ public class LoginActivity extends AppCompatActivity{
             public void onClick(View v) {
                 EditText email = (EditText) findViewById(R.id.editEmail);
                 EditText password = (EditText) findViewById(R.id.editPassword);
-                if (login_button.getText().equals("CREATE ACCOUNT")) {
-                    createAccount(email.getText().toString().trim(), password.getText().toString().
-                            trim());
-                } else {
-                    signIn(email.getText().toString().trim(), password.getText().toString().trim());
+                if(email.getText().toString().isEmpty() || password.getText().toString().isEmpty()){
+                    Toast.makeText(LoginActivity.this, "Enter a valid username or password", Toast.LENGTH_SHORT).show();
                 }
-
+                else {
+                    if (login_button.getText().equals("CREATE ACCOUNT")) {
+                        createAccount(email.getText().toString().trim(), password.getText().toString().
+                                trim());
+                    } else {
+                        signIn(email.getText().toString().trim(), password.getText().toString().trim());
+                    }
+                }
             }
         });
 
