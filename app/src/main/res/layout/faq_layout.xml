@@ -138,7 +138,7 @@
             android:id="@+id/faq_text_q5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/faq_q4"
+            android:text="@string/faq_q5"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:textSize="20sp" />
@@ -146,10 +146,14 @@
             android:id="@+id/faq_text_a5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/faq_a4"
+            android:text="@string/faq_a5"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:textSize="15sp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:background="@color/white"/>
     </LinearLayout>
     </ScrollView>
 </LinearLayout>
