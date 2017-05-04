@@ -116,10 +116,12 @@ public class QueueActivity extends AppCompatActivity {
 
                 if (result.type.equals("movies")) {
                     intent.putExtra("media_type", result.type).
-                            putExtra("image", result.getPoster120x171());
+                            putExtra("image", result.getPoster120x171()).
+                            putExtra("year", Long.toString(result.getReleaseYear()));
                 } else {
                     intent.putExtra("media_type", result.type).
-                            putExtra("image", result.getArtwork_304x171());
+                            putExtra("image", result.getArtwork_304x171()).
+                            putExtra("year",result.getReleaseDate());
                 }
 
                 startActivity(intent);

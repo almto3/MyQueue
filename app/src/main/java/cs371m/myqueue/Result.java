@@ -81,6 +81,8 @@ public class Result {
     private String poster400x570;
     @JsonProperty("artwork_304x171")
     private String artwork_304x171;
+    @JsonProperty("first_aired")
+    private String first_aired;
 
     public String type;
     public String source;
@@ -260,6 +262,9 @@ public class Result {
 
     @JsonProperty("artwork_304x171")
     public String getArtwork_304x171(){ return artwork_304x171; }
+
+    @JsonProperty("first_aired")
+    public String getFirst_aired() { return first_aired;}
 
     @JsonProperty("artwork_304x171")
     public void setArtwork_304x171(String artwork_304x171) {

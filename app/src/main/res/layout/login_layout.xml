@@ -55,7 +55,7 @@
         android:background="@android:color/transparent"
         android:text="@string/new_user"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="14sp" />
 
 
