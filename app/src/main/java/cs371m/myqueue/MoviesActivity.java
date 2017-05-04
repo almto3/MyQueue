@@ -268,7 +268,6 @@ public class MoviesActivity extends AppCompatActivity {
     private boolean checkInternet(){
         Log.d(TAG, "checkInternet");
         if (InternetAccess.getInstance(this).isOnline()) {
-            Toast.makeText(getBaseContext(), R.string.online, Toast.LENGTH_LONG).show();
             return true;
         } else {
             Toast.makeText(getBaseContext(), R.string.offline, Toast.LENGTH_LONG).show();
