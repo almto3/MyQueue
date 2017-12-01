@@ -7,8 +7,8 @@ a. Team Member Names and UT-EID:
   Kaivan Shah - kks942
 
 b. Special Instructions:
-- The app should function without any prior pre requirements.  One needs an android phone with at least android 4.0 while the app is compiled with a target apk for android 6.0.
-- The user needs to create an account with a valid email address to access the app.
+- The app should function without any prior pre requirements. One needs an android phone with at least android 4.0 while the app is compiled with a target apk for android 6.0.
+- The user needs to create an account with a valid (not enforced) email address to access the app.
 - To browse through the movies/series, the app needs an active internet connection.
 
 c. Features/Use Cases Completed:
@@ -22,7 +22,7 @@ c. Features/Use Cases Completed:
     - Movie/TV Series Description - This activity shows the user detailed information about the movie/TV series. These information include: the poster, the name, the release year, the IMDB score and lastly the plot summary for a selected Movie or TV show. This activity will only be opened from on the previous two activities. From this activity, the user will be able to add a movie/TV show to their queue or removing it.
   - Select Sources Screen - As described above.
   - Settings Screen - From the settings screen, the user will be able to change the app's settings and preferences. The activities below can be launched from this activity.
-  - Instructions Screen - The instructions screen as it suggests is a simple screen with information on how to use the app. 
+  - Instructions Screen - The instructions screen as it suggests is a simple screen with information on how to use the app.
   - About Us - Also a simple screen, which has some basic information about the devs and an email to contact us.
   - Log Out - Log out the user from the app, this button will take the user to the Login screen where they can either log back in or create a new user.
 
@@ -33,7 +33,7 @@ d. A list of features / use cases from our application prototype (assignment 3) 
 
 e. A list of features / use cases we added that were not part of the application prototype
 - We implemented a Main menu instead of a tap bar.
-- User can create an account; login functionality 
+- User can create an account; login functionality
 
 f. Classes and Major Chunks of Code Obtained From Other Sources:
 - Dr. Michael Scotts TicTacToe code was referenced when writing about_layout
