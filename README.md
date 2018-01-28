@@ -1,5 +1,4 @@
-# MyQueue
-[![MIT license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/qirh/MyQueue/master/LICENSE)
+# MyQueue [![MIT license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/qirh/MyQueue/master/LICENSE)
 * Contact: salehg@live.com
 * Contributors: [@kaivan29](https://github.com/kaivan29) & [@erinjensby](https://github.com/erinjensby)
 
