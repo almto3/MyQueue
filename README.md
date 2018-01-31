@@ -6,7 +6,7 @@ Android app that displays media information (Movies/TV shows) for multiple [stre
 
 Team: [Kaivan](https://github.com/kaivan29), [Erin](https://github.com/erinjensby) & [me](https://github.com/qirh)
 
-## App
+## Summary
 ### Requirments
   * Android phone with at least android 4.0 should run fine. App is compiled with a target apk for android 6.0
   * Active internet connection
@@ -42,10 +42,10 @@ Netflix, HBO GO, Hulu & Amzaon Prime
 * Icons: [icons8.com](icons8.com)
 
 
-## Screenshots
-### User use cases
+## User use case
 <img src="/screenshots/wireframe.png" height="450" width="270" style="border:0.2px solid grey">
 
+## Screenshots
 ### Home Page and Select Sources
 <img src="/screenshots/home_page.png" height = "450" width="270"> <img src="/screenshots/select_sources.png" height = "450" width="270">
 
