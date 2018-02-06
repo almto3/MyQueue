@@ -49,10 +49,10 @@ Netflix, HBO GO, Hulu & Amzaon Prime
 
 ## Screenshots
 ### Home Page and Select Sources
-<img src="/screenshots/home_page.png" height = "450" width="270"> <img src="/screenshots/select_sources.png" height = "450" width="270">
+<table><tr><td><img src="/screenshots/home_page.png" height = "450" width="270"></td> <td><img src="/screenshots/select_sources.png" height = "450" width="270"></td></tr></table>
 
 ### Browse movies and series
-<img src="/screenshots/browse_netflix.png" height = "450" width="270"> <img src="/screenshots/browse_hbo.png" height = "450" width="270"> <img src="/screenshots/browse_series.png" height = "450" width="270">
+<table><tr><td><img src="/screenshots/browse_netflix.png" height = "450" width="270"></td> <td><img src="/screenshots/browse_hbo.png" height = "450" width="270"></td> <td><img src="/screenshots/browse_series.png" height = "450" width="270"></td></tr></table>
 
 ### Myqueue
-<img src="/screenshots/myqueue.png" height = "450" width="270"> <img src="/screenshots/remove.png" height = "450" width="270">
+<table><tr><td><img src="/screenshots/myqueue.png" height = "450" width="270"> <img src="/screenshots/remove.png" height = "450" width="270"></td></tr></table>
