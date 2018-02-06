@@ -43,7 +43,9 @@ Netflix, HBO GO, Hulu & Amzaon Prime
 
 
 ## User use case
-<img src="/screenshots/wireframe.png" height="450" width="270" style="border:0.2px solid grey">
+<table><tr><td>
+<img src="/screenshots/wireframe.png" height="450" width="270">
+</td></tr></table>
 
 ## Screenshots
 ### Home Page and Select Sources
